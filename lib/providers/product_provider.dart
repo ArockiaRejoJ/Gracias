@@ -62,8 +62,10 @@ class ProductProvider with ChangeNotifier {
                 category: data['category'] != null
                     ? data['category'][0]['slug']
                     : 'NO DATA',
-                thumbnail: data['images'] != null
-                    ? data['images'][0]['src']
+                thumbnail: data['images'] != []
+                    ? data['images'][0] != []
+                        ? data['images'][0]['src']
+                        : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png'
                     : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png',
               ),
             );
