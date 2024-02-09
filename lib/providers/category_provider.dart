@@ -16,10 +16,9 @@ class CategoryProvider with ChangeNotifier {
     this._categoryItems,
   );
 
-  Future<void> fetchProductCategory(bool isArabic) async {
-    String baseUrl = isArabic ? arbBaseUrl : engBaseUrl;
-    final url = Uri.parse('$baseUrl/$midUrl/products/categories')
-        .replace(queryParameters: {
+  Future<void> fetchProductCategory() async {
+    final url =
+        Uri.parse('$baseUrl/products/categories').replace(queryParameters: {
       'per_page': 100.toString(),
     });
 

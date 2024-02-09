@@ -30,9 +30,8 @@ class ProductProvider with ChangeNotifier {
     // this._productByCategoryById
   );
 
-  Future<void> fetchProduct(bool isArabic) async {
-    String baseUrl = isArabic ? arbBaseUrl : engBaseUrl;
-    final url = Uri.parse('$baseUrl/$midUrl/products');
+  Future<void> fetchProduct() async {
+    final url = Uri.parse('$baseUrl/products');
 
     try {
       final response = await http.get(

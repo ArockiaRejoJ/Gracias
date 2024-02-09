@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/widgets/products_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_assignment_app/widgets/carousel_widget.dart';
 import 'package:flutter_assignment_app/widgets/category_widgets.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -15,7 +17,6 @@ class HomeScreenBody extends StatefulWidget {
 }
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
-  bool isArabic = false;
   bool isLoading = false;
   final FlutterLocalization _localization = FlutterLocalization.instance;
 
@@ -30,21 +31,9 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     });
   }
 
-  void languageSelection() {
-    if (_localization.currentLocale == const Locale("en", "US")) {
-      setState(() {
-        isArabic = false;
-      });
-    } else {
-      setState(() {
-        isArabic = true;
-      });
-    }
-  }
-
   @override
   void initState() {
-    languageSelection();
+    Provider.of<CartProvider>(context, listen: false).fetchData();
     super.initState();
   }
 
@@ -71,7 +60,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'City',
+                        'Country',
                         style: TextStyle(
                           color: fontColor,
                           fontSize: 12.sp,
@@ -80,7 +69,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         ),
                       ),
                       Text(
-                        'Abu Dhabi',
+                        'UAE',
                         style: TextStyle(
                           color: fontColor,
                           fontSize: 12.sp,
@@ -122,7 +111,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           ),
                         ),
                         Text(
-                          isArabic ? 'العربية' : 'English',
+                          _localization.currentLocale ==
+                                  const Locale("en", "US")
+                              ? 'English'
+                              : 'العربية',
                           style: TextStyle(
                             color: fontColor,
                             fontSize: 12.sp,
@@ -199,7 +191,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                 ),
                 CategoryWidget(
-                  isArabic: isArabic,
                 ),
                 SizedBox(height: 10.h),
                 Center(
@@ -219,9 +210,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           color: Theme.of(context).primaryColor,
                         ),
                       )
-                    : ProductsWidget(
-                        isArabic: isArabic,
-                      )
+                    : ProductsWidget()
               ],
             ),
           ),
@@ -246,7 +235,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 onPressed: () async {
                   loadingState();
                   _localization.translate('ar', save: true);
-                  languageSelection();
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(
@@ -270,7 +258,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 onPressed: () async {
                   loadingState();
                   _localization.translate('en', save: true);
-                  languageSelection();
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(

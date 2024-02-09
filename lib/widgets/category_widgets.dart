@@ -6,8 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class CategoryWidget extends StatefulWidget {
-  final bool isArabic;
-  const CategoryWidget({required this.isArabic, super.key});
+  const CategoryWidget({super.key});
 
   @override
   State<CategoryWidget> createState() => _CategoryWidgetState();
@@ -17,7 +16,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   int pageIndex = 0;
   Future getCategoryData() async {
     await Provider.of<CategoryProvider>(context, listen: false)
-        .fetchProductCategory(widget.isArabic);
+        .fetchProductCategory();
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/models/products_model.dart';
+import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
 import 'package:flutter_assignment_app/providers/product_provider.dart';
 import 'package:flutter_assignment_app/screens/splash_screens.dart';
@@ -15,7 +16,7 @@ mixin AppLocale {
   static const String title = 'title';
 
   static const Map<String, dynamic> EN = {
-    title: 'Localization',
+    title: 'English',
   };
   static const Map<String, dynamic> AR = {
     title: 'العربية',
@@ -76,6 +77,13 @@ class _MyAppState extends State<MyApp> {
           create: (_) => CategoryProvider([]),
           update: (context, auth, previousData) => CategoryProvider(
             previousData == null ? [] : previousData.categoryItems,
+          ),
+        ),
+        ChangeNotifierProxyProvider(
+          create: (_) => CartProvider([], []),
+          update: (context, auth, previousData) => CartProvider(
+            previousData == null ? [] : previousData.cartItems,
+            previousData == null ? [] : previousData.cartProdductItems,
           ),
         ),
       ],
