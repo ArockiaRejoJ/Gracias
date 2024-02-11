@@ -74,7 +74,12 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                   IconButton(
                                     padding: EdgeInsets.zero,
                                     constraints: const BoxConstraints(),
-                                    onPressed: () async {},
+                                    onPressed: () async {
+                                      await Provider.of<CartProvider>(context,
+                                              listen: false)
+                                          .removeItemToCart(
+                                              cartData[index].id, 1);
+                                    },
                                     icon: Icon(
                                       Icons.remove_circle_outline,
                                       size: 14.sp,

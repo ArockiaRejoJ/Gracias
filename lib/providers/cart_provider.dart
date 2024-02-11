@@ -28,7 +28,6 @@ class CartProvider with ChangeNotifier {
     var found = _cartProdductItems.firstWhere(
       (element) => element.id == productId,
     );
-    notifyListeners();
 
     final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart/add-item');
     try {
@@ -41,12 +40,43 @@ class CartProvider with ChangeNotifier {
         headers: {
           'Authorization':
               'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
-          'Nonce': '8f8ef70940'
+          'Nonce': '$nonceKey'
         },
       );
       final extractedData = json.decode(response.body);
       found.quantity = found.quantity + 1;
       print(extractedData);
+      notifyListeners();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  // Remove single product to cart using post method
+  Future<void> removeItemToCart(int productId, int quantity) async {
+    var found = _cartProdductItems.firstWhere(
+      (element) => element.id == productId,
+    );
+
+    final url =
+        Uri.parse('https://gracias.ae/wp-json/wc/store/cart/remove-item');
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'id': productId.toString(),
+          'product_details_id': quantity.toString(),
+        },
+        headers: {
+          'Authorization':
+              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+          'Nonce': '$nonceKey'
+        },
+      );
+      final extractedData = json.decode(response.body);
+      found.quantity = found.quantity - 1;
+      print(extractedData);
+      notifyListeners();
     } catch (error) {
       rethrow;
     }
