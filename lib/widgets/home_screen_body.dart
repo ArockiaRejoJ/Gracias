@@ -18,6 +18,7 @@ class HomeScreenBody extends StatefulWidget {
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   bool isLoading = false;
+  bool? isArabic;
   final FlutterLocalization _localization = FlutterLocalization.instance;
 
   void loadingState() {
@@ -31,8 +32,21 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     });
   }
 
+  void languageSelection() {
+    if (_localization.currentLocale == const Locale("en", "US")) {
+      setState(() {
+        isArabic = false;
+      });
+    } else {
+      setState(() {
+        isArabic = true;
+      });
+    }
+  }
+
   @override
   void initState() {
+    languageSelection();
     Provider.of<CartProvider>(context, listen: false).fetchData();
     super.initState();
   }
@@ -190,8 +204,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     ),
                   ),
                 ),
-                CategoryWidget(
-                ),
+                CategoryWidget(isArabic!),
                 SizedBox(height: 10.h),
                 Center(
                   child: Text(
@@ -210,7 +223,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           color: Theme.of(context).primaryColor,
                         ),
                       )
-                    : ProductsWidget()
+                    : ProductsWidget(isArabic!)
               ],
             ),
           ),
@@ -233,6 +246,35 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
             children: [
               ElevatedButton(
                 onPressed: () async {
+                  setState(() {
+                    isArabic = false;
+                  });
+                  loadingState();
+                  _localization.translate('en');
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: bgColor,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
+                child: Text(
+                  'English',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    fontSize: 18.sp,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  setState(() {
+                    isArabic = true;
+                  });
                   loadingState();
                   _localization.translate('ar', save: true);
                   Navigator.of(context).pop();
@@ -246,29 +288,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 ),
                 child: Text(
                   'العربية',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    fontSize: 18.sp,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  loadingState();
-                  _localization.translate('en', save: true);
-                  Navigator.of(context).pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: bgColor,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                ),
-                child: Text(
-                  'English',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontFamily: GoogleFonts.poppins().fontFamily,

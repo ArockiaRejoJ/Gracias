@@ -2,11 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class CategoryWidget extends StatefulWidget {
-  const CategoryWidget({super.key});
+  bool isArabic;
+  CategoryWidget(this.isArabic, {super.key});
 
   @override
   State<CategoryWidget> createState() => _CategoryWidgetState();
@@ -16,7 +18,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   int pageIndex = 0;
   Future getCategoryData() async {
     await Provider.of<CategoryProvider>(context, listen: false)
-        .fetchProductCategory();
+        .fetchProductCategory(widget.isArabic);
   }
 
   @override
@@ -65,7 +67,9 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                             return CircleAvatar(
                               maxRadius: 45.r,
                               minRadius: 45.r,
-                              backgroundImage: NetworkImage(data.image!),
+                              backgroundImage: NetworkImage(data.image != null
+                                  ? data.image!
+                                  : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png'),
                             );
                           },
                         );

@@ -841,7 +841,6 @@
 //       };
 // }
 
-
 // To parse this JSON data, do
 //
 //     final cartModel = cartModelFromJson(jsonString);
@@ -892,44 +891,51 @@ class CartModel {
   });
 
   factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
-    items: List<CartModelItem>.from(json["items"].map((x) => CartModelItem.fromJson(x))),
-    coupons: List<Coupon>.from(json["coupons"].map((x) => Coupon.fromJson(x))),
-    fees: List<dynamic>.from(json["fees"].map((x) => x)),
-    totals: CartModelTotals.fromJson(json["totals"]),
-    shippingAddress: IngAddress.fromJson(json["shipping_address"]),
-    billingAddress: IngAddress.fromJson(json["billing_address"]),
-    needsPayment: json["needs_payment"],
-    needsShipping: json["needs_shipping"],
-    paymentRequirements: List<String>.from(json["payment_requirements"].map((x) => x)),
-    hasCalculatedShipping: json["has_calculated_shipping"],
-    shippingRates: List<CartModelShippingRate>.from(json["shipping_rates"].map((x) => CartModelShippingRate.fromJson(x))),
-    itemsCount: json["items_count"],
-    itemsWeight: json["items_weight"],
-    crossSells: List<dynamic>.from(json["cross_sells"].map((x) => x)),
-    errors: List<dynamic>.from(json["errors"].map((x) => x)),
-    paymentMethods: List<String>.from(json["payment_methods"].map((x) => x)),
-    extensions: Extensions.fromJson(json["extensions"]),
-  );
+        items: List<CartModelItem>.from(
+            json["items"].map((x) => CartModelItem.fromJson(x))),
+        coupons:
+            List<Coupon>.from(json["coupons"].map((x) => Coupon.fromJson(x))),
+        fees: List<dynamic>.from(json["fees"].map((x) => x)),
+        totals: CartModelTotals.fromJson(json["totals"]),
+        shippingAddress: IngAddress.fromJson(json["shipping_address"]),
+        billingAddress: IngAddress.fromJson(json["billing_address"]),
+        needsPayment: json["needs_payment"],
+        needsShipping: json["needs_shipping"],
+        paymentRequirements:
+            List<String>.from(json["payment_requirements"].map((x) => x)),
+        hasCalculatedShipping: json["has_calculated_shipping"],
+        shippingRates: List<CartModelShippingRate>.from(json["shipping_rates"]
+            .map((x) => CartModelShippingRate.fromJson(x))),
+        itemsCount: json["items_count"],
+        itemsWeight: json["items_weight"],
+        crossSells: List<dynamic>.from(json["cross_sells"].map((x) => x)),
+        errors: List<dynamic>.from(json["errors"].map((x) => x)),
+        paymentMethods:
+            List<String>.from(json["payment_methods"].map((x) => x)),
+        extensions: Extensions.fromJson(json["extensions"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "items": List<dynamic>.from(items.map((x) => x.toJson())),
-    "coupons": List<dynamic>.from(coupons.map((x) => x.toJson())),
-    "fees": List<dynamic>.from(fees.map((x) => x)),
-    "totals": totals.toJson(),
-    "shipping_address": shippingAddress.toJson(),
-    "billing_address": billingAddress.toJson(),
-    "needs_payment": needsPayment,
-    "needs_shipping": needsShipping,
-    "payment_requirements": List<dynamic>.from(paymentRequirements.map((x) => x)),
-    "has_calculated_shipping": hasCalculatedShipping,
-    "shipping_rates": List<dynamic>.from(shippingRates.map((x) => x.toJson())),
-    "items_count": itemsCount,
-    "items_weight": itemsWeight,
-    "cross_sells": List<dynamic>.from(crossSells.map((x) => x)),
-    "errors": List<dynamic>.from(errors.map((x) => x)),
-    "payment_methods": List<dynamic>.from(paymentMethods.map((x) => x)),
-    "extensions": extensions.toJson(),
-  };
+        "items": List<dynamic>.from(items.map((x) => x.toJson())),
+        "coupons": List<dynamic>.from(coupons.map((x) => x.toJson())),
+        "fees": List<dynamic>.from(fees.map((x) => x)),
+        "totals": totals.toJson(),
+        "shipping_address": shippingAddress.toJson(),
+        "billing_address": billingAddress.toJson(),
+        "needs_payment": needsPayment,
+        "needs_shipping": needsShipping,
+        "payment_requirements":
+            List<dynamic>.from(paymentRequirements.map((x) => x)),
+        "has_calculated_shipping": hasCalculatedShipping,
+        "shipping_rates":
+            List<dynamic>.from(shippingRates.map((x) => x.toJson())),
+        "items_count": itemsCount,
+        "items_weight": itemsWeight,
+        "cross_sells": List<dynamic>.from(crossSells.map((x) => x)),
+        "errors": List<dynamic>.from(errors.map((x) => x)),
+        "payment_methods": List<dynamic>.from(paymentMethods.map((x) => x)),
+        "extensions": extensions.toJson(),
+      };
 }
 
 class IngAddress {
@@ -960,32 +966,32 @@ class IngAddress {
   });
 
   factory IngAddress.fromJson(Map<String, dynamic> json) => IngAddress(
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    company: json["company"],
-    address1: json["address_1"],
-    address2: json["address_2"],
-    city: json["city"],
-    state: json["state"],
-    postcode: json["postcode"],
-    country: json["country"],
-    email: json["email"],
-    phone: json["phone"],
-  );
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        company: json["company"],
+        address1: json["address_1"],
+        address2: json["address_2"],
+        city: json["city"],
+        state: json["state"],
+        postcode: json["postcode"],
+        country: json["country"],
+        email: json["email"],
+        phone: json["phone"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "first_name": firstName,
-    "last_name": lastName,
-    "company": company,
-    "address_1": address1,
-    "address_2": address2,
-    "city": city,
-    "state": state,
-    "postcode": postcode,
-    "country": country,
-    "email": email,
-    "phone": phone,
-  };
+        "first_name": firstName,
+        "last_name": lastName,
+        "company": company,
+        "address_1": address1,
+        "address_2": address2,
+        "city": city,
+        "state": state,
+        "postcode": postcode,
+        "country": country,
+        "email": email,
+        "phone": phone,
+      };
 }
 
 class Coupon {
@@ -1000,16 +1006,16 @@ class Coupon {
   });
 
   factory Coupon.fromJson(Map<String, dynamic> json) => Coupon(
-    code: json["code"],
-    discountType: json["discount_type"],
-    totals: CouponTotals.fromJson(json["totals"]),
-  );
+        code: json["code"],
+        discountType: json["discount_type"],
+        totals: CouponTotals.fromJson(json["totals"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "code": code,
-    "discount_type": discountType,
-    "totals": totals.toJson(),
-  };
+        "code": code,
+        "discount_type": discountType,
+        "totals": totals.toJson(),
+      };
 }
 
 class CouponTotals {
@@ -1036,38 +1042,36 @@ class CouponTotals {
   });
 
   factory CouponTotals.fromJson(Map<String, dynamic> json) => CouponTotals(
-    totalDiscount: json["total_discount"],
-    totalDiscountTax: json["total_discount_tax"],
-    currencyCode: json["currency_code"],
-    currencySymbol: json["currency_symbol"],
-    currencyMinorUnit: json["currency_minor_unit"],
-    currencyDecimalSeparator: json["currency_decimal_separator"],
-    currencyThousandSeparator: json["currency_thousand_separator"],
-    currencyPrefix: json["currency_prefix"],
-    currencySuffix: json["currency_suffix"],
-  );
+        totalDiscount: json["total_discount"],
+        totalDiscountTax: json["total_discount_tax"],
+        currencyCode: json["currency_code"],
+        currencySymbol: json["currency_symbol"],
+        currencyMinorUnit: json["currency_minor_unit"],
+        currencyDecimalSeparator: json["currency_decimal_separator"],
+        currencyThousandSeparator: json["currency_thousand_separator"],
+        currencyPrefix: json["currency_prefix"],
+        currencySuffix: json["currency_suffix"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "total_discount": totalDiscount,
-    "total_discount_tax": totalDiscountTax,
-    "currency_code": currencyCode,
-    "currency_symbol": currencySymbol,
-    "currency_minor_unit": currencyMinorUnit,
-    "currency_decimal_separator": currencyDecimalSeparator,
-    "currency_thousand_separator": currencyThousandSeparator,
-    "currency_prefix": currencyPrefix,
-    "currency_suffix": currencySuffix,
-  };
+        "total_discount": totalDiscount,
+        "total_discount_tax": totalDiscountTax,
+        "currency_code": currencyCode,
+        "currency_symbol": currencySymbol,
+        "currency_minor_unit": currencyMinorUnit,
+        "currency_decimal_separator": currencyDecimalSeparator,
+        "currency_thousand_separator": currencyThousandSeparator,
+        "currency_prefix": currencyPrefix,
+        "currency_suffix": currencySuffix,
+      };
 }
 
 class Extensions {
   Extensions();
 
-  factory Extensions.fromJson(Map<String, dynamic> json) => Extensions(
-  );
+  factory Extensions.fromJson(Map<String, dynamic> json) => Extensions();
 
-  Map<String, dynamic> toJson() => {
-  };
+  Map<String, dynamic> toJson() => {};
 }
 
 class CartModelItem {
@@ -1116,50 +1120,50 @@ class CartModelItem {
   });
 
   factory CartModelItem.fromJson(Map<String, dynamic> json) => CartModelItem(
-    key: json["key"],
-    id: json["id"],
-    quantity: json["quantity"],
-    quantityLimits: QuantityLimits.fromJson(json["quantity_limits"]),
-    name: json["name"],
-    shortDescription: json["short_description"],
-    description: json["description"],
-    sku: json["sku"],
-    lowStockRemaining: json["low_stock_remaining"],
-    backordersAllowed: json["backorders_allowed"],
-    showBackorderBadge: json["show_backorder_badge"],
-    soldIndividually: json["sold_individually"],
-    permalink: json["permalink"],
-    images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
-    variation: List<dynamic>.from(json["variation"].map((x) => x)),
-    itemData: List<dynamic>.from(json["item_data"].map((x) => x)),
-    prices: Prices.fromJson(json["prices"]),
-    totals: ItemTotals.fromJson(json["totals"]),
-    catalogVisibility: json["catalog_visibility"],
-    extensions: Extensions.fromJson(json["extensions"]),
-  );
+        key: json["key"],
+        id: json["id"],
+        quantity: json["quantity"],
+        quantityLimits: QuantityLimits.fromJson(json["quantity_limits"]),
+        name: json["name"],
+        shortDescription: json["short_description"],
+        description: json["description"],
+        sku: json["sku"],
+        lowStockRemaining: json["low_stock_remaining"],
+        backordersAllowed: json["backorders_allowed"],
+        showBackorderBadge: json["show_backorder_badge"],
+        soldIndividually: json["sold_individually"],
+        permalink: json["permalink"],
+        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        variation: List<dynamic>.from(json["variation"].map((x) => x)),
+        itemData: List<dynamic>.from(json["item_data"].map((x) => x)),
+        prices: Prices.fromJson(json["prices"]),
+        totals: ItemTotals.fromJson(json["totals"]),
+        catalogVisibility: json["catalog_visibility"],
+        extensions: Extensions.fromJson(json["extensions"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "key": key,
-    "id": id,
-    "quantity": quantity,
-    "quantity_limits": quantityLimits.toJson(),
-    "name": name,
-    "short_description": shortDescription,
-    "description": description,
-    "sku": sku,
-    "low_stock_remaining": lowStockRemaining,
-    "backorders_allowed": backordersAllowed,
-    "show_backorder_badge": showBackorderBadge,
-    "sold_individually": soldIndividually,
-    "permalink": permalink,
-    "images": List<dynamic>.from(images.map((x) => x.toJson())),
-    "variation": List<dynamic>.from(variation.map((x) => x)),
-    "item_data": List<dynamic>.from(itemData.map((x) => x)),
-    "prices": prices.toJson(),
-    "totals": totals.toJson(),
-    "catalog_visibility": catalogVisibility,
-    "extensions": extensions.toJson(),
-  };
+        "key": key,
+        "id": id,
+        "quantity": quantity,
+        "quantity_limits": quantityLimits.toJson(),
+        "name": name,
+        "short_description": shortDescription,
+        "description": description,
+        "sku": sku,
+        "low_stock_remaining": lowStockRemaining,
+        "backorders_allowed": backordersAllowed,
+        "show_backorder_badge": showBackorderBadge,
+        "sold_individually": soldIndividually,
+        "permalink": permalink,
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "variation": List<dynamic>.from(variation.map((x) => x)),
+        "item_data": List<dynamic>.from(itemData.map((x) => x)),
+        "prices": prices.toJson(),
+        "totals": totals.toJson(),
+        "catalog_visibility": catalogVisibility,
+        "extensions": extensions.toJson(),
+      };
 }
 
 class Image {
@@ -1182,24 +1186,24 @@ class Image {
   });
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
-    id: json["id"],
-    src: json["src"],
-    thumbnail: json["thumbnail"],
-    srcset: json["srcset"],
-    sizes: json["sizes"],
-    name: json["name"],
-    alt: json["alt"],
-  );
+        id: json["id"],
+        src: json["src"],
+        thumbnail: json["thumbnail"],
+        srcset: json["srcset"],
+        sizes: json["sizes"],
+        name: json["name"],
+        alt: json["alt"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "src": src,
-    "thumbnail": thumbnail,
-    "srcset": srcset,
-    "sizes": sizes,
-    "name": name,
-    "alt": alt,
-  };
+        "id": id,
+        "src": src,
+        "thumbnail": thumbnail,
+        "srcset": srcset,
+        "sizes": sizes,
+        "name": name,
+        "alt": alt,
+      };
 }
 
 class Prices {
@@ -1232,34 +1236,34 @@ class Prices {
   });
 
   factory Prices.fromJson(Map<String, dynamic> json) => Prices(
-    price: json["price"],
-    regularPrice: json["regular_price"],
-    salePrice: json["sale_price"],
-    priceRange: json["price_range"],
-    currencyCode: json["currency_code"],
-    currencySymbol: json["currency_symbol"],
-    currencyMinorUnit: json["currency_minor_unit"],
-    currencyDecimalSeparator: json["currency_decimal_separator"],
-    currencyThousandSeparator: json["currency_thousand_separator"],
-    currencyPrefix: json["currency_prefix"],
-    currencySuffix: json["currency_suffix"],
-    rawPrices: RawPrices.fromJson(json["raw_prices"]),
-  );
+        price: json["price"],
+        regularPrice: json["regular_price"],
+        salePrice: json["sale_price"],
+        priceRange: json["price_range"],
+        currencyCode: json["currency_code"],
+        currencySymbol: json["currency_symbol"],
+        currencyMinorUnit: json["currency_minor_unit"],
+        currencyDecimalSeparator: json["currency_decimal_separator"],
+        currencyThousandSeparator: json["currency_thousand_separator"],
+        currencyPrefix: json["currency_prefix"],
+        currencySuffix: json["currency_suffix"],
+        rawPrices: RawPrices.fromJson(json["raw_prices"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "price": price,
-    "regular_price": regularPrice,
-    "sale_price": salePrice,
-    "price_range": priceRange,
-    "currency_code": currencyCode,
-    "currency_symbol": currencySymbol,
-    "currency_minor_unit": currencyMinorUnit,
-    "currency_decimal_separator": currencyDecimalSeparator,
-    "currency_thousand_separator": currencyThousandSeparator,
-    "currency_prefix": currencyPrefix,
-    "currency_suffix": currencySuffix,
-    "raw_prices": rawPrices.toJson(),
-  };
+        "price": price,
+        "regular_price": regularPrice,
+        "sale_price": salePrice,
+        "price_range": priceRange,
+        "currency_code": currencyCode,
+        "currency_symbol": currencySymbol,
+        "currency_minor_unit": currencyMinorUnit,
+        "currency_decimal_separator": currencyDecimalSeparator,
+        "currency_thousand_separator": currencyThousandSeparator,
+        "currency_prefix": currencyPrefix,
+        "currency_suffix": currencySuffix,
+        "raw_prices": rawPrices.toJson(),
+      };
 }
 
 class RawPrices {
@@ -1276,18 +1280,18 @@ class RawPrices {
   });
 
   factory RawPrices.fromJson(Map<String, dynamic> json) => RawPrices(
-    precision: json["precision"],
-    price: json["price"],
-    regularPrice: json["regular_price"],
-    salePrice: json["sale_price"],
-  );
+        precision: json["precision"],
+        price: json["price"],
+        regularPrice: json["regular_price"],
+        salePrice: json["sale_price"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "precision": precision,
-    "price": price,
-    "regular_price": regularPrice,
-    "sale_price": salePrice,
-  };
+        "precision": precision,
+        "price": price,
+        "regular_price": regularPrice,
+        "sale_price": salePrice,
+      };
 }
 
 class QuantityLimits {
@@ -1304,18 +1308,18 @@ class QuantityLimits {
   });
 
   factory QuantityLimits.fromJson(Map<String, dynamic> json) => QuantityLimits(
-    minimum: json["minimum"],
-    maximum: json["maximum"],
-    multipleOf: json["multiple_of"],
-    editable: json["editable"],
-  );
+        minimum: json["minimum"],
+        maximum: json["maximum"],
+        multipleOf: json["multiple_of"],
+        editable: json["editable"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "minimum": minimum,
-    "maximum": maximum,
-    "multiple_of": multipleOf,
-    "editable": editable,
-  };
+        "minimum": minimum,
+        "maximum": maximum,
+        "multiple_of": multipleOf,
+        "editable": editable,
+      };
 }
 
 class ItemTotals {
@@ -1346,32 +1350,32 @@ class ItemTotals {
   });
 
   factory ItemTotals.fromJson(Map<String, dynamic> json) => ItemTotals(
-    lineSubtotal: json["line_subtotal"],
-    lineSubtotalTax: json["line_subtotal_tax"],
-    lineTotal: json["line_total"],
-    lineTotalTax: json["line_total_tax"],
-    currencyCode: json["currency_code"],
-    currencySymbol: json["currency_symbol"],
-    currencyMinorUnit: json["currency_minor_unit"],
-    currencyDecimalSeparator: json["currency_decimal_separator"],
-    currencyThousandSeparator: json["currency_thousand_separator"],
-    currencyPrefix: json["currency_prefix"],
-    currencySuffix: json["currency_suffix"],
-  );
+        lineSubtotal: json["line_subtotal"],
+        lineSubtotalTax: json["line_subtotal_tax"],
+        lineTotal: json["line_total"],
+        lineTotalTax: json["line_total_tax"],
+        currencyCode: json["currency_code"],
+        currencySymbol: json["currency_symbol"],
+        currencyMinorUnit: json["currency_minor_unit"],
+        currencyDecimalSeparator: json["currency_decimal_separator"],
+        currencyThousandSeparator: json["currency_thousand_separator"],
+        currencyPrefix: json["currency_prefix"],
+        currencySuffix: json["currency_suffix"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "line_subtotal": lineSubtotal,
-    "line_subtotal_tax": lineSubtotalTax,
-    "line_total": lineTotal,
-    "line_total_tax": lineTotalTax,
-    "currency_code": currencyCode,
-    "currency_symbol": currencySymbol,
-    "currency_minor_unit": currencyMinorUnit,
-    "currency_decimal_separator": currencyDecimalSeparator,
-    "currency_thousand_separator": currencyThousandSeparator,
-    "currency_prefix": currencyPrefix,
-    "currency_suffix": currencySuffix,
-  };
+        "line_subtotal": lineSubtotal,
+        "line_subtotal_tax": lineSubtotalTax,
+        "line_total": lineTotal,
+        "line_total_tax": lineTotalTax,
+        "currency_code": currencyCode,
+        "currency_symbol": currencySymbol,
+        "currency_minor_unit": currencyMinorUnit,
+        "currency_decimal_separator": currencyDecimalSeparator,
+        "currency_thousand_separator": currencyThousandSeparator,
+        "currency_prefix": currencyPrefix,
+        "currency_suffix": currencySuffix,
+      };
 }
 
 class CartModelShippingRate {
@@ -1389,21 +1393,26 @@ class CartModelShippingRate {
     required this.shippingRates,
   });
 
-  factory CartModelShippingRate.fromJson(Map<String, dynamic> json) => CartModelShippingRate(
-    packageId: json["package_id"],
-    name: json["name"],
-    destination: Destination.fromJson(json["destination"]),
-    items: List<ShippingRateItem>.from(json["items"].map((x) => ShippingRateItem.fromJson(x))),
-    shippingRates: List<ShippingRateShippingRate>.from(json["shipping_rates"].map((x) => ShippingRateShippingRate.fromJson(x))),
-  );
+  factory CartModelShippingRate.fromJson(Map<String, dynamic> json) =>
+      CartModelShippingRate(
+        packageId: json["package_id"],
+        name: json["name"],
+        destination: Destination.fromJson(json["destination"]),
+        items: List<ShippingRateItem>.from(
+            json["items"].map((x) => ShippingRateItem.fromJson(x))),
+        shippingRates: List<ShippingRateShippingRate>.from(
+            json["shipping_rates"]
+                .map((x) => ShippingRateShippingRate.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "package_id": packageId,
-    "name": name,
-    "destination": destination.toJson(),
-    "items": List<dynamic>.from(items.map((x) => x.toJson())),
-    "shipping_rates": List<dynamic>.from(shippingRates.map((x) => x.toJson())),
-  };
+        "package_id": packageId,
+        "name": name,
+        "destination": destination.toJson(),
+        "items": List<dynamic>.from(items.map((x) => x.toJson())),
+        "shipping_rates":
+            List<dynamic>.from(shippingRates.map((x) => x.toJson())),
+      };
 }
 
 class Destination {
@@ -1424,22 +1433,22 @@ class Destination {
   });
 
   factory Destination.fromJson(Map<String, dynamic> json) => Destination(
-    address1: json["address_1"],
-    address2: json["address_2"],
-    city: json["city"],
-    state: json["state"],
-    postcode: json["postcode"],
-    country: json["country"],
-  );
+        address1: json["address_1"],
+        address2: json["address_2"],
+        city: json["city"],
+        state: json["state"],
+        postcode: json["postcode"],
+        country: json["country"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "address_1": address1,
-    "address_2": address2,
-    "city": city,
-    "state": state,
-    "postcode": postcode,
-    "country": country,
-  };
+        "address_1": address1,
+        "address_2": address2,
+        "city": city,
+        "state": state,
+        "postcode": postcode,
+        "country": country,
+      };
 }
 
 class ShippingRateItem {
@@ -1453,17 +1462,18 @@ class ShippingRateItem {
     required this.quantity,
   });
 
-  factory ShippingRateItem.fromJson(Map<String, dynamic> json) => ShippingRateItem(
-    key: json["key"],
-    name: json["name"],
-    quantity: json["quantity"],
-  );
+  factory ShippingRateItem.fromJson(Map<String, dynamic> json) =>
+      ShippingRateItem(
+        key: json["key"],
+        name: json["name"],
+        quantity: json["quantity"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "key": key,
-    "name": name,
-    "quantity": quantity,
-  };
+        "key": key,
+        "name": name,
+        "quantity": quantity,
+      };
 }
 
 class ShippingRateShippingRate {
@@ -1505,45 +1515,47 @@ class ShippingRateShippingRate {
     required this.currencySuffix,
   });
 
-  factory ShippingRateShippingRate.fromJson(Map<String, dynamic> json) => ShippingRateShippingRate(
-    rateId: json["rate_id"],
-    name: json["name"],
-    description: json["description"],
-    deliveryTime: json["delivery_time"],
-    price: json["price"],
-    taxes: json["taxes"],
-    instanceId: json["instance_id"],
-    methodId: json["method_id"],
-    metaData: List<MetaDatum>.from(json["meta_data"].map((x) => MetaDatum.fromJson(x))),
-    selected: json["selected"],
-    currencyCode: json["currency_code"],
-    currencySymbol: json["currency_symbol"],
-    currencyMinorUnit: json["currency_minor_unit"],
-    currencyDecimalSeparator: json["currency_decimal_separator"],
-    currencyThousandSeparator: json["currency_thousand_separator"],
-    currencyPrefix: json["currency_prefix"],
-    currencySuffix: json["currency_suffix"],
-  );
+  factory ShippingRateShippingRate.fromJson(Map<String, dynamic> json) =>
+      ShippingRateShippingRate(
+        rateId: json["rate_id"],
+        name: json["name"],
+        description: json["description"],
+        deliveryTime: json["delivery_time"],
+        price: json["price"],
+        taxes: json["taxes"],
+        instanceId: json["instance_id"],
+        methodId: json["method_id"],
+        metaData: List<MetaDatum>.from(
+            json["meta_data"].map((x) => MetaDatum.fromJson(x))),
+        selected: json["selected"],
+        currencyCode: json["currency_code"],
+        currencySymbol: json["currency_symbol"],
+        currencyMinorUnit: json["currency_minor_unit"],
+        currencyDecimalSeparator: json["currency_decimal_separator"],
+        currencyThousandSeparator: json["currency_thousand_separator"],
+        currencyPrefix: json["currency_prefix"],
+        currencySuffix: json["currency_suffix"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "rate_id": rateId,
-    "name": name,
-    "description": description,
-    "delivery_time": deliveryTime,
-    "price": price,
-    "taxes": taxes,
-    "instance_id": instanceId,
-    "method_id": methodId,
-    "meta_data": List<dynamic>.from(metaData.map((x) => x.toJson())),
-    "selected": selected,
-    "currency_code": currencyCode,
-    "currency_symbol": currencySymbol,
-    "currency_minor_unit": currencyMinorUnit,
-    "currency_decimal_separator": currencyDecimalSeparator,
-    "currency_thousand_separator": currencyThousandSeparator,
-    "currency_prefix": currencyPrefix,
-    "currency_suffix": currencySuffix,
-  };
+        "rate_id": rateId,
+        "name": name,
+        "description": description,
+        "delivery_time": deliveryTime,
+        "price": price,
+        "taxes": taxes,
+        "instance_id": instanceId,
+        "method_id": methodId,
+        "meta_data": List<dynamic>.from(metaData.map((x) => x.toJson())),
+        "selected": selected,
+        "currency_code": currencyCode,
+        "currency_symbol": currencySymbol,
+        "currency_minor_unit": currencyMinorUnit,
+        "currency_decimal_separator": currencyDecimalSeparator,
+        "currency_thousand_separator": currencyThousandSeparator,
+        "currency_prefix": currencyPrefix,
+        "currency_suffix": currencySuffix,
+      };
 }
 
 class MetaDatum {
@@ -1556,14 +1568,14 @@ class MetaDatum {
   });
 
   factory MetaDatum.fromJson(Map<String, dynamic> json) => MetaDatum(
-    key: json["key"],
-    value: json["value"],
-  );
+        key: json["key"],
+        value: json["value"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "key": key,
-    "value": value,
-  };
+        "key": key,
+        "value": value,
+      };
 }
 
 class CartModelTotals {
@@ -1607,47 +1619,49 @@ class CartModelTotals {
     required this.currencySuffix,
   });
 
-  factory CartModelTotals.fromJson(Map<String, dynamic> json) => CartModelTotals(
-    totalItems: json["total_items"],
-    totalItemsTax: json["total_items_tax"],
-    totalFees: json["total_fees"],
-    totalFeesTax: json["total_fees_tax"],
-    totalDiscount: json["total_discount"],
-    totalDiscountTax: json["total_discount_tax"],
-    totalShipping: json["total_shipping"],
-    totalShippingTax: json["total_shipping_tax"],
-    totalPrice: json["total_price"],
-    totalTax: json["total_tax"],
-    taxLines: List<TaxLine>.from(json["tax_lines"].map((x) => TaxLine.fromJson(x))),
-    currencyCode: json["currency_code"],
-    currencySymbol: json["currency_symbol"],
-    currencyMinorUnit: json["currency_minor_unit"],
-    currencyDecimalSeparator: json["currency_decimal_separator"],
-    currencyThousandSeparator: json["currency_thousand_separator"],
-    currencyPrefix: json["currency_prefix"],
-    currencySuffix: json["currency_suffix"],
-  );
+  factory CartModelTotals.fromJson(Map<String, dynamic> json) =>
+      CartModelTotals(
+        totalItems: json["total_items"],
+        totalItemsTax: json["total_items_tax"],
+        totalFees: json["total_fees"],
+        totalFeesTax: json["total_fees_tax"],
+        totalDiscount: json["total_discount"],
+        totalDiscountTax: json["total_discount_tax"],
+        totalShipping: json["total_shipping"] ?? '',
+        totalShippingTax: json["total_shipping_tax"] ?? '',
+        totalPrice: json["total_price"],
+        totalTax: json["total_tax"],
+        taxLines: List<TaxLine>.from(
+            json["tax_lines"].map((x) => TaxLine.fromJson(x))),
+        currencyCode: json["currency_code"],
+        currencySymbol: json["currency_symbol"],
+        currencyMinorUnit: json["currency_minor_unit"],
+        currencyDecimalSeparator: json["currency_decimal_separator"],
+        currencyThousandSeparator: json["currency_thousand_separator"],
+        currencyPrefix: json["currency_prefix"],
+        currencySuffix: json["currency_suffix"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "total_items": totalItems,
-    "total_items_tax": totalItemsTax,
-    "total_fees": totalFees,
-    "total_fees_tax": totalFeesTax,
-    "total_discount": totalDiscount,
-    "total_discount_tax": totalDiscountTax,
-    "total_shipping": totalShipping,
-    "total_shipping_tax": totalShippingTax,
-    "total_price": totalPrice,
-    "total_tax": totalTax,
-    "tax_lines": List<dynamic>.from(taxLines.map((x) => x.toJson())),
-    "currency_code": currencyCode,
-    "currency_symbol": currencySymbol,
-    "currency_minor_unit": currencyMinorUnit,
-    "currency_decimal_separator": currencyDecimalSeparator,
-    "currency_thousand_separator": currencyThousandSeparator,
-    "currency_prefix": currencyPrefix,
-    "currency_suffix": currencySuffix,
-  };
+        "total_items": totalItems,
+        "total_items_tax": totalItemsTax,
+        "total_fees": totalFees,
+        "total_fees_tax": totalFeesTax,
+        "total_discount": totalDiscount,
+        "total_discount_tax": totalDiscountTax,
+        "total_shipping": totalShipping,
+        "total_shipping_tax": totalShippingTax,
+        "total_price": totalPrice,
+        "total_tax": totalTax,
+        "tax_lines": List<dynamic>.from(taxLines.map((x) => x.toJson())),
+        "currency_code": currencyCode,
+        "currency_symbol": currencySymbol,
+        "currency_minor_unit": currencyMinorUnit,
+        "currency_decimal_separator": currencyDecimalSeparator,
+        "currency_thousand_separator": currencyThousandSeparator,
+        "currency_prefix": currencyPrefix,
+        "currency_suffix": currencySuffix,
+      };
 }
 
 class TaxLine {
@@ -1662,14 +1676,14 @@ class TaxLine {
   });
 
   factory TaxLine.fromJson(Map<String, dynamic> json) => TaxLine(
-    name: json["name"],
-    price: json["price"],
-    rate: json["rate"],
-  );
+        name: json["name"],
+        price: json["price"],
+        rate: json["rate"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "price": price,
-    "rate": rate,
-  };
+        "name": name,
+        "price": price,
+        "rate": rate,
+      };
 }

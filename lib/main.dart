@@ -68,9 +68,10 @@ class _MyAppState extends State<MyApp> {
           value: ProductsModel(),
         ),
         ChangeNotifierProxyProvider(
-          create: (_) => ProductProvider([]),
+          create: (_) => ProductProvider([], []),
           update: (context, auth, previousData) => ProductProvider(
             previousData == null ? [] : previousData.productItems,
+            previousData == null ? [] : previousData.productDetailsById,
           ),
         ),
         ChangeNotifierProxyProvider(

@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class ProductsWidget extends StatefulWidget {
-  const ProductsWidget({super.key});
+  bool isArabic;
+  ProductsWidget(this.isArabic, {super.key});
 
   @override
   State<ProductsWidget> createState() => _ProductsWidgetState();
@@ -16,7 +17,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
 
   Future getProductData() async {
     return await Provider.of<ProductProvider>(context, listen: false)
-        .fetchProduct();
+        .fetchProduct(widget.isArabic);
   }
 
   @override

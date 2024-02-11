@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -21,6 +23,7 @@ class ProductOverviewScreen extends StatefulWidget {
 }
 
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
+  bool _isLoading = false;
   final FlutterLocalization _localization = FlutterLocalization.instance;
   void launchWhatsApp() async {
     if (!await launchUrl(
@@ -44,6 +47,20 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
         mode: LaunchMode.externalApplication)) {
       throw 'Could not launch ';
     }
+  }
+
+  Future addToCart() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await Provider.of<CartProvider>(context, listen: false)
+        .addProductToCart(widget.id!, 1)
+        .then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+    _showCartDialog();
   }
 
   @override
@@ -143,7 +160,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                           ],
                         ),
                         InkWell(
-                          onTap: () async {},
+                          onTap: addToCart,
                           child: Container(
                             width: 95.w,
                             height: 30.h,
@@ -151,19 +168,31 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                               color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.circular(7.5.r),
                             ),
-                            child: Center(
-                              child: Text(
-                                'Add item',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: GoogleFonts.lexend().fontFamily,
-                                  fontSize: 14.sp,
-                                  color: Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                _isLoading
+                                    ? SizedBox(
+                                        height: 10.h,
+                                        width: 10.w,
+                                        child: const CircularProgressIndicator(
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : Container(),
+                                Text(
+                                  'Add item',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: GoogleFonts.lexend().fontFamily,
+                                    fontSize: 14.sp,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                     const Divider(),
@@ -262,6 +291,88 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                   ],
                 ),
               ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future _showCartDialog() async {
+    int count = 0;
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.r),
+        ),
+        content: Container(
+          height: 325.h,
+          width: 365.w,
+          // decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(10),
+          //     color: Colors.white,
+          //     border: Border.all(color: Colors.red, width: 2)),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 150.h,
+                width: 150.w,
+                child: Image.asset(
+                  'assets/images/Grasias-Logo-2-01.png',
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+              Text(
+                'Product Added \n Successfully',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontFamily: GoogleFonts.lexend().fontFamily,
+                  fontSize: 24.sp,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 10.h),
+              SizedBox(
+                height: 50.h,
+                width: 340.w,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                  child: Text(
+                    'Continue Shopping',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontFamily: GoogleFonts.lexend().fontFamily,
+                      fontSize: 18.sp,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 15.h),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).popUntil((_) => count++ >= 2);
+                },
+                child: Text(
+                  'Go to Home',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontFamily: GoogleFonts.lexend().fontFamily,
+                    fontSize: 18.sp,
+                    color: Colors.black,
+                  ),
+                ),
+              )
             ],
           ),
         ),
