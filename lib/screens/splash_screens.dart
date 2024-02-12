@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
           duration: 1000,
           splashIconSize: 90.sp,
           splashTransition: SplashTransition.fadeTransition,
-          splash: Image.asset('assets/images/Grasias-Logo-2-01.png'),
+          splash: Image.asset('assets/images/logo.png'),
           nextScreen: const HomeScreen(),
         ),
       ),

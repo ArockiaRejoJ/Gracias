@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
+import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -31,13 +32,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   Widget build(BuildContext context) {
     final categoryData = Provider.of<CategoryProvider>(context).categoryItems;
     return categoryData.isEmpty
-        ? SizedBox(
-            height: 90.h,
-            width: 360.w,
-            child: Center(
-                child: CircularProgressIndicator(
-              color: Theme.of(context).primaryColor,
-            )))
+        ? const LoadingWidget(90, 360)
         : Padding(
             padding: EdgeInsets.only(left: 5.w, right: 5.w),
             child: Column(

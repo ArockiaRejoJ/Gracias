@@ -29,7 +29,7 @@ class OrderSuccessfulScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   //Provider.of<CartProvider>(context, listen: false).emptyCart();
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const HomeScreen()));

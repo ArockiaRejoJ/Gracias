@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
+import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProductOverviewScreen extends StatefulWidget {
   final int? id;
@@ -25,29 +24,6 @@ class ProductOverviewScreen extends StatefulWidget {
 class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   bool _isLoading = false;
   final FlutterLocalization _localization = FlutterLocalization.instance;
-  void launchWhatsApp() async {
-    if (!await launchUrl(
-        Uri.parse(
-            "https://api.whatsapp.com/send/?phone=971557188002&text&type=phone_number&app_absent=0"),
-        mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch ';
-    }
-  }
-
-  void launchFacebook() async {
-    if (!await launchUrl(Uri.parse("https://www.facebook.com/gracias.ae"),
-        mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch ';
-    }
-  }
-
-  void launchInstagram() async {
-    if (!await launchUrl(
-        Uri.parse("https://www.instagram.com/gracias.ae?igsh=bjNqMXplZDU4dGZj"),
-        mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch ';
-    }
-  }
 
   Future addToCart() async {
     setState(() {
@@ -309,17 +285,13 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
         content: Container(
           height: 325.h,
           width: 365.w,
-          // decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(10),
-          //     color: Colors.white,
-          //     border: Border.all(color: Colors.red, width: 2)),
           child: Column(
             children: [
               SizedBox(
                 height: 150.h,
                 width: 150.w,
                 child: Image.asset(
-                  'assets/images/Grasias-Logo-2-01.png',
+                  'assets/images/logo.png',
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -343,7 +315,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   ),

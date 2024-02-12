@@ -501,7 +501,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(10.r),
                                   ),
                                   backgroundColor:
                                       Theme.of(context).primaryColor,

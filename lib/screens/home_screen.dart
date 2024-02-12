@@ -54,17 +54,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           centerTitle: true,
           title: SizedBox(
-              height: 40.h,
-              width: 100.w,
-              child: Image.asset(
-                'assets/images/Grasias-Logo-2-01.png',
-                fit: BoxFit.fitHeight,
-              )),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.notifications_none_sharp))
-          ],
+            height: 40.h,
+            width: 100.w,
+            child: Image.asset(
+              'assets/images/logo.png',
+              fit: BoxFit.fitHeight,
+            ),
+          ),
+          // actions: [
+          //   IconButton(
+          //       onPressed: () {},
+          //       icon: const Icon(Icons.notifications_none_sharp))
+          // ],
         ),
         body: _body[_selectedPageIndex],
         bottomNavigationBar: BottomNavigationBar(

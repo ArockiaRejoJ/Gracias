@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/utils/key_details.dart';
+import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_assignment_app/widgets/products_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_assignment_app/widgets/carousel_widget.dart';
 import 'package:flutter_assignment_app/widgets/category_widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player/video_player.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -19,6 +22,8 @@ class HomeScreenBody extends StatefulWidget {
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   bool isLoading = false;
   bool? isArabic;
+  late VideoPlayerController _controller;
+  late Future<void> _initializeVideoPlayerFuture;
   final FlutterLocalization _localization = FlutterLocalization.instance;
 
   void loadingState() {
@@ -46,6 +51,10 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
   @override
   void initState() {
+    _controller = VideoPlayerController.asset('assets/images/ad.mp4');
+    _initializeVideoPlayerFuture = _controller.initialize();
+    _controller.setLooping(true);
+    _controller.play();
     languageSelection();
     Provider.of<CartProvider>(context, listen: false).fetchData();
     super.initState();
@@ -93,11 +102,11 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       ),
                     ],
                   ),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    size: 20.sp,
-                    color: fontColor,
-                  )
+                  // Icon(
+                  //   Icons.arrow_drop_down,
+                  //   size: 20.sp,
+                  //   color: fontColor,
+                  // )
                 ],
               ),
               InkWell(
@@ -191,7 +200,19 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                 ),
                 SizedBox(height: 10.h),
-                Carousal(),
+                Center(
+                  child: SizedBox(
+                      height: 150.h,
+                      width: 340.w,
+                      child: VideoPlayer(_controller)
+                      // VideoPlayer(VideoPlayerController.asset(
+                      //     'assets/images/ad.mp4',
+                      //     videoPlayerOptions:
+                      //         VideoPlayerOptions(allowBackgroundPlayback: true)),
+                      // ),
+                      ),
+                ),
+                // Carousal(),
                 SizedBox(height: 10.h),
                 Center(
                   child: Text(
@@ -218,12 +239,111 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                 ),
                 isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                          color: Theme.of(context).primaryColor,
+                    ? const LoadingWidget(200, 360)
+                    : ProductsWidget(isArabic!),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 10.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: launchFacebook,
+                        child: Container(
+                          height: 60.h,
+                          width: 60.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.r),
+                              image: const DecorationImage(
+                                  image: NetworkImage(
+                                      'https://play-lh.googleusercontent.com/KCMTYuiTrKom4Vyf0G4foetVOwhKWzNbHWumV73IXexAIy5TTgZipL52WTt8ICL-oIo=w240-h480-rw'))),
                         ),
-                      )
-                    : ProductsWidget(isArabic!)
+                      ),
+                      InkWell(
+                        onTap: launchInstagram,
+                        child: Container(
+                          height: 60.h,
+                          width: 60.w,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.r),
+                              image: const DecorationImage(
+                                  image: NetworkImage(
+                                      'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=w240-h480-rw'))),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: launchWhatsApp,
+                        child: Container(
+                          height: 60.h,
+                          width: 60.w,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.r)),
+                              image: const DecorationImage(
+                                  image: NetworkImage(
+                                      'https://play-lh.googleusercontent.com/ebs6ftYUkOKlDY0M174OpvargwbDyHUVAnO_G5aE0dL5GBQKCtfh3adN5H3ZMThXogDi=w240-h480-rw'))),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(),
+                SizedBox(height: 5.h),
+                Center(
+                  child: Container(
+                    height: 225.h,
+                    width: 340.w,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.r),
+                        color: Theme.of(context).primaryColor),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Visit Us :',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontFamily: GoogleFonts.lexend().fontFamily,
+                            fontSize: 20.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        Text(
+                          '8th Floor, ADIB Building, Najda Street, Abu Dhabi.',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: GoogleFonts.lexend().fontFamily,
+                            fontSize: 16.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(height: 10.h),
+                        Center(
+                          child: SizedBox(
+                            height: 75.h,
+                            width: 200.w,
+                            child: Image.asset('assets/images/logo-white.png'),
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        Text(
+                          'Welcome to Gracias Gifts & Events – Your Gateway to \nHeartwarming Surprises!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: GoogleFonts.lexend().fontFamily,
+                            fontSize: 16.sp,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5.h),
+                Divider(),
               ],
             ),
           ),

@@ -276,7 +276,7 @@ class CartProvider with ChangeNotifier {
         orderId = responseData['id'];
         orderKey = responseData['order_key'];
         orderEmail = email.toString();
-        checkout();
+        // checkout();
       } else {
         print('Failed to create order. Status code: ${response.statusCode}');
 
@@ -289,64 +289,64 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  // order checkout using post method
-  Future<void> checkout() async {
-    print('Checkout in progress');
-    final url = Uri.parse('https://gracias.ae/wc/store/v1/checkout/$orderId');
-    final Map<String, dynamic> orderData = {
-      "key": orderKey,
-      "billing_email": orderEmail,
-      "billing_address": billingData,
-      "shipping_address": shippingData,
-      "payment_method": "cod",
-      "payment_data": []
-    };
-    try {
-      final response = await http.post(
-        url,
-        body: jsonEncode(orderData),
-        headers: {
-          'Authorization':
-              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Nonce': '$nonceKey'
-        },
-      );
-      if (response.statusCode == 200) {
-        print('Order created successfully. ${response.body}');
-      } else {
-        print('Failed to create order. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
-      return;
-    } catch (error) {
-      print(error);
-      rethrow;
-    }
-  }
-
-  Future<void> emptyCart() async {
-    final Uri url = Uri.parse('https://gracias.ae/wp-json/wc/v3/cart/clear');
-
-    try {
-      final response = await http.delete(
-        url,
-        headers: {
-          'Authorization':
-              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
-          'Nonce': '$nonceKey'
-        },
-      );
-
-      if (response.statusCode == 200) {
-        print('Cart emptied successfully');
-      } else {
-        print('Failed to empty cart. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
-      }
-    } catch (error) {
-      print('Error: $error');
-    }
-  }
+  // // order checkout using post method
+  // Future<void> checkout() async {
+  //   print('Checkout in progress');
+  //   final url = Uri.parse('https://gracias.ae/wc/store/v1/checkout/$orderId');
+  //   final Map<String, dynamic> orderData = {
+  //     "key": orderKey,
+  //     "billing_email": orderEmail,
+  //     "billing_address": billingData,
+  //     "shipping_address": shippingData,
+  //     "payment_method": "cod",
+  //     "payment_data": []
+  //   };
+  //   try {
+  //     final response = await http.post(
+  //       url,
+  //       body: jsonEncode(orderData),
+  //       headers: {
+  //         'Authorization':
+  //             'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json',
+  //         'Nonce': '$nonceKey'
+  //       },
+  //     );
+  //     if (response.statusCode == 200) {
+  //       print('Order created successfully. ${response.body}');
+  //     } else {
+  //       print('Failed to create order. Status code: ${response.statusCode}');
+  //       print('Response body: ${response.body}');
+  //     }
+  //     return;
+  //   } catch (error) {
+  //     print(error);
+  //     rethrow;
+  //   }
+  // }
+  //
+  // Future<void> emptyCart() async {
+  //   final Uri url = Uri.parse('https://gracias.ae/wp-json/wc/v3/cart/clear');
+  //
+  //   try {
+  //     final response = await http.delete(
+  //       url,
+  //       headers: {
+  //         'Authorization':
+  //             'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+  //         'Nonce': '$nonceKey'
+  //       },
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       print('Cart emptied successfully');
+  //     } else {
+  //       print('Failed to empty cart. Status code: ${response.statusCode}');
+  //       print('Response body: ${response.body}');
+  //     }
+  //   } catch (error) {
+  //     print('Error: $error');
+  //   }
+  // }
 }

@@ -532,15 +532,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                       backgroundColor: Theme.of(context).primaryColor,
                     ),
-                    child: Text(
-                      'Place Order',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: GoogleFonts.lexend().fontFamily,
-                        fontSize: 18.sp,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: _isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 3,
+                          )
+                        : Text(
+                            'Place Order',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontFamily: GoogleFonts.lexend().fontFamily,
+                              fontSize: 18.sp,
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                 ),
               ],
