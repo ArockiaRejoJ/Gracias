@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/screens/about_us_screen.dart';
+import 'package:flutter_assignment_app/screens/privacy_policy_screen.dart';
+import 'package:flutter_assignment_app/screens/terms_and_conditions_screen.dart';
+import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,6 +15,7 @@ class ProfileScreenBody extends StatefulWidget {
 }
 
 class _ProfileScreenBodyState extends State<ProfileScreenBody> {
+  final FlutterLocalization _localization = FlutterLocalization.instance;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -63,7 +69,9 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             ),
             SizedBox(height: 20.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                _languageModalBottomSheet(context);
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -182,10 +190,17 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               ),
             ),
             SizedBox(height: 10.h),
-            Divider(),
+            const Divider(),
             SizedBox(height: 10.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AboutUsScreen(),
+                  ),
+                );
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -209,7 +224,14 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             ),
             SizedBox(height: 20.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PrivacyPolicyScreen(),
+                  ),
+                );
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -233,7 +255,14 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             ),
             SizedBox(height: 20.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TermsAndConditionsScreen(),
+                  ),
+                );
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -256,7 +285,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               ),
             ),
             SizedBox(height: 10.h),
-            Divider(),
+            const Divider(),
             SizedBox(
               height: 10.h,
             ),
@@ -289,7 +318,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.ios_share,
                   ),
                   SizedBox(width: 10.w),
@@ -347,6 +376,69 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
           ],
         ),
       ),
+    );
+  }
+
+  void _languageModalBottomSheet(context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return Container(
+          height: 80.h,
+          width: 360.w,
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  _localization.translate('en');
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: bgColor,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
+                child: Text(
+                  'English',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    fontSize: 18.sp,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  _localization.translate('ar', save: true);
+                  Navigator.of(context).pop();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: bgColor,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
+                child: Text(
+                  'العربية',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    fontSize: 18.sp,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -7,7 +7,6 @@ import 'package:flutter_assignment_app/widgets/products_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_assignment_app/widgets/carousel_widget.dart';
 import 'package:flutter_assignment_app/widgets/category_widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
@@ -58,6 +57,12 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     languageSelection();
     Provider.of<CartProvider>(context, listen: false).fetchData();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   @override
@@ -204,7 +209,20 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   child: SizedBox(
                       height: 150.h,
                       width: 340.w,
-                      child: VideoPlayer(_controller)
+                      child: FutureBuilder(
+                        future: _initializeVideoPlayerFuture,
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return AspectRatio(
+                              aspectRatio: _controller.value.aspectRatio,
+                              child: VideoPlayer(_controller),
+                            );
+                          } else {
+                            return const LoadingWidget(150, 340);
+                          }
+                        },
+                      )
                       // VideoPlayer(VideoPlayerController.asset(
                       //     'assets/images/ad.mp4',
                       //     videoPlayerOptions:
@@ -292,7 +310,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   child: Container(
                     height: 225.h,
                     width: 340.w,
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(10.h),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.r),
                         color: Theme.of(context).primaryColor),
@@ -359,7 +377,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
         return Container(
           height: 80.h,
           width: 360.w,
-          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

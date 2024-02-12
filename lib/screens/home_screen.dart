@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/screens/app_drawer_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/widgets/cart_screen_body.dart';
 import 'package:flutter_assignment_app/widgets/home_screen_body.dart';
@@ -16,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   final List<Widget> _body = [
     const HomeScreenBody(),
@@ -37,6 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ? TextDirection.ltr
           : TextDirection.rtl,
       child: Scaffold(
+        key: scaffoldKey,
+        drawer: const AppDrawerScreen(),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
@@ -44,7 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
           leading: Padding(
             padding: EdgeInsets.only(left: 5.w),
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                scaffoldKey.currentState!.openDrawer();
+              },
               icon: Icon(
                 Icons.subject,
                 size: 26.sp,
