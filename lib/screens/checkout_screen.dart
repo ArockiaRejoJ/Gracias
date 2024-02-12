@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/models/cart_model.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/order_success_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,12 +33,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final TextEditingController _sAddressController = TextEditingController();
   final TextEditingController _sCityController = TextEditingController();
   final TextEditingController _sStateController = TextEditingController();
+
   Future<void> _saveForm() async {
-    // final isValid = _formkey.currentState!.validate();
-    // if (!isValid) {
-    //   return;
-    // }
-    // _formkey.currentState!.save();
+    final isValid = _formkey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    _formkey.currentState!.save();
 
     setState(() {
       _isLoading = true;
@@ -93,6 +95,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     });
     //Navigator.of(context).pop();
     _formkey.currentState?.reset();
+  }
+
+  @override
+  void initState() {
+    Provider.of<CartProvider>(context, listen: false).getCartLineItems();
+    super.initState();
   }
 
   @override

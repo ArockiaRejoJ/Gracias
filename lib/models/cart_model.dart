@@ -1687,3 +1687,10 @@ class TaxLine {
         "rate": rate,
       };
 }
+
+class OrderProductList {
+  final int? product_id;
+  final int? quantity;
+
+  OrderProductList({this.product_id, this.quantity});
+}

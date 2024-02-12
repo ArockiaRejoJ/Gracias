@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/home_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class OrderSuccessfulScreen extends StatelessWidget {
   const OrderSuccessfulScreen({super.key});
@@ -18,7 +20,6 @@ class OrderSuccessfulScreen extends StatelessWidget {
               width: 250.w,
               child: Image.asset(
                 'assets/images/Untitled design.gif',
-
               ),
             ),
             SizedBox(height: 20.h),
@@ -27,6 +28,7 @@ class OrderSuccessfulScreen extends StatelessWidget {
               width: 300.w,
               child: ElevatedButton(
                 onPressed: () {
+                  //Provider.of<CartProvider>(context, listen: false).emptyCart();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

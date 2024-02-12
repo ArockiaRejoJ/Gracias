@@ -22,7 +22,29 @@ class CartProvider with ChangeNotifier {
 
   String? nonceKey;
 
-  CartProvider(this._cartItems, this._cartProdductItems);
+  List<Map<String, int>> _lineItems = [];
+  List<Map<String, int>> get lineItems {
+    return [..._lineItems];
+  }
+
+  CartProvider(this._cartItems, this._cartProdductItems, this._lineItems);
+
+  Map<String, String> billingData = {};
+
+  Map<String, String> shippingData = {};
+  int? orderId;
+  String? orderKey;
+  String? orderEmail;
+
+  void getCartLineItems() {
+    List<Map<String, int>> newItems = [];
+    for (var cartItem in _cartProdductItems) {
+      newItems.add({'product_id': cartItem.id, 'quantity': cartItem.quantity});
+    }
+    _lineItems = newItems;
+    print('All Product List -----------------------------------------------');
+    print(_lineItems);
+  }
 
 // add single product to cart using post method
   Future<void> addItemToCart(int productId, int quantity) async {
@@ -154,30 +176,6 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  // //Fetch cart items
-  // Future<void> updateCartData() async {
-  //   final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart');
-  //   try {
-  //     final response = await http.get(url, headers: {
-  //       'Authorization':
-  //           'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
-  //     });
-  //     final extractedData = json.decode(response.body);
-  //     print(extractedData);
-  //     _cartItems = [];
-  //     if (extractedData is Map<String, dynamic>) {
-  //       _cartItems = [CartModel.fromJson(extractedData)];
-  //       print('cart update done');
-  //     } else {
-  //       print('Unexpected response format');
-  //     }
-  //     notifyListeners();
-  //   } catch (error) {
-  //     print(error);
-  //     rethrow;
-  //   }
-  // }
-
   // add single product to cart using post method
   Future<void> addProductToCart(int productId, int quantity) async {
     final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart/add-item');
@@ -220,29 +218,35 @@ class CartProvider with ChangeNotifier {
     String sState,
   ) async {
     final url = Uri.parse('https://gracias.ae/wp-json/wc/v3/orders');
+    billingData = {
+      "first_name": firstName,
+      "last_name": lastName,
+      "address_1": address,
+      "city": city,
+      "state": state,
+      "email": email,
+      "phone": phone
+    };
+    shippingData = newShipping
+        ? {
+            'first_name': sFirstName,
+            'last_name': sLastName,
+            'address_1': sAddress,
+            'city': sCity,
+            "state": sState,
+          }
+        : {
+            "first_name": firstName,
+            "last_name": lastName,
+            "address_1": address,
+            "city": city,
+            "state": state,
+          };
 
     final Map<String, dynamic> orderData = {
-      "line_items": [
-        {"product_id": 1467, "quantity": 1},
-        {"product_id": 1368, "quantity": 1},
-        {"product_id": 1358, "quantity": 1}
-      ],
-      "billing": {
-        "first_name": "data",
-        "last_name": "data",
-        "address_1": "data",
-        "city": "data",
-        "state": "data",
-        "email": "test@gmail.com",
-        "phone": "0567363749"
-      },
-      "shipping": {
-        "first_name": "data",
-        "last_name": "data",
-        "address_1": "data",
-        "city": "data",
-        "state": "data",
-      },
+      "line_items": _lineItems,
+      "billing": billingData,
+      "shipping": shippingData,
       "payment_method": "cod",
       "payment_method_title": "Cash On Delivery",
       "status": "pending",
@@ -259,12 +263,20 @@ class CartProvider with ChangeNotifier {
         headers: {
           'Authorization':
               'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
           'Nonce': '$nonceKey'
         },
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
         print('Order created successfully. Order ID: ${responseData['id']}');
+        print(
+            'Order created successfully. Order key: ${responseData['order_key']}');
+        orderId = responseData['id'];
+        orderKey = responseData['order_key'];
+        orderEmail = email.toString();
+        checkout();
       } else {
         print('Failed to create order. Status code: ${response.statusCode}');
 
@@ -274,6 +286,67 @@ class CartProvider with ChangeNotifier {
       return;
     } catch (error) {
       rethrow;
+    }
+  }
+
+  // order checkout using post method
+  Future<void> checkout() async {
+    print('Checkout in progress');
+    final url = Uri.parse('https://gracias.ae/wc/store/v1/checkout/$orderId');
+    final Map<String, dynamic> orderData = {
+      "key": orderKey,
+      "billing_email": orderEmail,
+      "billing_address": billingData,
+      "shipping_address": shippingData,
+      "payment_method": "cod",
+      "payment_data": []
+    };
+    try {
+      final response = await http.post(
+        url,
+        body: jsonEncode(orderData),
+        headers: {
+          'Authorization':
+              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Nonce': '$nonceKey'
+        },
+      );
+      if (response.statusCode == 200) {
+        print('Order created successfully. ${response.body}');
+      } else {
+        print('Failed to create order. Status code: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+      return;
+    } catch (error) {
+      print(error);
+      rethrow;
+    }
+  }
+
+  Future<void> emptyCart() async {
+    final Uri url = Uri.parse('https://gracias.ae/wp-json/wc/v3/cart/clear');
+
+    try {
+      final response = await http.delete(
+        url,
+        headers: {
+          'Authorization':
+              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+          'Nonce': '$nonceKey'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print('Cart emptied successfully');
+      } else {
+        print('Failed to empty cart. Status code: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (error) {
+      print('Error: $error');
     }
   }
 }

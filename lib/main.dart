@@ -81,10 +81,11 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         ChangeNotifierProxyProvider(
-          create: (_) => CartProvider([], []),
+          create: (_) => CartProvider([], [], []),
           update: (context, auth, previousData) => CartProvider(
             previousData == null ? [] : previousData.cartItems,
             previousData == null ? [] : previousData.cartProdductItems,
+            previousData == null ? [] : previousData.lineItems,
           ),
         ),
       ],
