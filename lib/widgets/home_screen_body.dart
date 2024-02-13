@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
+import 'package:flutter_assignment_app/widgets/carousel_widget.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_assignment_app/widgets/products_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -205,32 +206,32 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                 ),
                 SizedBox(height: 10.h),
-                Center(
-                  child: SizedBox(
-                      height: 150.h,
-                      width: 340.w,
-                      child: FutureBuilder(
-                        future: _initializeVideoPlayerFuture,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            return AspectRatio(
-                              aspectRatio: _controller.value.aspectRatio,
-                              child: VideoPlayer(_controller),
-                            );
-                          } else {
-                            return const LoadingWidget(150, 340);
-                          }
-                        },
-                      )
-                      // VideoPlayer(VideoPlayerController.asset(
-                      //     'assets/images/ad.mp4',
-                      //     videoPlayerOptions:
-                      //         VideoPlayerOptions(allowBackgroundPlayback: true)),
-                      // ),
-                      ),
-                ),
-                // Carousal(),
+                // Center(
+                //   child: SizedBox(
+                //       height: 150.h,
+                //       width: 340.w,
+                //       child: FutureBuilder(
+                //         future: _initializeVideoPlayerFuture,
+                //         builder: (context, snapshot) {
+                //           if (snapshot.connectionState ==
+                //               ConnectionState.done) {
+                //             return AspectRatio(
+                //               aspectRatio: _controller.value.aspectRatio,
+                //               child: VideoPlayer(_controller),
+                //             );
+                //           } else {
+                //             return const LoadingWidget(150, 340);
+                //           }
+                //         },
+                //       )
+                //       // VideoPlayer(VideoPlayerController.asset(
+                //       //     'assets/images/ad.mp4',
+                //       //     videoPlayerOptions:
+                //       //         VideoPlayerOptions(allowBackgroundPlayback: true)),
+                //       // ),
+                //       ),
+                // ),
+                Carousal(),
                 SizedBox(height: 10.h),
                 Center(
                   child: Text(

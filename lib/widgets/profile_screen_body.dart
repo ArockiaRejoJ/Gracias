@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/screens/about_us_screen.dart';
 import 'package:flutter_assignment_app/screens/privacy_policy_screen.dart';
+import 'package:flutter_assignment_app/screens/signup_screen.dart';
 import 'package:flutter_assignment_app/screens/terms_and_conditions_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProfileScreenBody extends StatefulWidget {
   const ProfileScreenBody({super.key});
@@ -95,7 +98,12 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             ),
             SizedBox(height: 20.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignUpScreen()));
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -118,77 +126,30 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               ),
             ),
             SizedBox(height: 20.h),
-            InkWell(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.shopping_cart_outlined,
-                    size: 24.sp,
+            // InkWell(
+            //   onTap: () {},
+            //   child:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.shopping_cart_outlined,
+                  size: 24.sp,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 10.w),
+                Text(
+                  'Orders',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    fontSize: 16.sp,
                     color: Colors.black,
                   ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Orders',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            SizedBox(height: 20.h),
-            InkWell(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.shopping_bag_outlined,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'My Points',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20.h),
-            InkWell(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.favorite_border,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Favorite',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            //),
             SizedBox(height: 10.h),
             const Divider(),
             SizedBox(height: 10.h),
@@ -290,7 +251,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               height: 10.h,
             ),
             InkWell(
-              onTap: () {},
+              onTap: launchPlayStore,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -314,7 +275,10 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             ),
             SizedBox(height: 20.h),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Share.share(
+                    'Hey,I love Gracias & I think you will too! \n\nGracias Gifts & Events – Your Gateway to Heartwarming Surprises! \n\nDownload the app here: https://play.google.com/store/apps/details?id=com.gracias.app');
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -335,44 +299,47 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               ),
             ),
             SizedBox(height: 20.h),
-            InkWell(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.logout,
-                    size: 24.sp,
+            // InkWell(
+            //   onTap: () {},
+            //   child:
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.logout,
+                  size: 24.sp,
+                  color: Colors.black,
+                ),
+                SizedBox(width: 10.w),
+                Text(
+                  'Sign out',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontFamily: GoogleFonts.poppins().fontFamily,
+                    fontSize: 16.sp,
                     color: Colors.black,
                   ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Sign out',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
+            //),
             SizedBox(height: 20.h),
             Center(
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Delete Account',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    fontSize: 14.sp,
-                    color: Colors.red,
-                  ),
+              child:
+                  // TextButton(
+                  //   onPressed: () {},
+                  //   child:
+                  Text(
+                'Delete Account',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontSize: 14.sp,
+                  color: Colors.red,
                 ),
               ),
-            )
+            ),
+            // )
           ],
         ),
       ),

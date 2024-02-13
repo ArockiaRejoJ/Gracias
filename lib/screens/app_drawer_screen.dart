@@ -41,18 +41,14 @@ class AppDrawerScreen extends StatelessWidget {
                   Expanded(
                     child: ListView.builder(
                         itemCount: categoryData.length,
-                        itemBuilder: (context, index) => InkWell(
-                              onTap: () {},
-                              child: ListTile(
-                                title: Text(
-                                  categoryData[index].name!,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily:
-                                        GoogleFonts.poppins().fontFamily,
-                                    fontSize: 18.sp,
-                                    color: Colors.black,
-                                  ),
+                        itemBuilder: (context, index) => ListTile(
+                              title: Text(
+                                categoryData[index].name!,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: GoogleFonts.poppins().fontFamily,
+                                  fontSize: 18.sp,
+                                  color: Colors.black,
                                 ),
                               ),
                             )),

@@ -149,7 +149,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       contentPadding: EdgeInsets.all(8.h),
                     ),
                     validator: (value) {
-                      Pattern pattern = r'^[a-zA-Z ]+$';
                       if (value!.isEmpty) {
                         return 'Enter Valid Name';
                       }
@@ -176,7 +175,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       contentPadding: EdgeInsets.all(8.h),
                     ),
                     validator: (value) {
-                      Pattern pattern = r'^[a-zA-Z ]+$';
                       if (value!.isEmpty) {
                         return 'Enter Valid Name';
                       }
@@ -203,7 +201,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       contentPadding: EdgeInsets.all(8.h),
                     ),
                     validator: (value) {
-                      Pattern pattern = r'^[a-zA-Z ]+$';
                       if (value!.isEmpty) {
                         return 'Enter Valid address';
                       }
@@ -230,7 +227,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       contentPadding: EdgeInsets.all(8.h),
                     ),
                     validator: (value) {
-                      Pattern pattern = r'^[a-zA-Z ]+$';
                       if (value!.isEmpty) {
                         return 'Enter Valid city';
                       }
@@ -313,8 +309,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             contentPadding: EdgeInsets.all(8.h),
                           ),
                           validator: (value) {
-                            Pattern pattern = r'^[a-zA-Z ]+$';
-                            RegExp regex = RegExp(pattern.toString());
                             if (value!.isEmpty) {
                               return 'Enter Valid Phone';
                             }
@@ -342,10 +336,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       contentPadding: EdgeInsets.all(8.h),
                     ),
                     validator: (value) {
-                      Pattern pattern = r'^[a-zA-Z ]+$';
+                      Pattern pattern =
+                          r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                       RegExp regex = RegExp(pattern.toString());
                       if (value!.isEmpty) {
-                        return 'Enter Valid Email';
+                        return 'Please valid E-mail';
+                      } else if (!regex.hasMatch(value)) {
+                        return 'Enter your valid E-mail';
                       }
                       return null;
                     },
@@ -397,13 +394,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 filled: true,
                                 contentPadding: EdgeInsets.all(8.h),
                               ),
-                              // validator: (value) {
-                              //   Pattern pattern = r'^[a-zA-Z ]+$';
-                              //   if (value!.isEmpty) {
-                              //     return 'Enter Valid Name';
-                              //   }
-                              //   return null;
-                              // },
+                              validator: _address
+                                  ? (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Enter Valid Name';
+                                      }
+                                      return null;
+                                    }
+                                  : null,
                             ),
                           ),
                           SizedBox(
@@ -425,13 +423,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 filled: true,
                                 contentPadding: EdgeInsets.all(8.h),
                               ),
-                              // validator: (value) {
-                              //   Pattern pattern = r'^[a-zA-Z ]+$';
-                              //   if (value!.isEmpty) {
-                              //     return 'Enter Valid Name';
-                              //   }
-                              //   return null;
-                              // },
+                              validator: _address
+                                  ? (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Enter Valid Name';
+                                      }
+                                      return null;
+                                    }
+                                  : null,
                             ),
                           ),
                           SizedBox(
@@ -453,13 +452,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 filled: true,
                                 contentPadding: EdgeInsets.all(8.h),
                               ),
-                              // validator: (value) {
-                              //   Pattern pattern = r'^[a-zA-Z ]+$';
-                              //   if (value!.isEmpty) {
-                              //     return 'Enter Valid address';
-                              //   }
-                              //   return null;
-                              // },
+                              validator: _address
+                                  ? (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Enter Valid address';
+                                      }
+                                      return null;
+                                    }
+                                  : null,
                             ),
                           ),
                           SizedBox(
@@ -481,13 +481,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 filled: true,
                                 contentPadding: EdgeInsets.all(8.h),
                               ),
-                              // validator: (value) {
-                              //   Pattern pattern = r'^[a-zA-Z ]+$';
-                              //   if (value!.isEmpty) {
-                              //     return 'Enter Valid city';
-                              //   }
-                              //   return null;
-                              // },
+                              validator: _address
+                                  ? (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Enter Valid city';
+                                      }
+                                      return null;
+                                    }
+                                  : null,
                             ),
                           ),
                           SizedBox(
@@ -509,12 +510,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 filled: true,
                                 contentPadding: EdgeInsets.all(8.h),
                               ),
-                              // validator: (value) {
-                              //   if (value!.isEmpty) {
-                              //     return 'Enter Valid State';
-                              //   }
-                              //   return null;
-                              // },
+                              validator: _address
+                                  ? (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Enter Valid State';
+                                      }
+                                      return null;
+                                    }
+                                  : null,
                             ),
                           ),
                         ],

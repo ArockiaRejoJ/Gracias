@@ -40,3 +40,12 @@ void launchInstagram() async {
     throw 'Could not launch ';
   }
 }
+
+void launchPlayStore() async {
+  if (!await launchUrl(
+      Uri.parse(
+          "https://play.google.com/store/apps/details?id=com.gracias.app"),
+      mode: LaunchMode.externalApplication)) {
+    throw 'Could not launch ';
+  }
+}
