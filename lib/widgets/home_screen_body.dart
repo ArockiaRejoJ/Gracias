@@ -10,7 +10,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_assignment_app/widgets/category_widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:video_player/video_player.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -22,8 +21,6 @@ class HomeScreenBody extends StatefulWidget {
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   bool isLoading = false;
   bool? isArabic;
-  late VideoPlayerController _controller;
-  late Future<void> _initializeVideoPlayerFuture;
   final FlutterLocalization _localization = FlutterLocalization.instance;
 
   void loadingState() {
@@ -51,19 +48,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
   @override
   void initState() {
-    _controller = VideoPlayerController.asset('assets/images/ad.mp4');
-    _initializeVideoPlayerFuture = _controller.initialize();
-    _controller.setLooping(true);
-    _controller.play();
     languageSelection();
-    Provider.of<CartProvider>(context, listen: false).fetchData();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
   }
 
   @override
@@ -73,7 +59,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 10.w, right: 10.w),
+          padding:
+              EdgeInsets.only(left: 10.w, top: 10.h, right: 10.w, bottom: 10.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -108,11 +95,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       ),
                     ],
                   ),
-                  // Icon(
-                  //   Icons.arrow_drop_down,
-                  //   size: 20.sp,
-                  //   color: fontColor,
-                  // )
                 ],
               ),
               InkWell(
@@ -171,66 +153,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 5.h),
-                Center(
-                  child: Container(
-                    height: 40.h,
-                    width: 325.w,
-                    padding: EdgeInsets.only(
-                      left: 10.w,
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.5.r),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.black38, width: 1),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.search,
-                          size: 20.sp,
-                          color: fontColor,
-                        ),
-                        SizedBox(width: 5.w),
-                        Text(
-                          'Search ...',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontFamily: GoogleFonts.poppins().fontFamily,
-                              fontSize: 18.sp,
-                              color: fontColor),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
                 SizedBox(height: 10.h),
-                // Center(
-                //   child: SizedBox(
-                //       height: 150.h,
-                //       width: 340.w,
-                //       child: FutureBuilder(
-                //         future: _initializeVideoPlayerFuture,
-                //         builder: (context, snapshot) {
-                //           if (snapshot.connectionState ==
-                //               ConnectionState.done) {
-                //             return AspectRatio(
-                //               aspectRatio: _controller.value.aspectRatio,
-                //               child: VideoPlayer(_controller),
-                //             );
-                //           } else {
-                //             return const LoadingWidget(150, 340);
-                //           }
-                //         },
-                //       )
-                //       // VideoPlayer(VideoPlayerController.asset(
-                //       //     'assets/images/ad.mp4',
-                //       //     videoPlayerOptions:
-                //       //         VideoPlayerOptions(allowBackgroundPlayback: true)),
-                //       // ),
-                //       ),
-                // ),
                 Carousal(),
                 SizedBox(height: 10.h),
                 Center(
@@ -244,6 +167,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     ),
                   ),
                 ),
+                SizedBox(height: 5.h),
                 CategoryWidget(isArabic!),
                 SizedBox(height: 10.h),
                 Center(
@@ -257,6 +181,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     ),
                   ),
                 ),
+                SizedBox(height: 5.h),
                 isLoading
                     ? const LoadingWidget(200, 360)
                     : ProductsWidget(isArabic!),
@@ -305,7 +230,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 SizedBox(height: 5.h),
                 Center(
                   child: Container(
@@ -362,7 +287,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                   ),
                 ),
                 SizedBox(height: 5.h),
-                Divider(),
+                const Divider(),
               ],
             ),
           ),

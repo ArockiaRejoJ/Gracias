@@ -41,11 +41,9 @@ class CategoryProvider with ChangeNotifier {
         data.forEach(
           (data) async {
             newCategoryData.add(CategoryModel(
-              id: data["id"] ?? 0,
+              id: data["id"],
               name: data["name"] ?? "",
               slug: data["slug"] ?? "",
-              parent: data["parent"] ?? 0,
-              description: data["description"] ?? "",
               image: data["image"] == null
                   ? null
                   : data["image"]['src'] != false

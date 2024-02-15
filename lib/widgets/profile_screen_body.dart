@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/screens/about_us_screen.dart';
+import 'package:flutter_assignment_app/screens/order_screen.dart';
 import 'package:flutter_assignment_app/screens/privacy_policy_screen.dart';
 import 'package:flutter_assignment_app/screens/signup_screen.dart';
 import 'package:flutter_assignment_app/screens/terms_and_conditions_screen.dart';
@@ -28,131 +29,71 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  minRadius: 30.r,
-                  maxRadius: 30.r,
-                  backgroundColor: Colors.black12,
-                  child: Icon(
-                    Icons.person,
-                    size: 50.sp,
-                    color: Colors.black26,
-                  ),
-                  // backgroundImage: NetworkImage(''),
-                ),
-                SizedBox(width: 10.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+            InkWell(
+              onTap: () {
+                _languageModalBottomSheet(context);
+              },
+              child: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Icon(
+                      Icons.language,
+                      size: 24.sp,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 10.w),
                     Text(
-                      'User name',
+                      'Country & Languages',
                       style: TextStyle(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
                         fontSize: 16.sp,
                         color: Colors.black,
                       ),
                     ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 10.h),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const OrdersScreen(),
+                  ),
+                );
+              },
+              child: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 24.sp,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 10.w),
                     Text(
-                      'newuser@gmail.com',
+                      'orders',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                         color: Colors.black,
                       ),
                     ),
                   ],
-                )
-              ],
-            ),
-            SizedBox(height: 20.h),
-            InkWell(
-              onTap: () {
-                _languageModalBottomSheet(context);
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.language,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Country & Languages',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-            SizedBox(height: 20.h),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SignUpScreen()));
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.person,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Profile',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20.h),
-            // InkWell(
-            //   onTap: () {},
-            //   child:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.shopping_cart_outlined,
-                  size: 24.sp,
-                  color: Colors.black,
-                ),
-                SizedBox(width: 10.w),
-                Text(
-                  'Orders',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    fontSize: 16.sp,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            //),
-            SizedBox(height: 10.h),
+            SizedBox(height: 5.h),
             const Divider(),
-            SizedBox(height: 10.h),
+            SizedBox(height: 5.h),
             InkWell(
               onTap: () {
                 Navigator.push(
@@ -162,28 +103,31 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                   ),
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.info_outline,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'About Us',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
+              child: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.info_outline,
+                      size: 24.sp,
                       color: Colors.black,
                     ),
-                  ),
-                ],
+                    SizedBox(width: 10.w),
+                    Text(
+                      'About Us',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 10.h),
             InkWell(
               onTap: () {
                 Navigator.push(
@@ -193,28 +137,31 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                   ),
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.privacy_tip_outlined,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Privacy Policy',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
+              child: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.privacy_tip_outlined,
+                      size: 24.sp,
                       color: Colors.black,
                     ),
-                  ),
-                ],
+                    SizedBox(width: 10.w),
+                    Text(
+                      'Privacy Policy',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 10.h),
             InkWell(
               onTap: () {
                 Navigator.push(
@@ -224,122 +171,89 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                   ),
                 );
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.menu,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Terms & Conditions',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
+              child: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.menu,
+                      size: 24.sp,
                       color: Colors.black,
                     ),
-                  ),
-                ],
+                    SizedBox(width: 10.w),
+                    Text(
+                      'Terms & Conditions',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 10.h),
+            SizedBox(height: 5.h),
             const Divider(),
             SizedBox(
-              height: 10.h,
+              height: 5.h,
             ),
             InkWell(
               onTap: launchPlayStore,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.star_border,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Star Ratings',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
+              child: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.star_border,
+                      size: 24.sp,
                       color: Colors.black,
                     ),
-                  ),
-                ],
+                    SizedBox(width: 10.w),
+                    Text(
+                      'Star Ratings',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 10.h),
             InkWell(
               onTap: () {
                 Share.share(
                     'Hey,I love Gracias & I think you will too! \n\nGracias Gifts & Events – Your Gateway to Heartwarming Surprises! \n\nDownload the app here: https://play.google.com/store/apps/details?id=com.gracias.app');
               },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Icon(
-                    Icons.ios_share,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Share with friends',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
-                      color: Colors.black,
+              child: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.ios_share,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 20.h),
-            // InkWell(
-            //   onTap: () {},
-            //   child:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.logout,
-                  size: 24.sp,
-                  color: Colors.black,
-                ),
-                SizedBox(width: 10.w),
-                Text(
-                  'Sign out',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    fontSize: 16.sp,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            //),
-            SizedBox(height: 20.h),
-            Center(
-              child:
-                  // TextButton(
-                  //   onPressed: () {},
-                  //   child:
-                  Text(
-                'Delete Account',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontFamily: GoogleFonts.poppins().fontFamily,
-                  fontSize: 14.sp,
-                  color: Colors.red,
+                    SizedBox(width: 10.w),
+                    Text(
+                      'Share with friends',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            // )
           ],
         ),
       ),

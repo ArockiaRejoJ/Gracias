@@ -40,6 +40,12 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   }
 
   @override
+  void initState() {
+    Provider.of<CartProvider>(context, listen: false).fetchData();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: _localization.currentLocale == const Locale("en", "US")
@@ -47,19 +53,6 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
           : TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          leading: Padding(
-            padding: EdgeInsets.only(left: 10.w),
-            child: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-                size: 22.sp,
-              ),
-            ),
-          ),
           title: Text(widget.title!),
           titleTextStyle: TextStyle(
             overflow: TextOverflow.ellipsis,
@@ -68,18 +61,6 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
             fontSize: 18.sp,
             color: Colors.black,
           ),
-          // actions: [
-          //   IconButton(
-          //       onPressed: () {
-          //         Share.share('');
-          //       },
-          //       icon: Icon(
-          //         Icons.share,
-          //         color: Colors.black,
-          //         size: 22.sp,
-          //       )),
-          //   SizedBox(width: 10.w)
-          // ],
           centerTitle: true,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
@@ -99,7 +80,9 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                       bottomRight: Radius.circular(10.r),
                     ),
                     image: DecorationImage(
-                        image: NetworkImage(widget.image!), fit: BoxFit.cover),
+                      image: NetworkImage(widget.image!),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
@@ -148,11 +131,15 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 _isLoading
-                                    ? SizedBox(
-                                        height: 10.h,
-                                        width: 10.w,
-                                        child: const CircularProgressIndicator(
-                                          color: Colors.white,
+                                    ? Padding(
+                                        padding: EdgeInsets.only(right: 5.w),
+                                        child: SizedBox(
+                                          height: 10.h,
+                                          width: 10.w,
+                                          child:
+                                              const CircularProgressIndicator(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       )
                                     : Container(),
@@ -282,7 +269,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.r),
         ),
-        content: Container(
+        content: SizedBox(
           height: 325.h,
           width: 365.w,
           child: Column(

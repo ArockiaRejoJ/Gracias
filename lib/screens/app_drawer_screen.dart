@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
+import 'package:flutter_assignment_app/screens/category_product_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawerScreen extends StatelessWidget {
-  const AppDrawerScreen({super.key});
+  final bool isArabic;
+  const AppDrawerScreen(this.isArabic, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,14 +43,29 @@ class AppDrawerScreen extends StatelessWidget {
                   Expanded(
                     child: ListView.builder(
                         itemCount: categoryData.length,
-                        itemBuilder: (context, index) => ListTile(
-                              title: Text(
-                                categoryData[index].name!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: GoogleFonts.poppins().fontFamily,
-                                  fontSize: 18.sp,
-                                  color: Colors.black,
+                        itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CategoryByProductScreen(
+                                            categoryData[index].id,
+                                            isArabic,
+                                            categoryData[index].name),
+                                  ),
+                                );
+                              },
+                              child: ListTile(
+                                title: Text(
+                                  categoryData[index].name!,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily:
+                                        GoogleFonts.poppins().fontFamily,
+                                    fontSize: 18.sp,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
                             )),

@@ -2,8 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
+import 'package:flutter_assignment_app/screens/category_product_screen.dart';
+import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -59,12 +60,25 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                       items: categoryData.map((data) {
                         return Builder(
                           builder: (BuildContext context) {
-                            return CircleAvatar(
-                              maxRadius: 45.r,
-                              minRadius: 45.r,
-                              backgroundImage: NetworkImage(data.image != null
-                                  ? data.image!
-                                  : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png'),
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        CategoryByProductScreen(data.id,
+                                            widget.isArabic, data.name),
+                                  ),
+                                );
+                              },
+                              child: CircleAvatar(
+                                maxRadius: 45.r,
+                                minRadius: 45.r,
+                                backgroundColor: bgColor,
+                                backgroundImage: NetworkImage(data.image != null
+                                    ? data.image!
+                                    : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png'),
+                              ),
                             );
                           },
                         );

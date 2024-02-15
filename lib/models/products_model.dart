@@ -9,7 +9,7 @@ class ProductsModel with ChangeNotifier {
   final double? rating;
   final int? stock;
   final String? brand;
-  final String? category;
+  final int? category;
   final String? thumbnail;
 
   ProductsModel({
@@ -36,7 +36,7 @@ class ProductDetails with ChangeNotifier {
   final double? rating;
   final int? stock;
   final String? brand;
-  final String? category;
+  final int? category;
   final String? thumbnail;
 
   ProductDetails({

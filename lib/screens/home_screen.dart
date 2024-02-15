@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: Scaffold(
           key: scaffoldKey,
-          drawer: const AppDrawerScreen(),
+          drawer: const AppDrawerScreen(false),
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   scaffoldKey.currentState!.openDrawer();
                 },
                 icon: Icon(
-                  Icons.subject,
+                  Icons.menu,
                   size: 26.sp,
                   color: fontColor,
                 ),

@@ -18,7 +18,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
 
   Future getProductData() async {
     return await Provider.of<ProductProvider>(context, listen: false)
-        .fetchProduct(widget.isArabic);
+        .fetchProduct(widget.isArabic, 1);
   }
 
   @override

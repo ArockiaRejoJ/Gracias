@@ -12,28 +12,33 @@ class ProductProvider with ChangeNotifier {
     return [..._productItems];
   }
 
-  List<ProductDetails> _productDetailsById = [];
-
-  List<ProductDetails> get productDetailsById {
-    return [..._productDetailsById];
-  }
+  // List<ProductDetails> _productDetailsById = [];
   //
-  // List<ProductsModel> _productByCategoryById = [];
-  //
-  // List<ProductsModel> get productByCategoryById {
-  //   return [..._productByCategoryById];
+  // List<ProductDetails> get productDetailsById {
+  //   return [..._productDetailsById];
   // }
+
+  List<ProductsModel> _productByCategoryById = [];
+
+  List<ProductsModel> get productByCategoryById {
+    return [..._productByCategoryById];
+  }
 
   ProductProvider(
     this._productItems,
-    this._productDetailsById,
-    // this._productByCategoryById
+    this._productByCategoryById,
   );
 
-  Future<void> fetchProduct(bool isArabic) async {
+  Future<void> fetchProduct(bool isArabic, int page) async {
     String baseUrl = isArabic ? arbBaseUrl : engBaseUrl;
     print('base Url : $baseUrl');
-    final url = Uri.parse('$baseUrl/$midUrl/products');
+    final url =
+        Uri.parse('$baseUrl/$midUrl/products').replace(queryParameters: {
+      'order': 'asc',
+      'page': page.toString(),
+      'per_page': 20.toString(),
+    });
+    ;
 
     try {
       final response = await http.get(
@@ -60,9 +65,8 @@ class ProductProvider with ChangeNotifier {
                 rating: double.parse(data['average_rating']),
                 stock: data['stock_status'] == 'instock' ? 1 : 0,
                 brand: 'NO DATA',
-                category: data['category'] != null
-                    ? data['category'][0]['slug']
-                    : 'NO DATA',
+                category:
+                    data['category'] != null ? data['category'][0]['id'] : null,
                 thumbnail: data['images'] != []
                     ? data['images'][0] != []
                         ? data['images'][0]['src']
@@ -81,4 +85,58 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
+  Future<void> fetchCategoryProduct(bool isArabic, int page, int id) async {
+    String baseUrl = isArabic ? arbBaseUrl : engBaseUrl;
+    print('base Url : $baseUrl');
+    final url =
+        Uri.parse('$baseUrl/$midUrl/products').replace(queryParameters: {
+      'category': id.toString(),
+      'page': page.toString(),
+      'per_page': 50.toString(),
+    });
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization':
+              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final extractedData = json.decode(response.body);
+        print(extractedData);
+        List<ProductsModel> newProductData = [];
+        extractedData.forEach(
+          (data) async {
+            newProductData.add(
+              ProductsModel(
+                id: data['id'],
+                title: data['name'],
+                description: data['description'],
+                price: data['price'].toString(),
+                discountPercentage: 5,
+                rating: double.parse(data['average_rating']),
+                stock: data['stock_status'] == 'instock' ? 1 : 0,
+                brand: 'NO DATA',
+                category:
+                    data['category'] != null ? data['category'][0]['id'] : null,
+                thumbnail: data['images'] != []
+                    ? data['images'][0] != []
+                        ? data['images'][0]['src']
+                        : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png'
+                    : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png',
+              ),
+            );
+          },
+        );
+        _productByCategoryById = newProductData;
+        notifyListeners();
+        return;
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

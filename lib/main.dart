@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/models/products_model.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
+import 'package:flutter_assignment_app/providers/order_provider.dart';
 import 'package:flutter_assignment_app/providers/product_provider.dart';
 import 'package:flutter_assignment_app/screens/splash_screens.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -71,7 +72,7 @@ class _MyAppState extends State<MyApp> {
           create: (_) => ProductProvider([], []),
           update: (context, auth, previousData) => ProductProvider(
             previousData == null ? [] : previousData.productItems,
-            previousData == null ? [] : previousData.productDetailsById,
+            previousData == null ? [] : previousData.productByCategoryById,
           ),
         ),
         ChangeNotifierProxyProvider(
@@ -81,11 +82,18 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         ChangeNotifierProxyProvider(
-          create: (_) => CartProvider([], [], []),
+          create: (_) => CartProvider([], [], [], ''),
           update: (context, auth, previousData) => CartProvider(
             previousData == null ? [] : previousData.cartItems,
             previousData == null ? [] : previousData.cartProdductItems,
             previousData == null ? [] : previousData.lineItems,
+            null,
+          ),
+        ),
+        ChangeNotifierProxyProvider(
+          create: (_) => OrderProvider([]),
+          update: (context, auth, previousData) => OrderProvider(
+            previousData == null ? [] : previousData.orderItems,
           ),
         ),
       ],
@@ -98,7 +106,7 @@ class _MyAppState extends State<MyApp> {
             supportedLocales: _localization.supportedLocales,
             localizationsDelegates: _localization.localizationsDelegates,
             debugShowCheckedModeBanner: false,
-            title: 'Flutter Assignment App',
+            title: 'Gracias',
             theme: ThemeData(
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
                 primaryColor: const Color(0xFFf16682),

@@ -11,12 +11,6 @@ const arbBaseUrl = 'https://gracias.ae/ar';
 
 const midUrl = 'wp-json/wc/v3';
 
-// final FlutterLocalization _localization = FlutterLocalization.instance;
-
-// String baseUrl = _localization.currentLocale == const Locale("en", "US")
-//     ? 'https://gracias.ae/wp-json/wc/v3'
-//     : 'https://gracias.ae/ar/wp-json/wc/v3';
-
 void launchWhatsApp() async {
   if (!await launchUrl(
       Uri.parse(

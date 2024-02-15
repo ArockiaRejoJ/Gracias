@@ -36,10 +36,6 @@ dependencies:
   google_fonts:
   animated_splash_screen:
   carousel_slider:
-  google_maps_flutter:
-  geolocator:
-  geocoding:
-  location:
   dots_indicator:
   flutter_localization:
   share_plus:

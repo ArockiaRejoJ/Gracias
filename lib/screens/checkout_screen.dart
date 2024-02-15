@@ -47,28 +47,31 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     try {
       await Provider.of<CartProvider>(context, listen: false)
           .createOrder(
-            _firstNameController.text,
-            _lastNameController.text,
-            _addressController.text,
-            _cityController.text,
-            _stateController.text,
-            _phoneController.text,
-            _emailController.text,
-            _address,
-            _sFirstNameController.text,
-            _sLastNameController.text,
-            _sAddressController.text,
-            _sCityController.text,
-            _sStateController.text,
-          )
-          .then(
-            (value) => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const OrderSuccessfulScreen(),
-              ),
-            ),
-          );
+        _firstNameController.text,
+        _lastNameController.text,
+        _addressController.text,
+        _cityController.text,
+        _stateController.text,
+        _phoneController.text,
+        _emailController.text,
+        _address,
+        _sFirstNameController.text,
+        _sLastNameController.text,
+        _sAddressController.text,
+        _sCityController.text,
+        _sStateController.text,
+      )
+          .then((value) {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const OrderSuccessfulScreen(),
+          ),
+        );
+      });
     } catch (error) {
       print(error);
       await showDialog(
@@ -89,11 +92,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         },
       );
     }
-    //}
-    setState(() {
-      _isLoading = false;
-    });
-    //Navigator.of(context).pop();
     _formkey.currentState?.reset();
   }
 
