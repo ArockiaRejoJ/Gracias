@@ -7,7 +7,6 @@ class AboutUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isSelected = true;
     return Scaffold(
       appBar: AppBar(
         title: const Text('About Us'),
@@ -26,7 +25,7 @@ class AboutUsScreen extends StatelessWidget {
                   width: 340.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.r),
-                    image: DecorationImage(
+                    image: const DecorationImage(
                         image: AssetImage('assets/images/about-us-bg.jpeg'),
                         fit: BoxFit.cover),
                   ),

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_localization/flutter_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const consumerKey = 'ck_e1d88868beb9cef9d0ed575917dcc03400e3036c';

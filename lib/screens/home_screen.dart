@@ -43,50 +43,51 @@ class _HomeScreenState extends State<HomeScreen> {
         canPop: false,
         onPopInvoked: (bool values) async {
           await showDialog<bool>(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) {
-                return AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(25.r))),
-                  content: Text(
-                    'Are you sure you want to exit?',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18.sp,
-                        fontFamily: GoogleFonts.lexend().fontFamily,
-                        fontWeight: FontWeight.w600),
+            context: context,
+            barrierDismissible: false,
+            builder: (context) {
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.r))),
+                content: Text(
+                  'Are you sure you want to exit?',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18.sp,
+                      fontFamily: GoogleFonts.lexend().fontFamily,
+                      fontWeight: FontWeight.w600),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text(
+                      'No',
+                      style: TextStyle(
+                          color: Colors.green,
+                          fontSize: 18.sp,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
                   ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text(
-                        'No',
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 18.sp,
-                            fontFamily: GoogleFonts.poppins().fontFamily,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+                  TextButton(
+                    child: Text(
+                      'Yes, exit',
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 18.sp,
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                          fontWeight: FontWeight.w500),
                     ),
-                    TextButton(
-                      child: Text(
-                        'Yes, exit',
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 18.sp,
-                            fontFamily: GoogleFonts.poppins().fontFamily,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      onPressed: () {
-                        SystemNavigator.pop();
-                      },
-                    ),
-                  ],
-                );
-              });
+                    onPressed: () {
+                      SystemNavigator.pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
         },
         child: Scaffold(
           key: scaffoldKey,
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
             leading: Padding(
-              padding: EdgeInsets.only(left: 5.w),
+              padding: EdgeInsets.only(left: 10.w),
               child: IconButton(
                 onPressed: () {
                   scaffoldKey.currentState!.openDrawer();

@@ -64,8 +64,6 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                       children: [
                         Expanded(
                           child: Container(
-                            // height: 220.h,
-                            // width: 330.w,
                             decoration: ShapeDecoration(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.r)),
@@ -274,7 +272,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                   ],
                                                                 ),
                                                                 Text(
-                                                                  "Price: \$ ${cartData.cartProdductItems[index].prices.price}",
+                                                                  "Price: \$ ${(int.parse(cartData.cartProdductItems[index].prices.price) / 100).toStringAsFixed(2)}",
                                                                   style:
                                                                       TextStyle(
                                                                     fontWeight:
@@ -356,7 +354,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                             ),
                                           ),
                                           Text(
-                                            '${cartDetailsData[index].totals.currencySymbol} ${cartDetailsData[index].totals.totalItems}',
+                                            '${cartDetailsData[index].totals.currencySymbol} ${(int.parse(cartDetailsData[index].totals.totalItems) / 100).toStringAsFixed(2)}',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontFamily: GoogleFonts.poppins()
@@ -434,7 +432,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                             ),
                                           ),
                                           Text(
-                                            '${cartDetailsData[index].totals.currencySymbol} ${cartDetailsData[index].totals.totalPrice}',
+                                            '${cartDetailsData[index].totals.currencySymbol} ${(int.parse(cartDetailsData[index].totals.totalPrice) / 100).toStringAsFixed(2)}',
                                             style: TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontFamily: GoogleFonts.poppins()

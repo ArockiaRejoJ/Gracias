@@ -37,6 +37,7 @@ class CartProvider with ChangeNotifier {
   String? orderKey;
   String? orderEmail;
 
+  // get products list for make order line items
   void getCartLineItems() {
     List<Map<String, int>> newItems = [];
     for (var cartItem in _cartProdductItems) {
@@ -47,37 +48,7 @@ class CartProvider with ChangeNotifier {
     print(_lineItems);
   }
 
-// // add single product to cart using post method
-//   Future<void> addItemToCart(int productId, int quantity) async {
-//     var found = _cartProdductItems.firstWhere(
-//       (element) => element.id == productId,
-//     );
-//
-//     final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart/add-item');
-//     try {
-//       final response = await http.post(
-//         url,
-//         body: {
-//           'id': productId.toString(),
-//           'product_details_id': quantity.toString(),
-//         },
-//         headers: {
-//           'Authorization':
-//               'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
-//           'Nonce': '$nonceKey'
-//         },
-//       );
-//       final extractedData = json.decode(response.body);
-//       found.quantity = found.quantity + 1;
-//       print(extractedData);
-//       notifyListeners();
-//       return;
-//     } catch (error) {
-//       rethrow;
-//     }
-//   }
-
-  // Remove single product to cart using post method
+  // Remove product to cart using post method
   Future<void> removeItemToCart(String key) async {
     final url =
         Uri.parse('https://gracias.ae/wp-json/wc/store/cart/remove-item');
@@ -101,7 +72,7 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  // add single product to cart using post method
+  // Update product to cart using post method
   Future<void> updateItemToCart(String key, int productId, int quantity) async {
     print(quantity);
     var found = _cartProdductItems.firstWhere(
@@ -132,7 +103,7 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  //Fetch cart items
+  //Fetch cart items and nonceKey
   Future<void> fetchData() async {
     final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart');
     try {
@@ -170,7 +141,7 @@ class CartProvider with ChangeNotifier {
     }
   }
 
-  // add single product to cart using post method
+  // add single product to cart using post method from product overview screen
   Future<void> addProductToCart(int productId, int quantity) async {
     final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart/add-item');
     try {
@@ -195,6 +166,7 @@ class CartProvider with ChangeNotifier {
     }
   }
 
+  // create order via post method
   Future<void> createOrder(
     String firstName,
     String lastName,

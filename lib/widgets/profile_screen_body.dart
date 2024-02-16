@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/screens/about_us_screen.dart';
 import 'package:flutter_assignment_app/screens/order_screen.dart';
 import 'package:flutter_assignment_app/screens/privacy_policy_screen.dart';
-import 'package:flutter_assignment_app/screens/signup_screen.dart';
 import 'package:flutter_assignment_app/screens/terms_and_conditions_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';

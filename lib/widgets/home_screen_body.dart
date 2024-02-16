@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:flutter_assignment_app/widgets/carousel_widget.dart';
@@ -9,7 +8,6 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_assignment_app/widgets/category_widgets.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});

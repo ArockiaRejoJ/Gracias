@@ -9,8 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class CategoryWidget extends StatefulWidget {
-  bool isArabic;
-  CategoryWidget(this.isArabic, {super.key});
+  final bool isArabic;
+  const CategoryWidget(this.isArabic, {super.key});
 
   @override
   State<CategoryWidget> createState() => _CategoryWidgetState();

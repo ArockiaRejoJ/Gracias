@@ -6,8 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class ProductsWidget extends StatefulWidget {
-  bool isArabic;
-  ProductsWidget(this.isArabic, {super.key});
+  final bool isArabic;
+  const ProductsWidget(this.isArabic, {super.key});
 
   @override
   State<ProductsWidget> createState() => _ProductsWidgetState();

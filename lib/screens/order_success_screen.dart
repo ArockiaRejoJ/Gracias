@@ -28,7 +28,6 @@ class OrderSuccessfulScreen extends StatelessWidget {
               width: 300.w,
               child: ElevatedButton(
                 onPressed: () {
-                  //Provider.of<CartProvider>(context, listen: false).emptyCart();
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

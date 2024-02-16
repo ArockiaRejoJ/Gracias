@@ -11,7 +11,12 @@ class ProductContainerWidget extends StatelessWidget {
   final String? price;
   final String? description;
   const ProductContainerWidget(
-      {super.key, this.id, this.title, this.image, this.price, this.description});
+      {super.key,
+      this.id,
+      this.title,
+      this.image,
+      this.price,
+      this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +25,8 @@ class ProductContainerWidget extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    ProductOverviewScreen(id, title, image, price, description)));
+                builder: (context) => ProductOverviewScreen(
+                    id, title, image, price, description)));
       },
       child: Container(
         height: 195.h,

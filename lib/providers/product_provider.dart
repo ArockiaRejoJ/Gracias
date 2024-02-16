@@ -12,12 +12,6 @@ class ProductProvider with ChangeNotifier {
     return [..._productItems];
   }
 
-  // List<ProductDetails> _productDetailsById = [];
-  //
-  // List<ProductDetails> get productDetailsById {
-  //   return [..._productDetailsById];
-  // }
-
   List<ProductsModel> _productByCategoryById = [];
 
   List<ProductsModel> get productByCategoryById {
@@ -118,7 +112,7 @@ class ProductProvider with ChangeNotifier {
                 price: data['price'].toString(),
                 discountPercentage: 5,
                 rating: double.parse(data['average_rating']),
-                stock: data['stock_status'] == 'instock' ? 1 : 0,
+                stock: data['stock_status'] == 'inStock' ? 1 : 0,
                 brand: 'NO DATA',
                 category:
                     data['category'] != null ? data['category'][0]['id'] : null,
