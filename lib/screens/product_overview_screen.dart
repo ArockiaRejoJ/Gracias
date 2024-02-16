@@ -218,10 +218,11 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                             height: 60.h,
                             width: 60.w,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.r),
-                                image: const DecorationImage(
-                                    image: NetworkImage(
-                                        'https://play-lh.googleusercontent.com/KCMTYuiTrKom4Vyf0G4foetVOwhKWzNbHWumV73IXexAIy5TTgZipL52WTt8ICL-oIo=w240-h480-rw'))),
+                              borderRadius: BorderRadius.circular(5.r),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/images/facebook.png'),
+                              ),
+                            ),
                           ),
                         ),
                         InkWell(
@@ -230,10 +231,12 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                             height: 60.h,
                             width: 60.w,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.r),
-                                image: const DecorationImage(
-                                    image: NetworkImage(
-                                        'https://play-lh.googleusercontent.com/VRMWkE5p3CkWhJs6nv-9ZsLAs1QOg5ob1_3qg-rckwYW7yp1fMrYZqnEFpk0IoVP4LM=w240-h480-rw'))),
+                              borderRadius: BorderRadius.circular(5.r),
+                              image: const DecorationImage(
+                                image:
+                                    AssetImage('assets/images/instagram.png'),
+                              ),
+                            ),
                           ),
                         ),
                         InkWell(
@@ -242,15 +245,16 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                             height: 60.h,
                             width: 60.w,
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.r)),
-                                image: const DecorationImage(
-                                    image: NetworkImage(
-                                        'https://play-lh.googleusercontent.com/ebs6ftYUkOKlDY0M174OpvargwbDyHUVAnO_G5aE0dL5GBQKCtfh3adN5H3ZMThXogDi=w240-h480-rw'))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5.r)),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/images/whatsapp.png'),
+                              ),
+                            ),
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

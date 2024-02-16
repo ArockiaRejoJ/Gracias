@@ -21,240 +21,223 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(15.h),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InkWell(
-              onTap: () {
-                _languageModalBottomSheet(context);
-              },
-              child: SizedBox(
-                height: 40.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.language,
-                      size: 24.sp,
-                      color: Colors.black,
-                    ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      'Country & Languages',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 16.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 10.h),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const OrdersScreen(),
+    return Padding(
+      padding: EdgeInsets.all(15.h),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            onTap: () {
+              _languageModalBottomSheet(context);
+            },
+            child: SizedBox(
+              height: 40.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.language,
+                    size: 24.sp,
+                    color: Colors.black,
                   ),
-                );
-              },
-              child: SizedBox(
-                height: 40.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.shopping_cart_outlined,
-                      size: 24.sp,
+                  SizedBox(width: 10.w),
+                  Text(
+                    'Country & Languages',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 16.sp,
                       color: Colors.black,
                     ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      'orders',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 16.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 5.h),
-            const Divider(),
-            SizedBox(height: 5.h),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AboutUsScreen(),
                   ),
-                );
-              },
-              child: SizedBox(
-                height: 40.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      size: 24.sp,
-                      color: Colors.black,
-                    ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      'About Us',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 16.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
+                ],
               ),
             ),
-            SizedBox(height: 10.h),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const PrivacyPolicyScreen(),
+          ),
+          SizedBox(height: 10.h),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OrdersScreen(),
+                ),
+              );
+            },
+            child: SizedBox(
+              height: 40.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 24.sp,
+                    color: Colors.black,
                   ),
-                );
-              },
-              child: SizedBox(
-                height: 40.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.privacy_tip_outlined,
-                      size: 24.sp,
+                  SizedBox(width: 10.w),
+                  Text(
+                    'orders',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 16.sp,
                       color: Colors.black,
                     ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      'Privacy Policy',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 16.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 10.h),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const TermsAndConditionsScreen(),
                   ),
-                );
-              },
-              child: SizedBox(
-                height: 40.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.menu,
-                      size: 24.sp,
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 5.h),
+          const Divider(),
+          SizedBox(height: 5.h),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AboutUsScreen(),
+                ),
+              );
+            },
+            child: SizedBox(
+              height: 40.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.info_outline,
+                    size: 24.sp,
+                    color: Colors.black,
+                  ),
+                  SizedBox(width: 10.w),
+                  Text(
+                    'About Us',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 16.sp,
                       color: Colors.black,
                     ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      'Terms & Conditions',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 16.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 5.h),
-            const Divider(),
-            SizedBox(
-              height: 5.h,
-            ),
-            InkWell(
-              onTap: launchPlayStore,
-              child: SizedBox(
-                height: 40.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.star_border,
-                      size: 24.sp,
+          ),
+          SizedBox(height: 10.h),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const PrivacyPolicyScreen(),
+                ),
+              );
+            },
+            child: SizedBox(
+              height: 40.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.privacy_tip_outlined,
+                    size: 24.sp,
+                    color: Colors.black,
+                  ),
+                  SizedBox(width: 10.w),
+                  Text(
+                    'Privacy Policy',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 16.sp,
                       color: Colors.black,
                     ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      'Star Ratings',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 16.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 10.h),
-            InkWell(
-              onTap: () {
-                Share.share(
-                    'Hey,I love Gracias & I think you will too! \n\nGracias Gifts & Events – Your Gateway to Heartwarming Surprises! \n\nDownload the app here: https://play.google.com/store/apps/details?id=com.gracias.app');
-              },
-              child: SizedBox(
-                height: 40.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.ios_share,
-                    ),
-                    SizedBox(width: 10.w),
-                    Text(
-                      'Share with friends',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 16.sp,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
+          ),
+          SizedBox(height: 10.h),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const TermsAndConditionsScreen(),
                 ),
+              );
+            },
+            child: SizedBox(
+              height: 40.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.menu,
+                    size: 24.sp,
+                    color: Colors.black,
+                  ),
+                  SizedBox(width: 10.w),
+                  Text(
+                    'Terms & Conditions',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 16.sp,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 5.h),
+          const Divider(),
+          SizedBox(
+            height: 5.h,
+          ),
+          InkWell(
+            onTap: () {
+              Share.share(
+                  'Hey, I love Gracias & I think you will too! \n\nGracias Gifts & Events – Your Gateway to Heartwarming Surprises! \n\nDownload the app here: https://play.google.com/store/apps/details?id=com.gracias.app');
+            },
+            child: SizedBox(
+              height: 40.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.ios_share,
+                  ),
+                  SizedBox(width: 10.w),
+                  Text(
+                    'Share with friends',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 16.sp,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const Spacer(),
+          Center(
+            child: Text(
+              'Version: 1.0.0',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontFamily: GoogleFonts.poppins().fontFamily,
+                fontSize: 12.sp,
+                color: Colors.grey,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

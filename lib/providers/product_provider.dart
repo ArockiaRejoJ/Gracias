@@ -30,7 +30,7 @@ class ProductProvider with ChangeNotifier {
         Uri.parse('$baseUrl/$midUrl/products').replace(queryParameters: {
       'order': 'asc',
       'page': page.toString(),
-      'per_page': 20.toString(),
+      'per_page': 10.toString(),
     });
     ;
 
