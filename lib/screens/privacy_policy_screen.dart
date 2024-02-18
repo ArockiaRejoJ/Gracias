@@ -20,7 +20,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Welcome to Gracias Gifts & Events. This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information when you use our website or services. By accessing or using our services, you agree to the terms outlined in this policy.',
+                'Welcome to Gracias Gifts & Events. This Privacy Policy outlines how we collect, use, disclose, and safeguard your personal information when you use our application or services. By accessing or using our services, you agree to the terms outlined in this policy.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -41,7 +41,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'We collect personal information, such as your name, address, email, and phone number, when you place an order or interact with our website.',
+                'We collect personal information, such as your name, address, email, and phone number, when you place an order or interact with our application.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -62,7 +62,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'Your information is used to process and fulfill your orders, communicate with you about your orders, and provide a personalized experience on our website.',
+                'Your information is used to process and fulfill your orders, communicate with you about your orders, and provide a personalized experience on our application.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -104,7 +104,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'Our website uses cookies to enhance your browsing experience. You can choose to disable cookies, but this may impact your ability to access certain features of our website.',
+                'Our application uses cookies to enhance your browsing experience. You can choose to disable cookies, but this may impact your ability to access certain features of our application.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -125,7 +125,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'We may use third-party services to analyze website traffic, enhance functionality, and improve user experience. These third-party services may have their own privacy policies, which we encourage you to review.',
+                'We may use third-party services to analyze application traffic, enhance functionality, and improve user experience. These third-party services may have their own privacy policies, which we encourage you to review.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -146,7 +146,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'We do not sell, trade, or otherwise transfer your personal information to outside parties. This does not include trusted third parties who assist us in operating our website, conducting our business, or servicing you.',
+                'We do not sell, trade, or otherwise transfer your personal information to outside parties. This does not include trusted third parties who assist us in operating our Application, conducting our business, or servicing you.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -167,7 +167,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'By using our website and services, you consent to our privacy policy.',
+                'By using our application and services, you consent to our privacy policy.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -188,7 +188,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'Gracias Gifts & Events does not knowingly collect personal information from children under the age of 13. If you are under 13, please do not provide any information on our website.',
+                'Gracias Gifts & Events does not knowingly collect personal information from children under the age of 13. If you are under 13, please do not provide any information on our application.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,

@@ -273,7 +273,7 @@ class AboutUsScreen extends StatelessWidget {
                         children: [
                           TextSpan(
                             text:
-                                'Our user-friendly website makes it a breeze to select, order, and send gifts to your cherished ones.',
+                                'Our user-friendly application makes it a breeze to select, order, and send gifts to your cherished ones.',
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: GoogleFonts.poppins().fontFamily,

@@ -20,7 +20,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Welcome to Gracias Gifts & Events! Before using our services, please read the following terms and conditions carefully. By accessing or using our website and services, you agree to abide by these terms.',
+                'Welcome to Gracias Gifts & Events! Before using our services, please read the following terms and conditions carefully. By accessing or using our application and services, you agree to abide by these terms.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -29,16 +29,16 @@ class TermsAndConditionsScreen extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      'Acceptance of Terms:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: GoogleFonts.lexend().fontFamily,
-                        fontSize: 20.sp,
-                        color: Colors.black,
-                      ),
-                    ),
+              SizedBox(height: 10.h),
+              Text(
+                'Acceptance of Terms:',
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontFamily: GoogleFonts.lexend().fontFamily,
+                  fontSize: 20.sp,
+                  color: Colors.black,
+                ),
+              ),
               SizedBox(height: 5.h),
               Text(
                 'By accessing or using Gracias Gifts & Events, you agree to comply with and be bound by these terms and conditions. If you do not agree with any part of these terms, please refrain from using our service',
@@ -83,7 +83,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'Once you place an order through our website, you will receive an order confirmation via email. This confirmation does not guarantee the availability of the products but acknowledges that we have received your order.',
+                'Once you place an order through our application, you will receive an order confirmation via email. This confirmation does not guarantee the availability of the products but acknowledges that we have received your order.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -167,7 +167,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h),
               Text(
-                'All content, logos, images, and designs on the Gracias Gifts & Events website are the intellectual property of Gracias Gifts & Events. Any unauthorized use, reproduction, or distribution is strictly prohibited.',
+                'All content, logos, images, and designs on the Gracias Gifts & Events application are the intellectual property of Gracias Gifts & Events. Any unauthorized use, reproduction, or distribution is strictly prohibited.',
                 textAlign: TextAlign.justify,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,

@@ -55,40 +55,6 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               ),
             ),
           ),
-          SizedBox(height: 10.h),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const OrdersScreen(),
-                ),
-              );
-            },
-            child: SizedBox(
-              height: 40.h,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.shopping_cart_outlined,
-                    size: 24.sp,
-                    color: Colors.black,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'orders',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           SizedBox(height: 5.h),
           const Divider(),
           SizedBox(height: 5.h),
