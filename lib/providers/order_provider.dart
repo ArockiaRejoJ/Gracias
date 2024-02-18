@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_assignment_app/models/cart_model.dart';
 import 'package:flutter_assignment_app/models/order_model.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:http/http.dart' as http;

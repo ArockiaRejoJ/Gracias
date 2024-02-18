@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_assignment_app/models/cart_model.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/order_success_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
