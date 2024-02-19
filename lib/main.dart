@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/models/products_model.dart';
+import 'package:flutter_assignment_app/providers/banner_provider.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
 import 'package:flutter_assignment_app/providers/order_provider.dart';
@@ -94,6 +95,12 @@ class _MyAppState extends State<MyApp> {
           create: (_) => OrderProvider([]),
           update: (context, auth, previousData) => OrderProvider(
             previousData == null ? [] : previousData.orderItems,
+          ),
+        ),
+        ChangeNotifierProxyProvider(
+          create: (_) => BannerProvider([]),
+          update: (context, auth, previousData) => BannerProvider(
+            previousData == null ? [] : previousData.bannerItems,
           ),
         ),
       ],

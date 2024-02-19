@@ -1,76 +1,113 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/providers/banner_provider.dart';
+import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class Carousal extends StatefulWidget {
-  const Carousal({super.key});
+  final bool isArabic;
+  const Carousal(this.isArabic, {super.key});
 
   @override
   State<Carousal> createState() => _CarousalState();
 }
 
 class _CarousalState extends State<Carousal> {
-  final List<String> imgList = [
-    'https://gracias.ae/wp-content/uploads/2024/02/gift.gif',
-    'https://gracias.ae//wp-content//uploads//2024//01//Grasias-Banners-01-copy-1-scaled.jpg',
-    'https://gracias.ae//wp-content//uploads//2024//01//Grasias-Banners-02-copy-1-scaled.jpg',
-    'https://gracias.ae//wp-content//uploads//2024//01//Grasias-Banners-03-copy-1-scaled.jpg',
-  ];
+  Future? _bannerFuture;
+
+  Future getBannerData() async {
+    return await Provider.of<BannerProvider>(context, listen: false)
+        .fetchBannerData(widget.isArabic);
+  }
+
+  @override
+  void initState() {
+    _bannerFuture = getBannerData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 175.h,
-      width: 360.w,
-      child: CarouselSlider(
-        options: CarouselOptions(
-          autoPlay: true,
-          viewportFraction: 1,
-          aspectRatio: 2,
-          initialPage: 1,
-          autoPlayInterval: const Duration(seconds: 5),
-          autoPlayAnimationDuration: const Duration(milliseconds: 800),
-          autoPlayCurve: Curves.fastOutSlowIn,
-          enlargeCenterPage: true,
-        ),
-        items: imgList.map(
-          (data) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
+    final bannerData = Provider.of<BannerProvider>(context).bannerItems;
+    return FutureBuilder(
+      future: _bannerFuture,
+      builder: (context, dataSnapshot) {
+        if (dataSnapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingWidget(200, 360);
+        } else {
+          if (dataSnapshot.error != null) {
+            return const Center(
+              child: Text('an error occurred'),
+            );
+          } else {
+            return Consumer<BannerProvider>(
+              builder: (context, pData, _) {
+                return SizedBox(
                   height: 175.h,
                   width: 360.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black26, width: 0.2),
-                  ),
-                  child: Image.network(
-                    data,
-                    fit: BoxFit.fill,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      );
-                    },
-                    errorBuilder: (context, exception, stackTrace) {
-                      return Image.asset(
-                        'assets/images/logo.png',
-                        fit: BoxFit.fitWidth,
-                      );
-                    },
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: true,
+                      viewportFraction: 1,
+                      aspectRatio: 2,
+                      initialPage: 1,
+                      autoPlayInterval: const Duration(seconds: 5),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enlargeCenterPage: true,
+                    ),
+                    items: bannerData.map(
+                      (data) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              height: 175.h,
+                              width: 360.w,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.black26, width: 0.2),
+                              ),
+                              child: Image.network(
+                                data.image,
+                                fit: BoxFit.fill,
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  );
+                                },
+                                errorBuilder: (context, exception, stackTrace) {
+                                  return Image.asset(
+                                    'assets/images/logo.png',
+                                    fit: BoxFit.fitWidth,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ).toList(),
                   ),
                 );
               },
             );
-          },
-        ).toList(),
-      ),
+          }
+        }
+      },
     );
   }
 }

@@ -152,7 +152,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 10.h),
-                Carousal(),
+                Carousal(isArabic!),
                 SizedBox(height: 10.h),
                 Center(
                   child: Text(

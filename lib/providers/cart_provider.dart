@@ -37,6 +37,24 @@ class CartProvider with ChangeNotifier {
   String? orderKey;
   String? orderEmail;
 
+  //Fetch nonceKey
+  Future fetchNonceData() async {
+    final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart');
+    try {
+      final response = await http.get(url, headers: {
+        'Authorization':
+            'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+      });
+      final responseHeader = response.headers;
+      nonceKey = responseHeader['nonce'];
+      print('Nonce key : $nonceKey');
+      notifyListeners();
+    } catch (error) {
+      print(error);
+      rethrow;
+    }
+  }
+
   // get products list for make order line items
   void getCartLineItems() {
     List<Map<String, int>> newItems = [];
@@ -159,6 +177,8 @@ class CartProvider with ChangeNotifier {
       );
       final extractedData = json.decode(response.body);
       print(extractedData);
+
+      _cartProdductItems.length + 1;
       notifyListeners();
       return;
     } catch (error) {

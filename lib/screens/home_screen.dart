@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/app_drawer_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/widgets/cart_screen_body.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_assignment_app/widgets/profile_screen_body.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -118,6 +120,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 fit: BoxFit.fitHeight,
               ),
             ),
+            actions: [
+              Consumer<CartProvider>(builder: (context, cartData, _) {
+                return Badge(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  label: Padding(
+                    padding: EdgeInsets.only(left: 1.w, right: 1.w),
+                    child: Text('${cartData.cartProdductItems.length}'),
+                  ),
+                  offset: Offset(-8.w, 6.h),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.shopping_basket_outlined,
+                      size: 18.sp,
+                      color: Colors.black26,
+                    ),
+                  ),
+                );
+              }),
+            ],
           ),
           body: _body[_selectedPageIndex],
           bottomNavigationBar: BottomNavigationBar(

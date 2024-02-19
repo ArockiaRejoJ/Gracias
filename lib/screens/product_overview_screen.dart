@@ -41,7 +41,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
 
   @override
   void initState() {
-    Provider.of<CartProvider>(context, listen: false).fetchData();
+    Provider.of<CartProvider>(context, listen: false).fetchNonceData();
     super.initState();
   }
 

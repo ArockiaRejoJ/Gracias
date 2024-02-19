@@ -3,6 +3,7 @@ import 'package:flutter_assignment_app/screens/about_us_screen.dart';
 import 'package:flutter_assignment_app/screens/privacy_policy_screen.dart';
 import 'package:flutter_assignment_app/screens/terms_and_conditions_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -163,6 +164,33 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             height: 5.h,
           ),
           InkWell(
+            onTap: launchPlayStore,
+            child: SizedBox(
+              height: 40.h,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.star_border,
+                    size: 24.sp,
+                    color: Colors.black,
+                  ),
+                  SizedBox(width: 10.w),
+                  Text(
+                    'Star Ratings',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontSize: 16.sp,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 10.h),
+          InkWell(
             onTap: () {
               Share.share(
                   'Hey, I love Gracias & I think you will too! \n\nGracias Gifts & Events – Your Gateway to Heartwarming Surprises! \n\nDownload the app here: https://play.google.com/store/apps/details?id=com.gracias.app');
@@ -192,7 +220,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
           const Spacer(),
           Center(
             child: Text(
-              'Version: 1.0.0',
+              'Version: 1.0.1',
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontFamily: GoogleFonts.poppins().fontFamily,
