@@ -8,6 +8,9 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_assignment_app/widgets/category_widgets.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart' as loc;
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -18,6 +21,8 @@ class HomeScreenBody extends StatefulWidget {
 
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   bool isLoading = false;
+  int? retry = 0;
+  String? currentLocation;
   bool? isArabic;
   final FlutterLocalization _localization = FlutterLocalization.instance;
 
@@ -47,6 +52,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   @override
   void initState() {
     languageSelection();
+    _currentLocation();
     super.initState();
   }
 
@@ -74,7 +80,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Country',
+                        'Deliver to',
                         style: TextStyle(
                           color: fontColor,
                           fontSize: 12.sp,
@@ -83,12 +89,14 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         ),
                       ),
                       Text(
-                        'UAE',
+                        currentLocation == 'Syria'
+                            ? '🇦🇪 United Arab Emirates'
+                            : '🇸🇾 Syria ',
                         style: TextStyle(
-                          color: fontColor,
-                          fontSize: 12.sp,
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 14.sp,
                           fontFamily: GoogleFonts.poppins().fontFamily,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ],
@@ -366,5 +374,48 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
         );
       },
     );
+  }
+
+  Future<Position> _determinePosition() async {
+    print('callinf');
+    bool serviceEnabled;
+    loc.Location location = loc.Location();
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      bool isturnedon = await location.requestService();
+      if (isturnedon) {
+        _currentLocation();
+      } else if (retry == 0) {
+        _determinePosition();
+        retry = retry! + 1;
+      }
+      return Future.error('Location services are disabled');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+
+      if (permission == LocationPermission.denied) {
+        return Future.error("Location Permission denied");
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permission are permanently denied');
+    }
+
+    Position position = await Geolocator.getCurrentPosition();
+    return position;
+  }
+
+  _currentLocation() async {
+    Position position = await _determinePosition();
+    List<Placemark> placeMarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    setState(() {
+      currentLocation = placeMarks[0].country!;
+    });
   }
 }

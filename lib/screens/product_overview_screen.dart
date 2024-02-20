@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
+import 'package:flutter_assignment_app/screens/home_screen.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -266,7 +267,6 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
   }
 
   Future _showCartDialog() async {
-    int count = 0;
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -324,10 +324,17 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
               SizedBox(height: 15.h),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).popUntil((_) => count++ >= 2);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(
+                        selectedPage: 1,
+                      ),
+                    ),
+                  );
                 },
                 child: Text(
-                  'Go to Home',
+                  'Go to Cart',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontFamily: GoogleFonts.lexend().fontFamily,

@@ -20,6 +20,7 @@ class CartProvider with ChangeNotifier {
     return [..._cartProdductItems];
   }
 
+  final String? authToken;
   String? nonceKey;
 
   List<Map<String, int>> _lineItems = [];
@@ -27,8 +28,8 @@ class CartProvider with ChangeNotifier {
     return [..._lineItems];
   }
 
-  CartProvider(
-      this._cartItems, this._cartProdductItems, this._lineItems, this.nonceKey);
+  CartProvider(this.authToken, this._cartItems, this._cartProdductItems,
+      this._lineItems);
 
   Map<String, String> billingData = {};
 
@@ -42,8 +43,7 @@ class CartProvider with ChangeNotifier {
     final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart');
     try {
       final response = await http.get(url, headers: {
-        'Authorization':
-            'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+        'Authorization': 'Bearer $authToken',
       });
       final responseHeader = response.headers;
       nonceKey = responseHeader['nonce'];
@@ -76,11 +76,7 @@ class CartProvider with ChangeNotifier {
         body: {
           'key': key.toString(),
         },
-        headers: {
-          'Authorization':
-              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
-          'Nonce': '$nonceKey'
-        },
+        headers: {'Authorization': 'Bearer $authToken', 'Nonce': '$nonceKey'},
       );
       final extractedData = json.decode(response.body);
       print(extractedData);
@@ -106,11 +102,7 @@ class CartProvider with ChangeNotifier {
           'key': key.toString(),
           'quantity': quantity.toString(),
         },
-        headers: {
-          'Authorization':
-              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
-          'Nonce': '$nonceKey'
-        },
+        headers: {'Authorization': 'Bearer $authToken', 'Nonce': '$nonceKey'},
       );
       final extractedData = json.decode(response.body);
       found.quantity = quantity;
@@ -126,8 +118,7 @@ class CartProvider with ChangeNotifier {
     final url = Uri.parse('https://gracias.ae/wp-json/wc/store/cart');
     try {
       final response = await http.get(url, headers: {
-        'Authorization':
-            'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+        'Authorization': 'Bearer $authToken',
       });
       final responseHeader = response.headers;
       nonceKey = responseHeader['nonce'];
@@ -169,11 +160,7 @@ class CartProvider with ChangeNotifier {
           'id': productId.toString(),
           'quantity': quantity.toString(),
         },
-        headers: {
-          'Authorization':
-              'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
-          'Nonce': '$nonceKey'
-        },
+        headers: {'Authorization': 'Bearer $authToken', 'Nonce': '$nonceKey'},
       );
       final extractedData = json.decode(response.body);
       print(extractedData);
@@ -250,7 +237,6 @@ class CartProvider with ChangeNotifier {
               'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'Nonce': '$nonceKey'
         },
       );
       if (response.statusCode == 201) {

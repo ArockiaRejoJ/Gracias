@@ -12,14 +12,15 @@ class OrderProvider with ChangeNotifier {
     return [..._orderItems];
   }
 
-  OrderProvider(this._orderItems);
+  final String? authToken;
+  OrderProvider(this.authToken, this._orderItems);
+
   //Fetch cart items
   Future<void> fetchOrderData() async {
     final url = Uri.parse('https://gracias.ae/wp-json/wc/v3/orders');
     try {
       final response = await http.get(url, headers: {
-        'Authorization':
-            'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
+        'Authorization': 'Bearer $authToken',
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       });

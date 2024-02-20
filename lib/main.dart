@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_assignment_app/models/products_model.dart';
 import 'package:flutter_assignment_app/providers/banner_provider.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
 import 'package:flutter_assignment_app/providers/order_provider.dart';
 import 'package:flutter_assignment_app/providers/product_provider.dart';
+import 'package:flutter_assignment_app/providers/user_provider.dart';
+import 'package:flutter_assignment_app/screens/auth_screen.dart';
 import 'package:flutter_assignment_app/screens/splash_screens.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,11 +68,12 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: ProductsModel(),
+          value: UserProvider(),
         ),
-        ChangeNotifierProxyProvider(
-          create: (_) => ProductProvider([], []),
+        ChangeNotifierProxyProvider<UserProvider, ProductProvider>(
+          create: (_) => ProductProvider('', [], []),
           update: (context, auth, previousData) => ProductProvider(
+            auth.token,
             previousData == null ? [] : previousData.productItems,
             previousData == null ? [] : previousData.productByCategoryById,
           ),
@@ -82,18 +84,19 @@ class _MyAppState extends State<MyApp> {
             previousData == null ? [] : previousData.categoryItems,
           ),
         ),
-        ChangeNotifierProxyProvider(
-          create: (_) => CartProvider([], [], [], ''),
+        ChangeNotifierProxyProvider<UserProvider, CartProvider>(
+          create: (_) => CartProvider('', [], [], []),
           update: (context, auth, previousData) => CartProvider(
+            auth.token,
             previousData == null ? [] : previousData.cartItems,
             previousData == null ? [] : previousData.cartProdductItems,
             previousData == null ? [] : previousData.lineItems,
-            null,
           ),
         ),
-        ChangeNotifierProxyProvider(
-          create: (_) => OrderProvider([]),
+        ChangeNotifierProxyProvider<UserProvider, OrderProvider>(
+          create: (_) => OrderProvider('', []),
           update: (context, auth, previousData) => OrderProvider(
+            auth.token,
             previousData == null ? [] : previousData.orderItems,
           ),
         ),
@@ -109,17 +112,25 @@ class _MyAppState extends State<MyApp> {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: (_, child) {
-          return MaterialApp(
-            supportedLocales: _localization.supportedLocales,
-            localizationsDelegates: _localization.localizationsDelegates,
-            debugShowCheckedModeBanner: false,
-            title: 'Gracias',
-            theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                primaryColor: const Color(0xFFf16682),
-                useMaterial3: true,
-                fontFamily: _localization.fontFamily),
-            home: const SplashScreen(),
+          return Consumer<UserProvider>(
+            builder: (context, auth, _) => MaterialApp(
+              supportedLocales: _localization.supportedLocales,
+              localizationsDelegates: _localization.localizationsDelegates,
+              debugShowCheckedModeBanner: false,
+              title: 'Gracias',
+              theme: ThemeData(
+                  colorScheme:
+                      ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                  primaryColor: const Color(0xFFf16682),
+                  useMaterial3: true,
+                  fontFamily: _localization.fontFamily),
+              home: auth.isAuth
+                  ? const SplashScreen()
+                  : FutureBuilder(
+                      future: auth.tryAutoLogin(),
+                      builder: (context, authResultSnapshot) =>
+                          const AuthScreen()),
+            ),
           );
         },
       ),

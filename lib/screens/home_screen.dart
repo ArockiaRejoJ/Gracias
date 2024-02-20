@@ -12,7 +12,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int? selectedPage;
+  const HomeScreen({this.selectedPage, super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -33,6 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedPageIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.selectedPage != null) {
+      _selectedPageIndex = widget.selectedPage!;
+    }
   }
 
   @override
@@ -130,7 +139,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   offset: Offset(-8.w, 6.h),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        _selectedPageIndex = 1;
+                      });
+                    },
                     icon: Icon(
                       Icons.shopping_basket_outlined,
                       size: 18.sp,

@@ -18,7 +18,10 @@ class ProductProvider with ChangeNotifier {
     return [..._productByCategoryById];
   }
 
+  final String? authToken;
+
   ProductProvider(
+    this.authToken,
     this._productItems,
     this._productByCategoryById,
   );

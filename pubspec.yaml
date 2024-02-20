@@ -41,6 +41,11 @@ dependencies:
   share_plus:
   url_launcher:
   video_player:
+  location:
+  google_maps_flutter:
+  geocoding:
+  geolocator:
+  shared_preferences:
 
 
   # The following adds the Cupertino Icons font to your application.
