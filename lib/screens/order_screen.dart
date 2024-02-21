@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/order_provider.dart';
+import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class OrdersScreen extends StatefulWidget {
-  const OrdersScreen({super.key});
+  final String userId;
+  const OrdersScreen(this.userId, {super.key});
 
   @override
   State<OrdersScreen> createState() => _OrdersScreenState();
@@ -17,7 +19,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
   Future getOrdersData() async {
     return await Provider.of<OrderProvider>(context, listen: false)
-        .fetchOrderData();
+        .fetchOrderData(widget.userId);
   }
 
   @override
@@ -76,26 +78,27 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                   children: [
                                     RichText(
                                       text: TextSpan(
-                                          text: 'Order : ',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontFamily:
-                                                GoogleFonts.lexend().fontFamily,
-                                            fontSize: 12.sp,
-                                            color: Colors.black,
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                              text: "#${orderData[index].id}",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily: GoogleFonts.lexend()
-                                                    .fontFamily,
-                                                fontSize: 12.sp,
-                                                color: Colors.black,
-                                              ),
-                                            )
-                                          ]),
+                                        text: 'Order : ',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily:
+                                              GoogleFonts.lexend().fontFamily,
+                                          fontSize: 12.sp,
+                                          color: Colors.black,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: "#${orderData[index].id}",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: GoogleFonts.lexend()
+                                                  .fontFamily,
+                                              fontSize: 12.sp,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     RichText(
                                       text: TextSpan(
@@ -196,6 +199,7 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                 ),
                                 Expanded(
                                   child: ListView.builder(
+                                    scrollDirection: Axis.vertical,
                                     itemCount:
                                         orderData[index].lineItems.length,
                                     itemBuilder: (context, _) => Container(

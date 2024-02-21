@@ -5,8 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AddressFormWidget extends StatefulWidget {
-  final String? id;
-  const AddressFormWidget(this.id, {super.key});
+  const AddressFormWidget({super.key});
 
   @override
   State<AddressFormWidget> createState() => _AddressFormWidgetState();
@@ -46,7 +45,6 @@ class _AddressFormWidgetState extends State<AddressFormWidget> {
     });
     try {
       await Provider.of<UserProvider>(context, listen: false).updateAddress(
-        widget.id!,
         _firstNameController.text,
         _lastNameController.text,
         _addressController.text,
@@ -109,7 +107,7 @@ class _AddressFormWidgetState extends State<AddressFormWidget> {
     return _isDatafetching
         ? SizedBox(
             height: 100.h,
-            width: 100.w,
+            width: 360.w,
             child: Center(
               child: CircularProgressIndicator(
                 color: Theme.of(context).primaryColor,

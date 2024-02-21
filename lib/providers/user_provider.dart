@@ -138,7 +138,6 @@ class UserProvider with ChangeNotifier {
         prefs.setString('userData', userData);
         notifyListeners();
       }
-      fetchProfile();
       return _userId!;
     } catch (error) {
       print(error);
@@ -215,8 +214,8 @@ class UserProvider with ChangeNotifier {
   }
 
   // user profile update using PUT method
-  Future<void> updateProfile(String id, String email, String firstName,
-      String lastName, String userName) async {
+  Future<void> updateProfile(
+      String email, String firstName, String lastName, String userName) async {
     try {
       final url =
           Uri.parse('https://gracias.ae/wp-json/wc/v3/customers/$_userId');
@@ -243,7 +242,6 @@ class UserProvider with ChangeNotifier {
 
   // user Address update using PUT method
   Future<void> updateAddress(
-    String id,
     String firstName,
     String lastName,
     String address,
@@ -288,10 +286,11 @@ class UserProvider with ChangeNotifier {
       "shipping": shippingData,
     };
     try {
-      final url = Uri.parse('https://gracias.ae/wp-json/wc/v3/customers/$id')
-          .replace(queryParameters: {
-        '_fields[]': ['billing', 'shipping'],
-      });
+      final url =
+          Uri.parse('https://gracias.ae/wp-json/wc/v3/customers/$_userId');
+      //         .replace(queryParameters: {
+      //   '_fields[]': ['billing', 'shipping'],
+      // });
       final response = await http.put(
         url,
         headers: {

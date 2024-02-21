@@ -6,8 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProfileUpdateWidget extends StatefulWidget {
-  final String? id;
-  const ProfileUpdateWidget(this.id, {super.key});
+  const ProfileUpdateWidget({super.key});
 
   @override
   State<ProfileUpdateWidget> createState() => _ProfileUpdateWidgetState();
@@ -16,7 +15,6 @@ class ProfileUpdateWidget extends StatefulWidget {
 class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
   bool _isDatafetching = false;
   bool _isLoading = false;
-  List<UserModel>? data;
   final _updateFormKey = GlobalKey<FormState>();
   final InputBorder _formBorder = OutlineInputBorder(
       borderSide: BorderSide(color: const Color(0xFFf16682).withOpacity(0.5)));
@@ -37,7 +35,6 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
     });
     try {
       await Provider.of<UserProvider>(context, listen: false).updateProfile(
-        widget.id!,
         _emailController.text,
         _firstNameController.text,
         _lastNameController.text,
@@ -58,7 +55,7 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
     setState(() {
       _isDatafetching = true;
     });
-    data = await Provider.of<UserProvider>(context, listen: false)
+    await Provider.of<UserProvider>(context, listen: false)
         .fetchProfile()
         .then((value) {
       print(value);
@@ -75,7 +72,6 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
 
   @override
   void initState() {
-    print(widget.id);
     getUserData();
     super.initState();
   }
@@ -85,7 +81,7 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
     return _isDatafetching
         ? SizedBox(
             height: 100.h,
-            width: 100.w,
+            width: 360.w,
             child: Center(
               child: CircularProgressIndicator(
                 color: Theme.of(context).primaryColor,

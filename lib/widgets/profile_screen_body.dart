@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/screens/about_us_screen.dart';
 import 'package:flutter_assignment_app/screens/auth_screen.dart';
+import 'package:flutter_assignment_app/screens/order_screen.dart';
 import 'package:flutter_assignment_app/screens/privacy_policy_screen.dart';
 import 'package:flutter_assignment_app/screens/terms_and_conditions_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
@@ -22,11 +23,16 @@ class ProfileScreenBody extends StatefulWidget {
 }
 
 class _ProfileScreenBodyState extends State<ProfileScreenBody> {
+  bool isLoading = false;
   final FlutterLocalization _localization = FlutterLocalization.instance;
+
   @override
   void initState() {
+    isLoading = true;
     super.initState();
-    Provider.of<UserProvider>(context, listen: false).fetchMyData();
+    Provider.of<UserProvider>(context, listen: false)
+        .fetchMyData()
+        .then((value) => isLoading = false);
   }
 
   @override
@@ -148,7 +154,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             InkWell(
               onTap: auth.userId != null
                   ? () {
-                      profileUpdate(context, auth.userId!);
+                      profileUpdate(context);
                     }
                   : null,
               child: SizedBox(
@@ -181,7 +187,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             InkWell(
               onTap: auth.userId != null
                   ? () {
-                      addressUpdate(context, auth.userId!);
+                      addressUpdate(context);
                     }
                   : null,
               child: SizedBox(
@@ -197,6 +203,44 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     SizedBox(width: 10.w),
                     Text(
                       'Address',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: GoogleFonts.poppins().fontFamily,
+                        fontSize: 16.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            InkWell(
+              onTap: auth.userId != null
+                  ? () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrdersScreen(auth.userId!),
+                        ),
+                      );
+                    }
+                  : null,
+              child: SizedBox(
+                height: 40.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 24.sp,
+                      color: Colors.black,
+                    ),
+                    SizedBox(width: 10.w),
+                    Text(
+                      'My Orders',
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -487,7 +531,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
     );
   }
 
-  profileUpdate(BuildContext context, String id) {
+  profileUpdate(BuildContext context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.white,
@@ -496,21 +540,31 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
       elevation: 2.0,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.w), topRight: Radius.circular(10.w))),
+              topLeft: Radius.circular(10.r), topRight: Radius.circular(10.r))),
       builder: (BuildContext context) {
-        return SingleChildScrollView(
-          child: Container(
-            width: 360.w,
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: ProfileUpdateWidget(id),
-          ),
-        );
+        return isLoading
+            ? SizedBox(
+                height: 100.h,
+                width: 360.w,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              )
+            : SingleChildScrollView(
+                child: Container(
+                  width: 360.w,
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: const ProfileUpdateWidget(),
+                ),
+              );
       },
     );
   }
 
-  addressUpdate(BuildContext context, String id) {
+  addressUpdate(BuildContext context) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.white,
@@ -519,17 +573,27 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
       elevation: 2.0,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.w), topRight: Radius.circular(10.w))),
+              topLeft: Radius.circular(10.r), topRight: Radius.circular(10.r))),
       builder: (BuildContext context) {
-        return SingleChildScrollView(
-          child: Container(
-            height: 640.h,
-            width: 360.w,
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: AddressFormWidget(id),
-          ),
-        );
+        return isLoading
+            ? SizedBox(
+                height: 100.h,
+                width: 360.w,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              )
+            : SingleChildScrollView(
+                child: Container(
+                  height: 640.h,
+                  width: 360.w,
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: const AddressFormWidget(),
+                ),
+              );
       },
     );
   }
