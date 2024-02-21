@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/home_screen.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -145,7 +146,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                       )
                                     : Container(),
                                 Text(
-                                  'Add item',
+                                    AppLocale.productOverviewAddItem.getString(context),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontFamily: GoogleFonts.lexend().fontFamily,
@@ -169,7 +170,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                         backgroundColor: Colors.transparent,
                         childrenPadding: EdgeInsets.all(10.h),
                         title: Text(
-                          'About Product',
+                          AppLocale.productOverviewAbout.getString(context),
                           style: TextStyle(
                             fontFamily: GoogleFonts.poppins().fontFamily,
                             fontWeight: FontWeight.bold,
@@ -287,7 +288,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 ),
               ),
               Text(
-                'Product Added \n Successfully',
+                  AppLocale.addToCartAlertBox1.getString(context),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
@@ -311,7 +312,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   child: Text(
-                    'Continue Shopping',
+                    AppLocale.addToCartAlertBoxButton1.getString(context),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontFamily: GoogleFonts.lexend().fontFamily,
@@ -334,7 +335,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                   );
                 },
                 child: Text(
-                  'Go to Cart',
+                  AppLocale.addToCartAlertButton2.getString(context),
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontFamily: GoogleFonts.lexend().fontFamily,

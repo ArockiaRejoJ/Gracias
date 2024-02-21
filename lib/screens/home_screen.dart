@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/app_drawer_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/cart_screen_body.dart';
 import 'package:flutter_assignment_app/widgets/home_screen_body.dart';
 import 'package:flutter_assignment_app/widgets/profile_screen_body.dart';
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25.r))),
                 content: Text(
-                  'Are you sure you want to exit?',
+                  AppLocale.exitAlert.getString(context),
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18.sp,
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: <Widget>[
                   TextButton(
                     child: Text(
-                      'No',
+                      AppLocale.exitNoButton.getString(context),
                       style: TextStyle(
                           color: Colors.green,
                           fontSize: 18.sp,
@@ -84,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   TextButton(
                     child: Text(
-                      'Yes, exit',
+                      AppLocale.exitYesButton.getString(context),
                       style: TextStyle(
                           color: Colors.red,
                           fontSize: 18.sp,
@@ -186,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 18.sp,
                   color: Theme.of(context).primaryColor,
                 ),
-                label: 'Home',
+                label: AppLocale.homeLabel.getString(context),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -199,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 18.sp,
                   color: Theme.of(context).primaryColor,
                 ),
-                label: 'Cart',
+                label: AppLocale.cartLabel.getString(context),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -212,7 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 18.sp,
                   color: Theme.of(context).primaryColor,
                 ),
-                label: 'Profile',
+                label: AppLocale.profileLabel.getString(context),
               ),
             ],
           ),

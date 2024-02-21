@@ -7,23 +7,13 @@ import 'package:flutter_assignment_app/providers/product_provider.dart';
 import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/screens/auth_screen.dart';
 import 'package:flutter_assignment_app/screens/splash_screens.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
-}
-
-mixin AppLocale {
-  static const String title = 'title';
-
-  static const Map<String, dynamic> EN = {
-    title: 'English',
-  };
-  static const Map<String, dynamic> AR = {
-    title: 'العربية',
-  };
 }
 
 class MyApp extends StatefulWidget {
@@ -40,13 +30,13 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     _localization.init(
       mapLocales: [
-        const MapLocale(
+        MapLocale(
           'en',
           AppLocale.EN,
           countryCode: 'US',
           fontFamily: 'Font EN',
         ),
-        const MapLocale(
+        MapLocale(
           'ar',
           AppLocale.AR,
           countryCode: 'AE',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/carousel_widget.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_assignment_app/widgets/products_widget.dart';
@@ -80,7 +81,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Deliver to',
+                        AppLocale.deliveryTo.getString(context),
                         style: TextStyle(
                           color: fontColor,
                           fontSize: 12.sp,
@@ -90,8 +91,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       ),
                       Text(
                         currentLocation == 'Syria'
-                            ? '🇦🇪 United Arab Emirates'
-                            : '🇸🇾 Syria ',
+                            ? '🇦🇪 ${AppLocale.countryUAE.getString(context)}'
+                            : '🇸🇾 ${AppLocale.countrySY.getString(context)} ',
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontSize: 14.sp,
@@ -119,7 +120,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          'language',
+                          AppLocale.language.getString(context),
                           style: TextStyle(
                             color: fontColor,
                             fontSize: 12.sp,
@@ -164,7 +165,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 SizedBox(height: 10.h),
                 Center(
                   child: Text(
-                    'GRACIAS CATEGORIES',
+                    AppLocale.categoryTitle.getString(context),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontFamily: GoogleFonts.lexend().fontFamily,
@@ -178,7 +179,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 SizedBox(height: 10.h),
                 Center(
                   child: Text(
-                    'GRACIAS PRODUCTS',
+                    AppLocale.productTitle.getString(context),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontFamily: GoogleFonts.lexend().fontFamily,
@@ -254,7 +255,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          'Visit Us :',
+                          AppLocale.visitUs.getString(context),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontFamily: GoogleFonts.lexend().fontFamily,
@@ -264,7 +265,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         ),
                         SizedBox(height: 5.h),
                         Text(
-                          '8th Floor, ADIB Building, Najda Street, Abu Dhabi.',
+                          AppLocale.visitUsAddress.getString(context),
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontFamily: GoogleFonts.lexend().fontFamily,
@@ -282,7 +283,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         ),
                         SizedBox(height: 5.h),
                         Text(
-                          'Welcome to Gracias Gifts & Events – Your Gateway to \nHeartwarming Surprises!',
+                          AppLocale.appMoto.getString(context),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
@@ -377,7 +378,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
   }
 
   Future<Position> _determinePosition() async {
-    print('callinf');
     bool serviceEnabled;
     loc.Location location = loc.Location();
     LocationPermission permission;

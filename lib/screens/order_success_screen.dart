@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/screens/home_screen.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -38,7 +40,7 @@ class OrderSuccessfulScreen extends StatelessWidget {
                   backgroundColor: Theme.of(context).primaryColor,
                 ),
                 child: Text(
-                  'Home Screen',
+                  AppLocale.homeScreen.getString(context),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontFamily: GoogleFonts.lexend().fontFamily,

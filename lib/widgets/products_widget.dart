@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/product_provider.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_assignment_app/widgets/product_container.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -37,8 +39,9 @@ class _ProductsWidgetState extends State<ProductsWidget> {
           return const LoadingWidget(200, 360);
         } else {
           if (dataSnapshot.error != null) {
-            return const Center(
-              child: Text('an error occurred'),
+            return  Center(
+              child: Text(AppLocale.apiErrorText
+                  .getString(context),),
             );
           } else {
             return Consumer<ProductProvider>(
