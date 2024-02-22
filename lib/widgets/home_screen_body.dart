@@ -224,6 +224,19 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         ),
                       ),
                       InkWell(
+                        onTap: launchTikTok,
+                        child: Container(
+                          height: 60.h,
+                          width: 60.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.r),
+                            image: const DecorationImage(
+                              image: AssetImage('assets/images/tiktok.png'),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
                         onTap: launchWhatsApp,
                         child: Container(
                           height: 60.h,

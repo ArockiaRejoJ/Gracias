@@ -188,6 +188,7 @@ class CartProvider with ChangeNotifier {
     String sAddress,
     String sCity,
     String sState,
+    String userId,
   ) async {
     final url = Uri.parse('https://gracias.ae/wp-json/wc/v3/orders');
     billingData = {
@@ -222,11 +223,7 @@ class CartProvider with ChangeNotifier {
       "payment_method": "cod",
       "payment_method_title": "Cash On Delivery",
       "status": "pending",
-      "meta_data": [],
-      "tax_lines": [],
-      "shipping_lines": [],
-      "fee_lines": [],
-      "coupon_lines": []
+      "customer_id": userId,
     };
     try {
       final response = await http.post(
@@ -248,6 +245,7 @@ class CartProvider with ChangeNotifier {
         orderKey = responseData['order_key'];
         orderEmail = email.toString();
         await emptyCart();
+
         notifyListeners();
         return;
       } else {
@@ -260,9 +258,10 @@ class CartProvider with ChangeNotifier {
   }
 
   Future<void> emptyCart() async {
+    await fetchNonceData();
     print('emptyCart in progress');
     for (var cartItem in _cartProdductItems) {
-      removeItemToCart(cartItem.key);
+      await removeItemToCart(cartItem.key);
     }
   }
 }

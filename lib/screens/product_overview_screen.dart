@@ -146,7 +146,8 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                       )
                                     : Container(),
                                 Text(
-                                    AppLocale.productOverviewAddItem.getString(context),
+                                  AppLocale.productOverviewAddItem
+                                      .getString(context),
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontFamily: GoogleFonts.lexend().fontFamily,
@@ -242,6 +243,19 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                           ),
                         ),
                         InkWell(
+                          onTap: launchTikTok,
+                          child: Container(
+                            height: 60.h,
+                            width: 60.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.r),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/images/tiktok.png'),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
                           onTap: launchWhatsApp,
                           child: Container(
                             height: 60.h,
@@ -288,7 +302,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 ),
               ),
               Text(
-                  AppLocale.addToCartAlertBox1.getString(context),
+                AppLocale.addToCartAlertBox1.getString(context),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,

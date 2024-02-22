@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
+import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/screens/order_success_screen.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -15,6 +16,7 @@ class CheckoutScreen extends StatefulWidget {
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
+  String? myUserId;
   final _formkey = GlobalKey<FormState>();
   bool _address = false;
   final FlutterLocalization _localization = FlutterLocalization.instance;
@@ -61,6 +63,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         _sAddressController.text,
         _sCityController.text,
         _sStateController.text,
+        myUserId!,
       )
           .then((value) {
         setState(() {
@@ -97,19 +100,41 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     _formkey.currentState?.reset();
   }
 
+  Future checkAddress() async {
+    final data = Provider.of<UserProvider>(context, listen: false).userData;
+    if (data.isNotEmpty) {
+      _firstNameController.text = data[0].billing.firstName;
+      _lastNameController.text = data[0].billing.lastName;
+      _addressController.text = data[0].billing.address1;
+      _cityController.text = data[0].billing.city;
+      _stateController.text = data[0].billing.state;
+      _phoneController.text = data[0].billing.phone;
+      _emailController.text = data[0].billing.email!;
+      _address = true;
+      _sFirstNameController.text = data[0].shipping.firstName;
+      _sLastNameController.text = data[0].shipping.lastName;
+      _sAddressController.text = data[0].shipping.address1;
+      _sCityController.text = data[0].shipping.city;
+      _sStateController.text = data[0].shipping.state;
+    }
+  }
+
   @override
   void initState() {
     Provider.of<CartProvider>(context, listen: false).getCartLineItems();
+    Provider.of<UserProvider>(context, listen: false).fetchMyData();
+    checkAddress();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    myUserId = Provider.of<UserProvider>(context, listen: false).userId;
     return Directionality(
       textDirection: _localization.currentLocale == const Locale("en", "US")
           ? TextDirection.ltr
           : TextDirection.rtl,
-      child:  Scaffold(
+      child: Scaffold(
         appBar: AppBar(
           title: Text(AppLocale.checkOutItems.getString(context)),
           centerTitle: false,
@@ -145,7 +170,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         focusedBorder: _formBorder,
                         enabledBorder: _formBorder,
                         border: _formBorder,
-                        hintText: AppLocale.firstNameHintText.getString(context),
+                        hintText:
+                            AppLocale.firstNameHintText.getString(context),
                         hintStyle: TextStyle(
                             fontSize: 12.sp, color: const Color(0xFF9EA3A2)),
                         fillColor: Colors.white,
@@ -236,7 +262,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return AppLocale.cityValidationText.getString(context);
+                          return AppLocale.cityValidationText
+                              .getString(context);
                         }
                         return null;
                       },
@@ -262,7 +289,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return AppLocale.stateValidationText.getString(context);
+                          return AppLocale.stateValidationText
+                              .getString(context);
                         }
                         return null;
                       },
@@ -350,7 +378,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                         RegExp regex = RegExp(pattern.toString());
                         if (value!.isEmpty) {
-                          return AppLocale.emailValidationText.getString(context);
+                          return AppLocale.emailValidationText
+                              .getString(context);
                         } else if (!regex.hasMatch(value)) {
                           return AppLocale.emailValidationText2
                               .getString(context);
@@ -409,7 +438,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 validator: _address
                                     ? (value) {
                                         if (value!.isEmpty) {
-                                          return AppLocale.firstNameValidationText
+                                          return AppLocale
+                                              .firstNameValidationText
                                               .getString(context);
                                         }
                                         return null;
@@ -440,7 +470,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 validator: _address
                                     ? (value) {
                                         if (value!.isEmpty) {
-                                          return AppLocale.lastNameValidationText
+                                          return AppLocale
+                                              .lastNameValidationText
                                               .getString(context);
                                         }
                                         return null;
@@ -522,8 +553,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   focusedBorder: _formBorder,
                                   enabledBorder: _formBorder,
                                   border: _formBorder,
-                                  hintText:
-                                      AppLocale.stateHintText.getString(context),
+                                  hintText: AppLocale.stateHintText
+                                      .getString(context),
                                   hintStyle: TextStyle(
                                       fontSize: 12.sp,
                                       color: const Color(0xFF9EA3A2)),
