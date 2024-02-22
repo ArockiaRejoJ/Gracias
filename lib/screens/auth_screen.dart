@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/user_provider.dart';
+import 'package:flutter_assignment_app/screens/home_screen.dart';
 import 'package:flutter_assignment_app/screens/splash_screens.dart';
+import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +17,10 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  bool isError = false;
+  String? errorMsg;
+  bool isRegisterError = false;
+  String? registerErrorMsg;
   bool _isLoading = false;
   bool _isChecked = false;
   bool register = false;
@@ -50,6 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
     _formKey.currentState!.save();
 
     setState(() {
+      isError = false;
       _isLoading = true;
     });
     try {
@@ -63,18 +72,19 @@ class _AuthScreenState extends State<AuthScreen> {
             (value) => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const SplashScreen(),
+                builder: (context) => const HomeScreen(),
               ),
             ),
           );
     } catch (error) {
-      print(error);
-      errorBox();
+      setState(() {
+        isError = true;
+        errorMsg = error.toString();
+      });
     }
     setState(() {
       _isLoading = false;
     });
-    Navigator.of(context).pop();
     _formKey.currentState?.reset();
   }
 
@@ -83,29 +93,52 @@ class _AuthScreenState extends State<AuthScreen> {
     if (!isValid) {
       return;
     }
-    _registerFormKey.currentState!.save();
+    //_registerFormKey.currentState!.save();
 
     setState(() {
+      isRegisterError = false;
       _isLoading = true;
     });
     try {
       await Provider.of<UserProvider>(context, listen: false)
           .register(
-            _rEmailController.text,
-            _firstNameController.text,
-            _lastNameController.text,
-            _rUserNameController.text,
-            _passwordController.text,
-          )
-          .then((value) => register = false);
+        _rEmailController.text,
+        _firstNameController.text,
+        _lastNameController.text,
+        _rUserNameController.text,
+        _passwordController.text,
+      )
+          .then((value) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              AppLocale.registerMessage.getString(context),
+              maxLines: 3,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontSize: 16.sp,
+                  color: Colors.white),
+            ),
+            backgroundColor: Theme.of(context).primaryColor,
+            duration: const Duration(seconds: 2),
+            padding:
+                EdgeInsets.only(left: 15.w, top: 5.h, bottom: 5.h, right: 15.w),
+          ),
+        );
+        register = false;
+      });
     } catch (error) {
-      print(error);
-      errorBox();
+      setState(() {
+        isRegisterError = true;
+        registerErrorMsg = error.toString();
+      });
     }
     setState(() {
       _isLoading = false;
     });
-    _registerFormKey.currentState?.reset();
+    _registerFormKey.currentState!.reset();
   }
 
   @override
@@ -144,7 +177,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 focusedBorder: _formBorder,
                                 enabledBorder: _formBorder,
                                 border: _formBorder,
-                                hintText: "First Name *",
+                                hintText: AppLocale.firstNameHintText
+                                    .getString(context),
                                 hintStyle: TextStyle(
                                     fontSize: 12.sp,
                                     color: const Color(0xFF9EA3A2)),
@@ -154,7 +188,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Enter Valid First Name';
+                                  return AppLocale.firstNameValidationText
+                                      .getString(context);
                                 }
                                 return null;
                               },
@@ -169,7 +204,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 focusedBorder: _formBorder,
                                 enabledBorder: _formBorder,
                                 border: _formBorder,
-                                hintText: "Last Name *",
+                                hintText: AppLocale.lastNameHintText
+                                    .getString(context),
                                 hintStyle: TextStyle(
                                     fontSize: 12.sp,
                                     color: const Color(0xFF9EA3A2)),
@@ -179,7 +215,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Enter Valid Last Name';
+                                  return AppLocale.lastNameValidationText
+                                      .getString(context);
                                 }
                                 return null;
                               },
@@ -194,7 +231,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 focusedBorder: _formBorder,
                                 enabledBorder: _formBorder,
                                 border: _formBorder,
-                                hintText: "username *",
+                                hintText: AppLocale.userNameHintText
+                                    .getString(context),
                                 hintStyle: TextStyle(
                                     fontSize: 12.sp,
                                     color: const Color(0xFF9EA3A2)),
@@ -204,7 +242,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Enter Valid username';
+                                  return AppLocale.userNameValidationText
+                                      .getString(context);
                                 }
                                 return null;
                               },
@@ -219,7 +258,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 focusedBorder: _formBorder,
                                 enabledBorder: _formBorder,
                                 border: _formBorder,
-                                hintText: "E-mail *",
+                                hintText:
+                                    AppLocale.emailHintText.getString(context),
                                 hintStyle: TextStyle(
                                     fontSize: 12.sp,
                                     color: const Color(0xFF9EA3A2)),
@@ -232,9 +272,11 @@ class _AuthScreenState extends State<AuthScreen> {
                                     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                                 RegExp regex = RegExp(pattern.toString());
                                 if (value!.isEmpty) {
-                                  return 'Please valid E-mail';
+                                  return AppLocale.emailValidationText
+                                      .getString(context);
                                 } else if (!regex.hasMatch(value)) {
-                                  return 'Enter your valid E-mail';
+                                  return AppLocale.emailValidationText2
+                                      .getString(context);
                                 }
                                 return null;
                               },
@@ -257,7 +299,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                   focusedBorder: _formBorder,
                                   enabledBorder: _formBorder,
                                   border: _formBorder,
-                                  hintText: "Password *",
+                                  hintText: AppLocale.passwordHintText
+                                      .getString(context),
                                   hintStyle: TextStyle(
                                       fontSize: 12.sp,
                                       color: const Color(0xFF9EA3A2)),
@@ -282,7 +325,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 //     r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
                                 // RegExp regex = RegExp(pattern.toString());
                                 if (value!.isEmpty) {
-                                  return 'Enter valid password';
+                                  return AppLocale.passwordValidationText
+                                      .getString(context);
                                 }
                                 // else if (value.length < 8) {
                                 //   return ("Password must be more than 7 characters");
@@ -310,7 +354,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                   focusedBorder: _formBorder,
                                   enabledBorder: _formBorder,
                                   border: _formBorder,
-                                  hintText: "Confirm *",
+                                  hintText: AppLocale.cPasswordHintText
+                                      .getString(context),
                                   hintStyle: TextStyle(
                                       fontSize: 12.sp,
                                       color: const Color(0xFF9EA3A2)),
@@ -332,14 +377,35 @@ class _AuthScreenState extends State<AuthScreen> {
                                       onPressed: _toggleObscured)),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Enter Valid Confirm Password';
+                                  return AppLocale.cPasswordValidationText1
+                                      .getString(context);
                                 } else if (value != _passwordController.text) {
-                                  return ("Password Mismatched");
+                                  return AppLocale.cPasswordValidationText2
+                                      .getString(context);
                                 }
                                 return null;
                               },
                             ),
                           ),
+                          isRegisterError
+                              ? Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        15.w, 10.h, 0.w, 0.h),
+                                    child: Text(
+                                      registerErrorMsg!.replaceAll("-", " "),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily,
+                                        fontSize: 12.sp,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
                           SizedBox(height: 20.h),
                           SizedBox(
                             height: 50.h,
@@ -358,7 +424,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                       strokeWidth: 3,
                                     )
                                   : Text(
-                                      'Register',
+                                      AppLocale.registerButton
+                                          .getString(context),
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontFamily:
@@ -378,7 +445,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 });
                               },
                               child: Text(
-                                'Login?',
+                                '${AppLocale.loginButton.getString(context)}?',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontFamily: GoogleFonts.lexend().fontFamily,
@@ -406,7 +473,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                 focusedBorder: _formBorder,
                                 enabledBorder: _formBorder,
                                 border: _formBorder,
-                                hintText: "username or email *",
+                                hintText:
+                                    AppLocale.emailHintText.getString(context),
                                 hintStyle: TextStyle(
                                     fontSize: 12.sp,
                                     color: const Color(0xFF9EA3A2)),
@@ -416,7 +484,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Enter Valid username or email';
+                                  return AppLocale.emailHintText
+                                      .getString(context);
                                 }
                                 return null;
                               },
@@ -439,7 +508,8 @@ class _AuthScreenState extends State<AuthScreen> {
                                   focusedBorder: _formBorder,
                                   enabledBorder: _formBorder,
                                   border: _formBorder,
-                                  hintText: "Password *",
+                                  hintText: AppLocale.passwordHintText
+                                      .getString(context),
                                   hintStyle: TextStyle(
                                       fontSize: 12.sp,
                                       color: const Color(0xFF9EA3A2)),
@@ -461,14 +531,36 @@ class _AuthScreenState extends State<AuthScreen> {
                                       onPressed: _toggleObscured)),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'Enter valid password';
+                                  return AppLocale.passwordValidationText
+                                      .getString(context);
                                 }
                                 return null;
                               },
                             ),
                           ),
+                          isError
+                              ? Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(
+                                        15.w, 8.h, 0.w, 5.h),
+                                    child: Text(
+                                      errorMsg!
+                                          .replaceAll("[jwt_auth]", "")
+                                          .replaceAll("_", " "),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily:
+                                            GoogleFonts.poppins().fontFamily,
+                                        fontSize: 12.sp,
+                                        color: Colors.red,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
                           Padding(
-                            padding: EdgeInsets.fromLTRB(20.w, 0.h, 5.w, 0.h),
+                            padding: EdgeInsets.fromLTRB(20.w, 10.h, 5.w, 0.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -506,7 +598,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     Padding(
                                       padding: EdgeInsets.only(top: 3.h),
                                       child: Text(
-                                        'Remember me',
+                                        AppLocale.rememberMe.getString(context),
                                         style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontFamily:
@@ -518,21 +610,22 @@ class _AuthScreenState extends State<AuthScreen> {
                                     )
                                   ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 3.h),
-                                  child: TextButton(
-                                      onPressed: () {},
-                                      child: Text(
-                                        'Forget password ?',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontFamily:
-                                              GoogleFonts.poppins().fontFamily,
-                                          fontSize: 12.sp,
-                                          color: Colors.black,
-                                        ),
-                                      )),
-                                )
+                                // Padding(
+                                //   padding: EdgeInsets.only(top: 3.h),
+                                //   child: TextButton(
+                                //       onPressed: () {},
+                                //       child: Text(
+                                //         AppLocale.forgetPassword
+                                //             .getString(context),
+                                //         style: TextStyle(
+                                //           fontWeight: FontWeight.w600,
+                                //           fontFamily:
+                                //               GoogleFonts.poppins().fontFamily,
+                                //           fontSize: 12.sp,
+                                //           color: Colors.black,
+                                //         ),
+                                //       )),
+                                // )
                               ],
                             ),
                           ),
@@ -554,7 +647,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                       strokeWidth: 3,
                                     )
                                   : Text(
-                                      'SignIn',
+                                      AppLocale.loginButton.getString(context),
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontFamily:
@@ -574,7 +667,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 });
                               },
                               child: Text(
-                                'Create New Account?',
+                                AppLocale.createAccount.getString(context),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontFamily: GoogleFonts.lexend().fontFamily,
@@ -595,16 +688,16 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  void errorBox() {
+  errorBox(var error) {
     showDialog(
       context: context,
       builder: (ctx) {
         return AlertDialog(
-          title: const Text('An Error Occurred'),
-          content: const Text('Something went Wrong'),
+          title: Text(AppLocale.apiErrorText.getString(context)),
+          content: Text(error!),
           actions: [
             TextButton(
-              child: const Text('Okay'),
+              child: Text(AppLocale.apiErrorTextOkayButton.getString(context)),
               onPressed: () {
                 Navigator.of(context).pop();
               },

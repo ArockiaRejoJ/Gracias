@@ -33,6 +33,13 @@ void launchInstagram() async {
   }
 }
 
+void launchTikTok() async {
+  if (!await launchUrl(Uri.parse("https://www.tiktok.com/@gracias.ae"),
+      mode: LaunchMode.externalApplication)) {
+    throw 'Could not launch ';
+  }
+}
+
 void launchPlayStore() async {
   if (!await launchUrl(
       Uri.parse(

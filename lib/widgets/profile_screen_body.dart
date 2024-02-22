@@ -7,6 +7,7 @@ import 'package:flutter_assignment_app/screens/privacy_policy_screen.dart';
 import 'package:flutter_assignment_app/screens/terms_and_conditions_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/address_form_widget.dart';
 import 'package:flutter_assignment_app/widgets/profile_update_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -107,7 +108,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                           ),
                           SizedBox(width: 10.w),
                           Text(
-                            'Login',
+                            AppLocale.loginButton.getString(context),
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontFamily: GoogleFonts.poppins().fontFamily,
@@ -136,7 +137,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'Country & Languages',
+                      AppLocale.countryLanguage.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -169,7 +170,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'Profile',
+                      AppLocale.profile.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -202,7 +203,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'Address',
+                      AppLocale.address.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -240,7 +241,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'My Orders',
+                      AppLocale.myOrders.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -260,7 +261,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AboutUsScreen(),
+                    builder: (context) => AboutUsScreen(),
                   ),
                 );
               },
@@ -276,7 +277,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'About Us',
+                      AppLocale.aboutUs.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -294,7 +295,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PrivacyPolicyScreen(),
+                    builder: (context) => PrivacyPolicyScreen(),
                   ),
                 );
               },
@@ -310,7 +311,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'Privacy Policy',
+                      AppLocale.privacyPolicy.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -328,7 +329,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const TermsAndConditionsScreen(),
+                    builder: (context) => TermsAndConditionsScreen(),
                   ),
                 );
               },
@@ -344,7 +345,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'Terms & Conditions',
+                      AppLocale.termsAndConditions.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -375,7 +376,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'Star Ratings',
+                      AppLocale.starRatting.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -391,7 +392,8 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             InkWell(
               onTap: () {
                 Share.share(
-                    'Hey, I love Gracias & I think you will too! \n\nGracias Gifts & Events – Your Gateway to Heartwarming Surprises! \n\nDownload the app here: https://play.google.com/store/apps/details?id=com.gracias.app');
+                  AppLocale.shareContent.getString(context),
+                );
               },
               child: SizedBox(
                 height: 40.h,
@@ -403,7 +405,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'Share with friends',
+                      AppLocale.shareWithFriends.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -418,11 +420,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             SizedBox(height: 10.h),
             InkWell(
               onTap: () {
-                auth.logout();
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AuthScreen()),
-                    (route) => false);
+                logout(context);
               },
               child: SizedBox(
                 height: 40.h,
@@ -436,7 +434,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                     ),
                     SizedBox(width: 10.w),
                     Text(
-                      'Sign out',
+                      AppLocale.signOut.getString(context),
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontFamily: GoogleFonts.poppins().fontFamily,
@@ -453,7 +451,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             ),
             Center(
               child: Text(
-                'Version: 1.0.1',
+                '${AppLocale.appVersion.getString(context)} 1.0.2',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontFamily: GoogleFonts.poppins().fontFamily,
@@ -594,6 +592,66 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                   child: const AddressFormWidget(),
                 ),
               );
+      },
+    );
+  }
+
+  void logout(BuildContext context) {
+    final auth = Provider.of<UserProvider>(context, listen: false);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Directionality(
+          textDirection: _localization.currentLocale == const Locale("en", "US")
+              ? TextDirection.ltr
+              : TextDirection.rtl,
+          child: AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25.r))),
+            content: Text(
+              AppLocale.logoutAlert.getString(context),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.sp,
+                  fontFamily: GoogleFonts.lexend().fontFamily,
+                  fontWeight: FontWeight.w600),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(
+                  AppLocale.exitNoButton.getString(context),
+                  style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 18.sp,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontWeight: FontWeight.w500),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  AppLocale.logoutYesButton.getString(context),
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 18.sp,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontWeight: FontWeight.w500),
+                ),
+                onPressed: () {
+                  auth.logout();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AuthScreen()),
+                      (route) => false);
+                },
+              ),
+            ],
+          ),
+        );
       },
     );
   }

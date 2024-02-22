@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/providers/product_provider.dart';
+import 'package:flutter_assignment_app/screens/home_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +23,7 @@ class CategoryByProductScreen extends StatefulWidget {
 }
 
 class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
+  final FlutterLocalization _localization = FlutterLocalization.instance;
   Future? productsByCategoryFuture;
   late ScrollController _scrollController;
   int _currentPage = 1;
@@ -44,8 +48,8 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
     super.initState();
     Provider.of<CartProvider>(context, listen: false).fetchData();
     productsByCategoryFuture = _loadProducts();
-    _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
+    // _scrollController = ScrollController();
+    // _scrollController.addListener(_scrollListener);
   }
 
   @override
@@ -60,125 +64,131 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
             widget.isArabic, _currentPage, widget.categoryId!);
   }
 
-  void _scrollListener() {
-    if (_scrollController.position.atEdge) {
-      if (_scrollController.position.pixels == 0) {
-      } else {
-        _currentPage++;
-        productsByCategoryFuture = _loadProducts();
-      }
-    }
-  }
+  // void _scrollListener() {
+  //   if (_scrollController.position.atEdge) {
+  //     if (_scrollController.position.pixels == 0) {
+  //     } else {
+  //       _currentPage++;
+  //       productsByCategoryFuture = _loadProducts();
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     final productData =
         Provider.of<ProductProvider>(context).productByCategoryById;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.name!),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
-      body: FutureBuilder(
-        future: productsByCategoryFuture,
-        builder: (context, dataSnapshot) {
-          if (dataSnapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: LoadingWidget(200, 360));
-          } else {
-            if (dataSnapshot.error != null) {
-              return const Center(
-                child: Text('an error occurred'),
-              );
+    return Directionality(
+      textDirection: _localization.currentLocale == const Locale("en", "US")
+          ? TextDirection.ltr
+          : TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.name!),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+        ),
+        body: FutureBuilder(
+          future: productsByCategoryFuture,
+          builder: (context, dataSnapshot) {
+            if (dataSnapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: LoadingWidget(200, 360));
             } else {
-              return Consumer<ProductProvider>(
-                builder: (context, ordersData, _) {
-                  return productData.isEmpty
-                      ? Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 100.h,
-                                width: 150.w,
-                                child: Image.asset('assets/images/empty.png'),
-                              ),
-                              SizedBox(height: 5.h),
-                              const Text('No Products found'),
-                            ],
-                          ),
-                        )
-                      : ListView.builder(
-                          controller: _scrollController,
-                          padding: EdgeInsets.all(10.h),
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          shrinkWrap: true,
-                          itemCount: productData.length,
-                          itemBuilder: (_, index) => Center(
-                            child: Container(
-                              margin: EdgeInsets.only(bottom: 10.h),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5.r),
-                                  color: bgColor,
-                                  border: Border.all(
-                                      color: Colors.black12, width: 0.5)),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 200.h,
-                                    width: 340.w,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(5.r),
-                                        topRight: Radius.circular(5.r),
-                                      ),
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                            productData[index].thumbnail!),
-                                        fit: BoxFit.fitWidth,
+              if (dataSnapshot.error != null) {
+                return Center(
+                  child: Text(
+                    AppLocale.apiErrorText.getString(context),
+                  ),
+                );
+              } else {
+                return Consumer<ProductProvider>(
+                  builder: (context, ordersData, _) {
+                    return productData.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 100.h,
+                                  width: 150.w,
+                                  child: Image.asset('assets/images/empty.png'),
+                                ),
+                                SizedBox(height: 5.h),
+                                Text(AppLocale.noProductsFound
+                                    .getString(context)),
+                              ],
+                            ),
+                          )
+                        : ListView.builder(
+                            //controller: _scrollController,
+                            padding: EdgeInsets.all(10.h),
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: productData.length,
+                            itemBuilder: (_, index) => Center(
+                              child: Container(
+                                margin: EdgeInsets.only(bottom: 10.h),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.r),
+                                    color: bgColor,
+                                    border: Border.all(
+                                        color: Colors.black12, width: 0.5)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      height: 170.h,
+                                      width: 130.w,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(5.r),
+                                          bottomLeft: Radius.circular(5.r),
+                                        ),
+                                        image: DecorationImage(
+                                          image: NetworkImage(
+                                              productData[index].thumbnail!),
+                                          fit: BoxFit.fitHeight,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(15.h),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          productData[index].title!,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily:
-                                                GoogleFonts.lexend().fontFamily,
-                                            fontSize: 18.sp,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        SizedBox(height: 5.h),
-                                        Row(
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.all(15.h),
+                                        child: Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  '\$ ${productData[index].price!}  ',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontFamily:
-                                                        GoogleFonts.lexend()
-                                                            .fontFamily,
-                                                    fontSize: 18.sp,
-                                                    color: Colors.black
-                                                        .withOpacity(0.8),
-                                                  ),
-                                                ),
-                                              ],
+                                            Text(
+                                              productData[index].title!,
+                                              maxLines: 3,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: GoogleFonts.lexend()
+                                                    .fontFamily,
+                                                fontSize: 18.sp,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(height: 10.h),
+                                            Text(
+                                              '\$ ${productData[index].price!}  ',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: GoogleFonts.lexend()
+                                                    .fontFamily,
+                                                fontSize: 18.sp,
+                                                color: Colors.black
+                                                    .withOpacity(0.8),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10.h,
                                             ),
                                             InkWell(
                                               onTap: () {
@@ -221,7 +231,9 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                                                           )
                                                         : Container(),
                                                     Text(
-                                                      'Add item',
+                                                      AppLocale
+                                                          .productOverviewAddItem
+                                                          .getString(context),
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -238,19 +250,19 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                                             ),
                                           ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                },
-              );
+                          );
+                  },
+                );
+              }
             }
-          }
-        },
+          },
+        ),
       ),
     );
   }
@@ -277,7 +289,7 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                 ),
               ),
               Text(
-                'Product Added \n Successfully',
+                AppLocale.addToCartAlertBox1.getString(context),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w400,
@@ -286,7 +298,7 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 8.h),
               SizedBox(
                 height: 50.h,
                 width: 340.w,
@@ -301,7 +313,7 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                     backgroundColor: Theme.of(context).primaryColor,
                   ),
                   child: Text(
-                    'Continue Shopping',
+                    AppLocale.addToCartAlertBoxButton1.getString(context),
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontFamily: GoogleFonts.lexend().fontFamily,
@@ -311,13 +323,20 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 12.h),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).popUntil((_) => count++ >= 2);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(
+                        selectedPage: 1,
+                      ),
+                    ),
+                  );
                 },
                 child: Text(
-                  'Go to Home',
+                  AppLocale.addToCartAlertButton2.getString(context),
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontFamily: GoogleFonts.lexend().fontFamily,

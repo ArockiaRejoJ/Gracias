@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/app_drawer_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/cart_screen_body.dart';
 import 'package:flutter_assignment_app/widgets/home_screen_body.dart';
 import 'package:flutter_assignment_app/widgets/profile_screen_body.dart';
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(25.r))),
                 content: Text(
-                  'Are you sure you want to exit?',
+                  AppLocale.exitAlert.getString(context),
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18.sp,
@@ -71,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 actions: <Widget>[
                   TextButton(
                     child: Text(
-                      'No',
+                      AppLocale.exitNoButton.getString(context),
                       style: TextStyle(
                           color: Colors.green,
                           fontSize: 18.sp,
@@ -84,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   TextButton(
                     child: Text(
-                      'Yes, exit',
+                      AppLocale.exitYesButton.getString(context),
                       style: TextStyle(
                           color: Colors.red,
                           fontSize: 18.sp,
@@ -132,11 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
             actions: [
               Consumer<CartProvider>(builder: (context, cartData, _) {
                 return Badge(
+                  alignment: Alignment.topRight,
                   backgroundColor: Theme.of(context).primaryColor,
-                  label: Padding(
-                    padding: EdgeInsets.only(left: 1.w, right: 1.w),
-                    child: Text('${cartData.cartProdductItems.length}'),
-                  ),
+                  label: Text('${cartData.cartProdductItems.length}'),
                   offset: Offset(-8.w, 6.h),
                   child: IconButton(
                     onPressed: () {
@@ -152,6 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               }),
+              SizedBox(width: 10.w),
             ],
           ),
           body: _body[_selectedPageIndex],
@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 18.sp,
                   color: Theme.of(context).primaryColor,
                 ),
-                label: 'Home',
+                label: AppLocale.homeLabel.getString(context),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 18.sp,
                   color: Theme.of(context).primaryColor,
                 ),
-                label: 'Cart',
+                label: AppLocale.cartLabel.getString(context),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 18.sp,
                   color: Theme.of(context).primaryColor,
                 ),
-                label: 'Profile',
+                label: AppLocale.profileLabel.getString(context),
               ),
             ],
           ),

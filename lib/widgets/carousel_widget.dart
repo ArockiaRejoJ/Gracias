@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/banner_provider.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -37,8 +39,8 @@ class _CarousalState extends State<Carousal> {
           return const LoadingWidget(200, 360);
         } else {
           if (dataSnapshot.error != null) {
-            return const Center(
-              child: Text('an error occurred'),
+            return Center(
+              child: Text(AppLocale.apiErrorText.getString(context)),
             );
           } else {
             return Consumer<BannerProvider>(
@@ -92,7 +94,7 @@ class _CarousalState extends State<Carousal> {
                                 errorBuilder: (context, exception, stackTrace) {
                                   return Image.asset(
                                     'assets/images/logo.png',
-                                    fit: BoxFit.fitWidth,
+                                    fit: BoxFit.fitHeight,
                                   );
                                 },
                               ),

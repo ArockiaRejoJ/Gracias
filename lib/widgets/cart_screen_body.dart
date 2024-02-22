@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/checkout_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/utils/transilation_words.dart';
+import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -160,7 +162,10 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                           .start,
                                                                   children: [
                                                                     Text(
-                                                                      'Qty',
+                                                                      AppLocale
+                                                                          .cartQty
+                                                                          .getString(
+                                                                              context),
                                                                       style:
                                                                           TextStyle(
                                                                         fontWeight:
@@ -272,7 +277,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                   ],
                                                                 ),
                                                                 Text(
-                                                                  "Price: \$ ${(int.parse(cartData.cartProdductItems[index].prices.price) / 100).toStringAsFixed(2)}",
+                                                                  "${AppLocale.cartPrice.getString(context)}: \$ ${(int.parse(cartData.cartProdductItems[index].prices.price) / 100).toStringAsFixed(2)}",
                                                                   style:
                                                                       TextStyle(
                                                                     fontWeight:
@@ -294,10 +299,9 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                       )
                                                     : Container(),
                                       )
-                                    : const Center(
-                                        child: Text(
-                                          'Your cart is empty',
-                                        ),
+                                    : Center(
+                                        child: Text(AppLocale.noCartProductFound
+                                            .getString(context)),
                                       );
                               },
                             ),
@@ -330,7 +334,8 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                        'Total Summary',
+                                        AppLocale.totalSummary
+                                            .getString(context),
                                         style: TextStyle(
                                           fontWeight: FontWeight.w700,
                                           fontFamily:
@@ -344,7 +349,8 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'Subtotal',
+                                            AppLocale.subTotal
+                                                .getString(context),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontFamily: GoogleFonts.poppins()
@@ -370,7 +376,8 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'Delivery',
+                                            AppLocale.deliveryFee
+                                                .getString(context),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontFamily: GoogleFonts.poppins()
@@ -396,7 +403,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'Tax',
+                                            AppLocale.tax.getString(context),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontFamily: GoogleFonts.poppins()
@@ -422,7 +429,8 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            'Grand Total',
+                                            AppLocale.grandTotal
+                                                .getString(context),
                                             style: TextStyle(
                                               fontWeight: FontWeight.w400,
                                               fontFamily: GoogleFonts.poppins()
@@ -470,7 +478,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                 backgroundColor: Theme.of(context).primaryColor,
                               ),
                               child: Text(
-                                'Check out items(${cartProductData.length})',
+                                '${AppLocale.checkOutItems.getString(context)}(${cartProductData.length})',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontFamily: GoogleFonts.lexend().fontFamily,
@@ -496,8 +504,8 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                           ),
                         ),
                         SizedBox(height: 5.h),
-                        const Text(
-                          'Your cart is empty',
+                        Text(
+                          AppLocale.noCartProductFound.getString(context),
                         ),
                       ],
                     ),
