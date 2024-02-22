@@ -261,7 +261,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  AboutUsScreen(),
+                    builder: (context) => AboutUsScreen(),
                   ),
                 );
               },
@@ -295,7 +295,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  PrivacyPolicyScreen(),
+                    builder: (context) => PrivacyPolicyScreen(),
                   ),
                 );
               },
@@ -329,7 +329,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  TermsAndConditionsScreen(),
+                    builder: (context) => TermsAndConditionsScreen(),
                   ),
                 );
               },
@@ -420,11 +420,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             SizedBox(height: 10.h),
             InkWell(
               onTap: () {
-                auth.logout();
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AuthScreen()),
-                    (route) => false);
+                logout(context);
               },
               child: SizedBox(
                 height: 40.h,
@@ -596,6 +592,66 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                   child: const AddressFormWidget(),
                 ),
               );
+      },
+    );
+  }
+
+  void logout(BuildContext context) {
+    final auth = Provider.of<UserProvider>(context, listen: false);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Directionality(
+          textDirection: _localization.currentLocale == const Locale("en", "US")
+              ? TextDirection.ltr
+              : TextDirection.rtl,
+          child: AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(25.r))),
+            content: Text(
+              AppLocale.logoutAlert.getString(context),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18.sp,
+                  fontFamily: GoogleFonts.lexend().fontFamily,
+                  fontWeight: FontWeight.w600),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text(
+                  AppLocale.exitNoButton.getString(context),
+                  style: TextStyle(
+                      color: Colors.green,
+                      fontSize: 18.sp,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontWeight: FontWeight.w500),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text(
+                  AppLocale.logoutYesButton.getString(context),
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 18.sp,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      fontWeight: FontWeight.w500),
+                ),
+                onPressed: () {
+                  auth.logout();
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AuthScreen()),
+                      (route) => false);
+                },
+              ),
+            ],
+          ),
+        );
       },
     );
   }

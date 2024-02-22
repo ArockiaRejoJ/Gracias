@@ -39,7 +39,7 @@ class _CarousalState extends State<Carousal> {
           return const LoadingWidget(200, 360);
         } else {
           if (dataSnapshot.error != null) {
-            return  Center(
+            return Center(
               child: Text(AppLocale.apiErrorText.getString(context)),
             );
           } else {
@@ -94,7 +94,7 @@ class _CarousalState extends State<Carousal> {
                                 errorBuilder: (context, exception, stackTrace) {
                                   return Image.asset(
                                     'assets/images/logo.png',
-                                    fit: BoxFit.fitWidth,
+                                    fit: BoxFit.fitHeight,
                                   );
                                 },
                               ),

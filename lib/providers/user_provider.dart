@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_assignment_app/models/user_model.dart';
+import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,6 +51,7 @@ class UserProvider with ChangeNotifier {
     return null;
   }
 
+  bool isRemember = false;
   // user register using post method
   Future<void> register(String email, String firstName, String lastName,
       String userName, String password) async {
@@ -73,6 +74,10 @@ class UserProvider with ChangeNotifier {
       );
       final data = json.decode(response.body);
       print(data);
+
+      if (data['code'] != null) {
+        throw data['code'].toString();
+      }
     } catch (error) {
       rethrow;
     }
@@ -87,11 +92,17 @@ class UserProvider with ChangeNotifier {
         'username': userName,
         'password': password,
       });
+
       final data = json.decode(response.body);
       print(data);
 
+      if (data['code'] != null) {
+        throw data['code'].toString();
+      }
+
       if (response.statusCode == 200) {
         if (remember == true) {
+          isRemember = remember;
           _token = data['token'];
           _email = data['user_email'];
           _userName = data['user_display_name'];
@@ -127,15 +138,17 @@ class UserProvider with ChangeNotifier {
       print(data);
       if (response.statusCode == 200) {
         _userId = data['id'].toString();
-        final prefs = await SharedPreferences.getInstance();
-        final userData = json.encode({
-          'userId': _userId,
-          'userToken': _token,
-          'userEmail': _email,
-          'userName': _userName,
-        });
-        print(userData);
-        prefs.setString('userData', userData);
+        if (isRemember) {
+          final prefs = await SharedPreferences.getInstance();
+          final userData = json.encode({
+            'userId': _userId,
+            'userToken': _token,
+            'userEmail': _email,
+            'userName': _userName,
+          });
+          print(userData);
+          prefs.setString('userData', userData);
+        }
         notifyListeners();
       }
       return _userId!;
@@ -179,6 +192,7 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
+    print('Account Logout done');
   }
 
   Future fetchProfile() async {

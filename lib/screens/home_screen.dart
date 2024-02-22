@@ -133,11 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
             actions: [
               Consumer<CartProvider>(builder: (context, cartData, _) {
                 return Badge(
+                  alignment: Alignment.topRight,
                   backgroundColor: Theme.of(context).primaryColor,
-                  label: Padding(
-                    padding: EdgeInsets.only(left: 1.w, right: 1.w),
-                    child: Text('${cartData.cartProdductItems.length}'),
-                  ),
+                  label: Text('${cartData.cartProdductItems.length}'),
                   offset: Offset(-8.w, 6.h),
                   child: IconButton(
                     onPressed: () {
@@ -153,6 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               }),
+              SizedBox(width: 10.w),
             ],
           ),
           body: _body[_selectedPageIndex],

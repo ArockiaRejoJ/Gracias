@@ -229,6 +229,10 @@ mixin AppLocale {
   static const String registerButton = 'Register';
   static const String loginButton = 'Login';
 
+  static const String logoutAlert = 'Are you sure you want to Logout?';
+  static const String logoutYesButton = 'Yes, Logout';
+  static const String registerMessage =
+      'New User Registration Successful, you can now login to start using our application';
   static Map<String, dynamic> EN = {
     // Home Screen
     deliveryTo: 'Delivery to',
@@ -455,6 +459,10 @@ mixin AppLocale {
     deliveryFee: 'Delivery',
     registerButton: 'Register',
     loginButton: 'Login',
+
+    logoutAlert: 'Are you sure you want to Logout?',
+    logoutYesButton: 'Yes, Logout',
+
   };
 
   // arabic translation
@@ -683,5 +691,9 @@ mixin AppLocale {
     deliveryFee: 'توصيل',
     registerButton: 'يسجل',
     loginButton: 'تسجيل الدخول',
+    logoutAlert: 'هل أنت متأكد أنك تريد تسجيل الخروج؟',
+    logoutYesButton: 'نعم، تسجيل الخروج',
+    registerMessage :
+    'تم تسجيل مستخدم جديد بنجاح، يمكنك الآن تسجيل الدخول لبدء استخدام تطبيقنا',
   };
 }
