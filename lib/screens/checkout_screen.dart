@@ -77,7 +77,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         );
       });
     } catch (error) {
-      print(error);
       await showDialog(
         context: context,
         builder: (ctx) {

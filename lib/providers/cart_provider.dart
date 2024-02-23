@@ -47,10 +47,8 @@ class CartProvider with ChangeNotifier {
       });
       final responseHeader = response.headers;
       nonceKey = responseHeader['nonce'];
-      print('Nonce key : $nonceKey');
       notifyListeners();
     } catch (error) {
-      print(error);
       rethrow;
     }
   }
@@ -62,8 +60,6 @@ class CartProvider with ChangeNotifier {
       newItems.add({'product_id': cartItem.id, 'quantity': cartItem.quantity});
     }
     _lineItems = newItems;
-    print('All Product List -----------------------------------------------');
-    print(_lineItems);
   }
 
   // Remove product to cart using post method
@@ -79,7 +75,6 @@ class CartProvider with ChangeNotifier {
         headers: {'Authorization': 'Bearer $authToken', 'Nonce': '$nonceKey'},
       );
       final extractedData = json.decode(response.body);
-      print(extractedData);
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -88,7 +83,6 @@ class CartProvider with ChangeNotifier {
 
   // Update product to cart using post method
   Future<void> updateItemToCart(String key, int productId, int quantity) async {
-    print(quantity);
     var found = _cartProdductItems.firstWhere(
       (element) => element.id == productId,
     );
@@ -106,7 +100,6 @@ class CartProvider with ChangeNotifier {
       );
       final extractedData = json.decode(response.body);
       found.quantity = quantity;
-      print(extractedData);
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -122,7 +115,6 @@ class CartProvider with ChangeNotifier {
       });
       final responseHeader = response.headers;
       nonceKey = responseHeader['nonce'];
-      print('Nonce key : $nonceKey');
       final extractedData = json.decode(response.body);
       final data = extractedData['items'];
       if (data is List) {
@@ -131,21 +123,16 @@ class CartProvider with ChangeNotifier {
       } else if (data is Map<String, dynamic>) {
         _cartProdductItems = [CartModelItem.fromJson(data)];
       } else {
-        print('Unexpected response format');
       }
       if (extractedData is List) {
         _cartItems =
             extractedData.map((item) => CartModel.fromJson(item)).toList();
-        print('data fetched in if');
       } else if (extractedData is Map<String, dynamic>) {
         _cartItems = [CartModel.fromJson(extractedData)];
-        print('data fetched in else part');
       } else {
-        print('Unexpected response format');
       }
       notifyListeners();
     } catch (error) {
-      print(error);
       rethrow;
     }
   }
@@ -163,7 +150,6 @@ class CartProvider with ChangeNotifier {
         headers: {'Authorization': 'Bearer $authToken', 'Nonce': '$nonceKey'},
       );
       final extractedData = json.decode(response.body);
-      print(extractedData);
 
       _cartProdductItems.length + 1;
       notifyListeners();
@@ -238,9 +224,6 @@ class CartProvider with ChangeNotifier {
       );
       if (response.statusCode == 201) {
         final Map<String, dynamic> responseData = jsonDecode(response.body);
-        print('Order created successfully. Order ID: ${responseData['id']}');
-        print(
-            'Order created successfully. Order key: ${responseData['order_key']}');
         orderId = responseData['id'];
         orderKey = responseData['order_key'];
         orderEmail = email.toString();
@@ -249,8 +232,6 @@ class CartProvider with ChangeNotifier {
         notifyListeners();
         return;
       } else {
-        print('Failed to create order. Status code: ${response.statusCode}');
-        print('Response body: ${response.body}');
       }
     } catch (error) {
       rethrow;
@@ -259,7 +240,6 @@ class CartProvider with ChangeNotifier {
 
   Future<void> emptyCart() async {
     await fetchNonceData();
-    print('emptyCart in progress');
     for (var cartItem in _cartProdductItems) {
       await removeItemToCart(cartItem.key);
     }

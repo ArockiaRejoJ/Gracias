@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/screens/home_screen.dart';
-import 'package:flutter_assignment_app/screens/splash_screens.dart';
-import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,8 +41,9 @@ class _AuthScreenState extends State<AuthScreen> {
   void _toggleObscured() {
     setState(() {
       _passwordVisible = !_passwordVisible;
-      if (textFieldFocusNode.hasPrimaryFocus)
+      if (textFieldFocusNode.hasPrimaryFocus) {
         return; // If focus is on text field, dont unfocus
+      }
       textFieldFocusNode.canRequestFocus =
           false; // Prevents focus if tap on eye
     });

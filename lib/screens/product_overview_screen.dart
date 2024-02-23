@@ -194,6 +194,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                         .replaceAll("<p>", "")
                                         .replaceAll("\"", "")
                                         .replaceAll("!</p>", "")
+                                        .replaceAll("</p>", "")
                                         .replaceAll(".</p>", ""),
                                     textAlign: TextAlign.justify,
                                     style: TextStyle(

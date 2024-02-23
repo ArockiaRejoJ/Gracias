@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/order_provider.dart';
-import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';

@@ -18,7 +18,6 @@ class CategoryProvider with ChangeNotifier {
 
   Future<void> fetchProductCategory(bool isArabic) async {
     String baseUrl = isArabic ? arbBaseUrl : engBaseUrl;
-    print('base Url : $baseUrl');
     final url = Uri.parse('$baseUrl/$midUrl/products/categories')
         .replace(queryParameters: {
       'per_page': 100.toString(),
@@ -35,7 +34,6 @@ class CategoryProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         final dynamic data = json.decode(response.body);
-        print(data);
 
         List<CategoryModel> newCategoryData = [];
         data.forEach(
@@ -61,7 +59,6 @@ class CategoryProvider with ChangeNotifier {
         return;
       }
     } catch (error) {
-      print(error);
       rethrow;
     }
   }

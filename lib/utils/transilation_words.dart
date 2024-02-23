@@ -233,6 +233,9 @@ mixin AppLocale {
   static const String logoutYesButton = 'Yes, Logout';
   static const String registerMessage =
       'New User Registration Successful, you can now login to start using our application';
+
+  static const String seeAllProducts = 'View All';
+
   static Map<String, dynamic> EN = {
     // Home Screen
     deliveryTo: 'Delivery to',
@@ -462,7 +465,7 @@ mixin AppLocale {
 
     logoutAlert: 'Are you sure you want to Logout?',
     logoutYesButton: 'Yes, Logout',
-
+    seeAllProducts: 'View All',
   };
 
   // arabic translation
@@ -693,7 +696,9 @@ mixin AppLocale {
     loginButton: 'تسجيل الدخول',
     logoutAlert: 'هل أنت متأكد أنك تريد تسجيل الخروج؟',
     logoutYesButton: 'نعم، تسجيل الخروج',
-    registerMessage :
-    'تم تسجيل مستخدم جديد بنجاح، يمكنك الآن تسجيل الدخول لبدء استخدام تطبيقنا',
+    registerMessage:
+        'تم تسجيل مستخدم جديد بنجاح، يمكنك الآن تسجيل الدخول لبدء استخدام تطبيقنا',
+
+    seeAllProducts: 'عرض الكل',
   };
 }
