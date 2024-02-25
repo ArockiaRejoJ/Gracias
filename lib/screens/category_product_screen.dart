@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/providers/product_provider.dart';
 import 'package:flutter_assignment_app/screens/home_screen.dart';
+import 'package:flutter_assignment_app/screens/product_overview_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
@@ -25,8 +26,7 @@ class CategoryByProductScreen extends StatefulWidget {
 class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
   Future? productsByCategoryFuture;
-  late ScrollController _scrollController;
-  int _currentPage = 1;
+  final int _currentPage = 1;
   bool _isLoading = false;
   int? selectedIndex;
   Future addToCart(int id) async {
@@ -52,27 +52,11 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
     // _scrollController.addListener(_scrollListener);
   }
 
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
   Future _loadProducts() {
     return Provider.of<ProductProvider>(context, listen: false)
         .fetchCategoryProduct(
             widget.isArabic, _currentPage, widget.categoryId!);
   }
-
-  // void _scrollListener() {
-  //   if (_scrollController.position.atEdge) {
-  //     if (_scrollController.position.pixels == 0) {
-  //     } else {
-  //       _currentPage++;
-  //       productsByCategoryFuture = _loadProducts();
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -128,131 +112,152 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                             shrinkWrap: true,
                             itemCount: productData.length,
                             itemBuilder: (_, index) => Center(
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 10.h),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5.r),
-                                    color: bgColor,
-                                    border: Border.all(
-                                        color: Colors.black12, width: 0.5)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      height: 170.h,
-                                      width: 130.w,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(5.r),
-                                          bottomLeft: Radius.circular(5.r),
-                                        ),
-                                        image: DecorationImage(
-                                          image: NetworkImage(
-                                              productData[index].thumbnail!),
-                                          fit: BoxFit.fitHeight,
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductOverviewScreen(
+                                                  productData[index].id,
+                                                  productData[index].title,
+                                                  productData[index].thumbnail,
+                                                  productData[index].price,
+                                                  productData[index]
+                                                      .description)));
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 10.h),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5.r),
+                                      color: bgColor,
+                                      border: Border.all(
+                                          color: Colors.black12, width: 0.5)),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 170.h,
+                                        width: 130.w,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(5.r),
+                                            bottomLeft: Radius.circular(5.r),
+                                          ),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                                productData[index].thumbnail!),
+                                            fit: BoxFit.fitHeight,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(15.h),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              productData[index].title!,
-                                              maxLines: 3,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily: GoogleFonts.lexend()
-                                                    .fontFamily,
-                                                fontSize: 18.sp,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            SizedBox(height: 10.h),
-                                            Text(
-                                              '\$ ${productData[index].price!}  ',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontFamily: GoogleFonts.lexend()
-                                                    .fontFamily,
-                                                fontSize: 18.sp,
-                                                color: Colors.black
-                                                    .withOpacity(0.8),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                addToCart(
-                                                    productData[index].id!);
-                                                setState(() {
-                                                  selectedIndex = index;
-                                                });
-                                              },
-                                              child: Container(
-                                                width: 95.w,
-                                                height: 30.h,
-                                                decoration: BoxDecoration(
-                                                  color: Theme.of(context)
-                                                      .primaryColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          7.5.r),
+                                      Expanded(
+                                        child: Padding(
+                                          padding: EdgeInsets.all(15.h),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                productData[index].title!,
+                                                maxLines: 3,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily:
+                                                      GoogleFonts.lexend()
+                                                          .fontFamily,
+                                                  fontSize: 18.sp,
+                                                  color: Colors.black,
                                                 ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    _isLoading &&
-                                                            selectedIndex ==
-                                                                index
-                                                        ? Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    right: 5.w),
-                                                            child: SizedBox(
-                                                              height: 10.h,
-                                                              width: 10.w,
-                                                              child:
-                                                                  const CircularProgressIndicator(
-                                                                color: Colors
-                                                                    .white,
+                                              ),
+                                              SizedBox(height: 10.h),
+                                              Text(
+                                                '\$ ${productData[index].price!}  ',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily:
+                                                      GoogleFonts.lexend()
+                                                          .fontFamily,
+                                                  fontSize: 18.sp,
+                                                  color: Colors.black
+                                                      .withOpacity(0.8),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10.h,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  addToCart(
+                                                      productData[index].id!);
+                                                  setState(() {
+                                                    selectedIndex = index;
+                                                  });
+                                                },
+                                                child: Container(
+                                                  width: 95.w,
+                                                  height: 30.h,
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            7.5.r),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      _isLoading &&
+                                                              selectedIndex ==
+                                                                  index
+                                                          ? Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      right:
+                                                                          5.w),
+                                                              child: SizedBox(
+                                                                height: 10.h,
+                                                                width: 10.w,
+                                                                child:
+                                                                    const CircularProgressIndicator(
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                               ),
-                                                            ),
-                                                          )
-                                                        : Container(),
-                                                    Text(
-                                                      AppLocale
-                                                          .productOverviewAddItem
-                                                          .getString(context),
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontFamily:
-                                                            GoogleFonts.lexend()
-                                                                .fontFamily,
-                                                        fontSize: 14.sp,
-                                                        color: Colors.white,
+                                                            )
+                                                          : Container(),
+                                                      Text(
+                                                        AppLocale
+                                                            .productOverviewAddItem
+                                                            .getString(context),
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontFamily:
+                                                              GoogleFonts
+                                                                      .lexend()
+                                                                  .fontFamily,
+                                                          fontSize: 14.sp,
+                                                          color: Colors.white,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -268,7 +273,6 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
   }
 
   Future _showCartDialog() async {
-    int count = 0;
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(

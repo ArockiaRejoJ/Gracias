@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/screens/all_products_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
@@ -177,15 +178,40 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 SizedBox(height: 5.h),
                 CategoryWidget(isArabic!),
                 SizedBox(height: 10.h),
-                Center(
-                  child: Text(
-                    AppLocale.productTitle.getString(context),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontFamily: GoogleFonts.lexend().fontFamily,
-                      fontSize: 22.sp,
-                      color: Colors.black,
-                    ),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.w, right: 10.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocale.productTitle.getString(context),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: GoogleFonts.lexend().fontFamily,
+                          fontSize: 22.sp,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AllProductsScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          AppLocale.seeAllProducts.getString(context),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: GoogleFonts.lexend().fontFamily,
+                            fontSize: 18.sp,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 5.h),

@@ -73,7 +73,6 @@ class UserProvider with ChangeNotifier {
         },
       );
       final data = json.decode(response.body);
-      print(data);
 
       if (data['code'] != null) {
         throw data['code'].toString();
@@ -94,7 +93,6 @@ class UserProvider with ChangeNotifier {
       });
 
       final data = json.decode(response.body);
-      print(data);
 
       if (data['code'] != null) {
         throw data['code'].toString();
@@ -112,7 +110,6 @@ class UserProvider with ChangeNotifier {
             'userEmail': _email,
             'userName': _userName,
           });
-          print(userData);
           prefs.setString('userData', userData);
           notifyListeners();
         } else {
@@ -135,7 +132,6 @@ class UserProvider with ChangeNotifier {
         headers: {'Authorization': 'Bearer $_token'},
       );
       final data = json.decode(response.body);
-      print(data);
       if (response.statusCode == 200) {
         _userId = data['id'].toString();
         if (isRemember) {
@@ -146,14 +142,12 @@ class UserProvider with ChangeNotifier {
             'userEmail': _email,
             'userName': _userName,
           });
-          print(userData);
           prefs.setString('userData', userData);
         }
         notifyListeners();
       }
       return _userId!;
     } catch (error) {
-      print(error);
       rethrow;
     }
   }
@@ -173,10 +167,6 @@ class UserProvider with ChangeNotifier {
     _userName = extractedUserData['userName'] as String?;
     _email = extractedUserData['userEmail'] as String?;
 
-    print(_token);
-    print(_userId);
-    print(_userName);
-    print(_email);
 
     notifyListeners();
 
@@ -192,7 +182,6 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
-    print('Account Logout done');
   }
 
   Future fetchProfile() async {
@@ -207,7 +196,6 @@ class UserProvider with ChangeNotifier {
         },
       );
       final data = json.decode(response.body);
-      print(data);
 
       Map<String, dynamic> profileData = {
         "id": data['id'],
@@ -222,7 +210,6 @@ class UserProvider with ChangeNotifier {
       notifyListeners();
       return profileData;
     } catch (error) {
-      print(error);
       rethrow;
     }
   }
@@ -248,7 +235,6 @@ class UserProvider with ChangeNotifier {
         },
       );
       final data = json.decode(response.body);
-      print(data);
     } catch (error) {
       rethrow;
     }
@@ -315,7 +301,6 @@ class UserProvider with ChangeNotifier {
         body: jsonEncode(addressData),
       );
       final data = json.decode(response.body);
-      print(data);
       if (response.statusCode == 200) {
         _userData = [UserModel.fromJson(data)];
       }
