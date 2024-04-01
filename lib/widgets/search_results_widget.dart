@@ -6,6 +6,8 @@ import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/transilation_words.dart';
+
 class SearchResultsWidget extends StatefulWidget {
   final String? searchedTerm;
 
@@ -17,59 +19,14 @@ class SearchResultsWidget extends StatefulWidget {
 
 class _SearchResultsWidgetState extends State<SearchResultsWidget> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
-  final ScrollController _scrollController = ScrollController();
-  final int _perPage = 10; // Number of products to load per page
-  int _currentPage = 1;
   bool _isLoading = false;
-  bool _hasMoreData = true;
-
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
-    _loadProducts();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _loadProducts() async {
-    if (_isLoading || !_hasMoreData) {
-      return;
-    }
-    setState(() {
-      _isLoading = true;
+    _isLoading = true;
+    Future.delayed(const Duration(seconds: 1), () {
+      _isLoading = false;
     });
-
-    // Fetch products for the current page
-    try {
-      final productProvider =
-          Provider.of<SearchProvider>(context, listen: false);
-      await productProvider.submitSearch(
-          _localization.currentLocale == const Locale("en", "US")
-              ? false
-              : true,
-          widget.searchedTerm!,
-          _currentPage);
-      _currentPage++; // Increment current page after fetching data
-    } catch (error) {
-      // Handle error
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      // User has scrolled to the end of the list
-      _loadProducts();
-    }
   }
 
   @override
@@ -95,9 +52,21 @@ class _SearchResultsWidgetState extends State<SearchResultsWidget> {
 
   Widget _buildProductList(List<ProductsModel> productData) {
     return productData.isEmpty && _isLoading == false
-        ? const Center(child: Text('No Products Found'))
+        ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 100.h,
+                  width: 150.w,
+                  child: Image.asset('assets/images/empty.png'),
+                ),
+                SizedBox(height: 5.h),
+                Text(AppLocale.noProductsFound.getString(context)),
+              ],
+            ),
+          )
         : GridView.builder(
-            controller: _scrollController,
             padding: EdgeInsets.fromLTRB(15.w, 10.h, 15.w, 20.h),
             physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,

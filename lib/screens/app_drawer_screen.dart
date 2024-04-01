@@ -46,7 +46,7 @@ class AppDrawerScreen extends StatelessWidget {
                         itemCount: categoryData.length,
                         itemBuilder: (context, index) => InkWell(
                               onTap: () {
-                                Navigator.of(context).pop();
+                                //Navigator.of(context).pop();
                                 Navigator.push(
                                   context,
                                   PageTransition(

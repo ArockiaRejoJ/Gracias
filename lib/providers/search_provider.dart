@@ -37,9 +37,10 @@ class SearchProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         final extractedData = json.decode(response.body);
+        List<ProductsModel> loadedProducts = [];
         extractedData.forEach(
           (data) async {
-            _items.add(
+            loadedProducts.add(
               ProductsModel(
                 id: data['id'],
                 title: data['name'],
@@ -60,6 +61,7 @@ class SearchProvider extends ChangeNotifier {
             );
           },
         );
+        _items = loadedProducts;
         notifyListeners();
         return;
       }
@@ -68,7 +70,7 @@ class SearchProvider extends ChangeNotifier {
     }
   }
 
-  Future makeEmptyList() async {
-    _items.clear();
-  }
+  // Future makeEmptyList() async {
+  //   _items.clear();
+  // }
 }

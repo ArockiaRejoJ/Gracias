@@ -72,14 +72,11 @@ class _AuthScreenState extends State<AuthScreen> {
             (value) => Navigator.pushReplacement(
               context,
               PageTransition(
-                    type: PageTransitionType.fade,
-                duration:
-                const Duration(milliseconds: 800),
-                reverseDuration:
-                const Duration(milliseconds: 400),
-                    child: const HomeScreen(
-                    ),
-                  ),
+                type: PageTransitionType.fade,
+                duration: const Duration(milliseconds: 800),
+                reverseDuration: const Duration(milliseconds: 400),
+                child: const HomeScreen(),
+              ),
               // MaterialPageRoute(
               //   builder: (context) => const HomeScreen(),
               // ),

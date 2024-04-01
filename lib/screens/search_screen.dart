@@ -39,7 +39,7 @@ class SearchPage extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    makeEmpty(context);
+    // makeEmpty(context);
     _obtainSearchProductFuture(context, query.toString());
     return SearchResultsWidget(query.toString());
   }
@@ -54,8 +54,8 @@ class SearchPage extends SearchDelegate {
         .submitSearch(isArabic!, query, 1);
   }
 
-  Future makeEmpty(BuildContext context) async {
-    return await Provider.of<SearchProvider>(context, listen: false)
-        .makeEmptyList();
-  }
+  // Future makeEmpty(BuildContext context) async {
+  //   return await Provider.of<SearchProvider>(context, listen: false)
+  //       .makeEmptyList();
+  // }
 }

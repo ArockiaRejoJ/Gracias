@@ -26,7 +26,7 @@ class ProductContainerWidget extends StatelessWidget {
         Navigator.push(
           context,
           PageTransition(
-              type: PageTransitionType.scale,
+              type: PageTransitionType.fade,
               duration: const Duration(milliseconds: 800),
               reverseDuration: const Duration(milliseconds: 400),
               child:
