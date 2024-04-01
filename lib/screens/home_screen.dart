@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/app_drawer_screen.dart';
+import 'package:flutter_assignment_app/screens/search_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/cart_screen_body.dart';
@@ -131,6 +132,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             actions: [
+              IconButton(
+                  onPressed: () {
+                    showSearch(
+                        context: context,
+                        delegate: SearchPage(_localization.currentLocale ==
+                                const Locale("en", "US")
+                            ? false
+                            : true));
+                  },
+                  icon: Icon(
+                    Icons.search,
+                    size: 20.sp,
+                    color: Colors.black26,
+                  )),
               Consumer<CartProvider>(builder: (context, cartData, _) {
                 return Badge(
                   alignment: Alignment.topRight,

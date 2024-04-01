@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_assignment_app/models/products_model.dart';
-import 'package:flutter_assignment_app/providers/cart_provider.dart';
-import 'package:flutter_assignment_app/providers/product_provider.dart';
-import 'package:flutter_assignment_app/screens/home_screen.dart';
-import 'package:flutter_assignment_app/screens/search_screen.dart';
-import 'package:flutter_assignment_app/utils/transilation_words.dart';
-import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_assignment_app/widgets/product_container.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AllProductsScreen extends StatefulWidget {
-  const AllProductsScreen({Key? key}) : super(key: key);
+import '../models/products_model.dart';
+import '../providers/product_provider.dart';
+
+class SearchPageContentWidget extends StatefulWidget {
+  final bool? isArabic;
+  const SearchPageContentWidget(this.isArabic, {Key? key}) : super(key: key);
 
   @override
-  State<AllProductsScreen> createState() => _AllProductsScreenState();
+  State<SearchPageContentWidget> createState() =>
+      _SearchPageContentWidgetState();
 }
 
-class _AllProductsScreenState extends State<AllProductsScreen> {
+class _SearchPageContentWidgetState extends State<SearchPageContentWidget> {
   final FlutterLocalization _localization = FlutterLocalization.instance;
   final ScrollController _scrollController = ScrollController();
   final int _perPage = 10; // Number of products to load per page
@@ -52,11 +49,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
     try {
       final productProvider =
           Provider.of<ProductProvider>(context, listen: false);
-      await productProvider.fetchAllProduct(
-          _localization.currentLocale == const Locale("en", "US")
-              ? false
-              : true,
-          _currentPage);
+      await productProvider.fetchAllProduct(widget.isArabic!, _currentPage);
       _currentPage++; // Increment current page after fetching data
     } catch (error) {
       // Handle error
@@ -78,47 +71,20 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<ProductProvider>(context).allProductItems;
-
     return Directionality(
       textDirection: _localization.currentLocale == const Locale("en", "US")
           ? TextDirection.ltr
           : TextDirection.rtl,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            AppLocale.productTitle.getString(context),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  showSearch(
-                      context: context,
-                      delegate: SearchPage(_localization.currentLocale ==
-                              const Locale("en", "US")
-                          ? false
-                          : true));
-                },
-                icon: Icon(
-                  Icons.search,
-                  size: 20.sp,
-                  color: Colors.black26,
-                )),
-          ],
-        ),
-        body: Stack(
-          children: [
-            _buildProductList(productData),
-            _isLoading
-                ? Center(
-                    child: CircularProgressIndicator(
-                    color: Theme.of(context).primaryColor,
-                  ))
-                : const SizedBox.shrink(),
-          ],
-        ),
+      child: Stack(
+        children: [
+          _buildProductList(productData),
+          _isLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ))
+              : const SizedBox.shrink(),
+        ],
       ),
     );
   }
