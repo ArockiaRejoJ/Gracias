@@ -13,6 +13,7 @@ import 'package:flutter_assignment_app/widgets/category_widgets.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
+import 'package:page_transition/page_transition.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -196,9 +197,16 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => const AllProductsScreen(),
+                            PageTransition(
+                              type: PageTransitionType.rightToLeftWithFade,
+                              duration: const Duration(milliseconds: 800),
+                              reverseDuration:
+                                  const Duration(milliseconds: 400),
+                              child: const AllProductsScreen(),
                             ),
+                            // MaterialPageRoute(
+                            //   builder: (context) => const AllProductsScreen(),
+                            // ),
                           );
                         },
                         child: Text(

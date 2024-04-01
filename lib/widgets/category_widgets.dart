@@ -6,6 +6,7 @@ import 'package:flutter_assignment_app/screens/category_product_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CategoryWidget extends StatefulWidget {
@@ -64,11 +65,19 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        CategoryByProductScreen(data.id,
-                                            widget.isArabic, data.name),
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    duration: const Duration(milliseconds: 800),
+                                    reverseDuration:
+                                        const Duration(milliseconds: 400),
+                                    child: CategoryByProductScreen(
+                                        data.id, widget.isArabic, data.name),
                                   ),
+                                  // MaterialPageRoute(
+                                  //   builder: (context) =>
+                                  //       CategoryByProductScreen(data.id,
+                                  //           widget.isArabic, data.name),
+                                  // ),
                                 );
                               },
                               child: CircleAvatar(

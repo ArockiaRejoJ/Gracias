@@ -9,6 +9,7 @@ import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CategoryByProductScreen extends StatefulWidget {
@@ -115,16 +116,29 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                               child: InkWell(
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductOverviewScreen(
-                                                  productData[index].id,
-                                                  productData[index].title,
-                                                  productData[index].thumbnail,
-                                                  productData[index].price,
-                                                  productData[index]
-                                                      .description)));
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.bottomToTop,
+                                        duration:
+                                            const Duration(milliseconds: 800),
+                                        reverseDuration:
+                                            const Duration(milliseconds: 400),
+                                        child: ProductOverviewScreen(
+                                            productData[index].id,
+                                            productData[index].title,
+                                            productData[index].thumbnail,
+                                            productData[index].price,
+                                            productData[index].description)),
+                                    // MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         ProductOverviewScreen(
+                                    //             productData[index].id,
+                                    //             productData[index].title,
+                                    //             productData[index].thumbnail,
+                                    //             productData[index].price,
+                                    //             productData[index]
+                                    //                 .description))
+                                  );
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(bottom: 10.h),
@@ -332,11 +346,19 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeScreen(
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: const Duration(milliseconds: 800),
+                      reverseDuration: const Duration(milliseconds: 400),
+                      child: const HomeScreen(
                         selectedPage: 1,
                       ),
                     ),
+                    // MaterialPageRoute(
+                    //   builder: (context) => const HomeScreen(
+                    //     selectedPage: 1,
+                    //   ),
+                    // ),
                   );
                 },
                 child: Text(

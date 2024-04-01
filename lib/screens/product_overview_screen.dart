@@ -6,6 +6,7 @@ import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class ProductOverviewScreen extends StatefulWidget {
@@ -342,11 +343,19 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeScreen(
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: const Duration(milliseconds: 800),
+                      reverseDuration: const Duration(milliseconds: 400),
+                      child: const HomeScreen(
                         selectedPage: 1,
                       ),
                     ),
+                    // MaterialPageRoute(
+                    //   builder: (context) => const HomeScreen(
+                    //     selectedPage: 1,
+                    //   ),
+                    // ),
                   );
                 },
                 child: Text(
