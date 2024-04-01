@@ -6,6 +6,7 @@ import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CartScreenBody extends StatefulWidget {
@@ -466,10 +467,19 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CheckoutScreen()));
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType
+                                          .rightToLeftWithFade,
+                                      duration:
+                                          const Duration(milliseconds: 800),
+                                      reverseDuration:
+                                          const Duration(milliseconds: 400),
+                                      child: const CheckoutScreen()),
+                                  // MaterialPageRoute(
+                                  //     builder: (context) =>
+                                  //         const CheckoutScreen())
+                                );
                               },
                               style: ElevatedButton.styleFrom(
                                 shape: RoundedRectangleBorder(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 
 class LoadingWidget extends StatelessWidget {
   final int? ht;
@@ -11,9 +12,7 @@ class LoadingWidget extends StatelessWidget {
     return SizedBox(
       height: ht!.h,
       width: wd!.w,
-      child: Center(
-        child: Image.asset('assets/images/loading.gif'),
-      ),
+      child: Center(child: Lottie.asset('assets/images/Animation.json')),
     );
   }
 }
