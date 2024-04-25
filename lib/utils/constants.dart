@@ -1,4 +1,5 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 
 const bgColor = Color(0xFFead4e1);
 
@@ -14,3 +15,7 @@ class HttpException implements Exception {
     return message;
   }
 }
+
+Color shimmerBgColor = Colors.grey.shade300;
+Color shimmerShadowColor = Colors.grey.shade100;
+

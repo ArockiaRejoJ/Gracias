@@ -16,6 +16,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProfileScreenBody extends StatefulWidget {
   const ProfileScreenBody({super.key});

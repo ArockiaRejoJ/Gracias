@@ -77,7 +77,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                             child: CircleAvatar(
                               maxRadius: 45.r,
                               minRadius: 45.r,
-                              backgroundColor: Colors.grey.shade300,
+                              backgroundColor: shimmerBgColor,
                               child: Image.network(
                                 data.image != null
                                     ? data.image!
@@ -86,12 +86,13 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                                     (context, child, loadingProgress) {
                                   if (loadingProgress == null) return child;
                                   return Shimmer.fromColors(
-                                    baseColor: Colors.grey.shade300,
-                                    highlightColor: Colors.grey.shade50,
+                                    direction: ShimmerDirection.ltr,
+                                    baseColor: shimmerBgColor,
+                                    highlightColor: shimmerShadowColor,
                                     child: CircleAvatar(
                                       maxRadius: 45.r,
                                       minRadius: 45.r,
-                                      backgroundColor: Colors.grey.shade300,
+                                      backgroundColor: shimmerBgColor,
                                     ),
                                   );
                                 },

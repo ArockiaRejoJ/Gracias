@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -14,7 +15,7 @@ class ProductShimmerWidget extends StatelessWidget {
       width: 160.w,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.r),
-          color: Colors.grey.shade300,
+          color: shimmerBgColor,
           border: Border.all(color: Colors.black12, width: 0.5)),
       child: Column(
         children: [
@@ -29,29 +30,29 @@ class ProductShimmerWidget extends StatelessWidget {
                 bottomLeft: Radius.circular(5.r),
                 bottomRight: Radius.circular(5.r),
               ),
-              color: Colors.grey.shade300,
+              color: shimmerBgColor,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Shimmer.fromColors(
-                  baseColor: Colors.grey.shade300,
-                  highlightColor: Colors.grey.shade50,
+                  baseColor: shimmerBgColor,
+                  highlightColor: shimmerShadowColor,
                   child: Container(
                     height: 10.h,
                     width: 50.w,
-                    color: Colors.grey.shade300,
+                    color: shimmerBgColor,
                   ),
                 ),
                 SizedBox(height: 5.h),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey.shade300,
-                  highlightColor: Colors.grey.shade50,
+                  baseColor: shimmerBgColor,
+                  highlightColor: shimmerShadowColor,
                   child: Container(
                     height: 10.h,
                     width: 50.w,
-                    color: Colors.grey.shade300,
+                    color: shimmerBgColor,
                   ),
                 ),
               ],
@@ -69,12 +70,12 @@ class CarousalShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade50,
+      baseColor: shimmerBgColor,
+      highlightColor: shimmerShadowColor,
       child: Container(
         height: 175.h,
         width: 360.w,
-        color: Colors.grey.shade300,
+        color: shimmerBgColor,
       ),
     );
   }
@@ -102,30 +103,30 @@ class CategoryShimmerWidget extends StatelessWidget {
                 ),
                 items: [
                   Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade50,
+                    baseColor: shimmerBgColor,
+                    highlightColor: shimmerShadowColor,
                     child: CircleAvatar(
                       maxRadius: 45.r,
                       minRadius: 45.r,
-                      backgroundColor: Colors.grey.shade300,
+                      backgroundColor: shimmerBgColor,
                     ),
                   ),
                   Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade50,
+                    baseColor: shimmerBgColor,
+                    highlightColor: shimmerShadowColor,
                     child: CircleAvatar(
                       maxRadius: 45.r,
                       minRadius: 45.r,
-                      backgroundColor: Colors.grey.shade300,
+                      backgroundColor: shimmerBgColor,
                     ),
                   ),
                   Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade50,
+                    baseColor: shimmerBgColor,
+                    highlightColor: shimmerShadowColor,
                     child: CircleAvatar(
                       maxRadius: 45.r,
                       minRadius: 45.r,
-                      backgroundColor: Colors.grey.shade300,
+                      backgroundColor: shimmerBgColor,
                     ),
                   ),
                 ]),
@@ -147,8 +148,8 @@ class ImageShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade50,
+      baseColor: shimmerBgColor,
+      highlightColor: shimmerShadowColor,
       child: Container(
         height: 145.h,
         width: 160.w,
@@ -157,7 +158,7 @@ class ImageShimmer extends StatelessWidget {
             topLeft: Radius.circular(5.r),
             topRight: Radius.circular(5.r),
           ),
-          color: Colors.grey.shade300,
+          color: shimmerBgColor,
         ),
       ),
     );
@@ -170,8 +171,8 @@ class CategoryProductImageShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade50,
+      baseColor: shimmerBgColor,
+      highlightColor: shimmerShadowColor,
       child: Container(
         height: 170.h,
         width: 130.w,
@@ -180,7 +181,7 @@ class CategoryProductImageShimmer extends StatelessWidget {
             topLeft: Radius.circular(5.r),
             topRight: Radius.circular(5.r),
           ),
-          color: Colors.grey.shade300,
+          color: shimmerBgColor,
         ),
       ),
     );
@@ -193,8 +194,8 @@ class CartImageShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade50,
+      baseColor: shimmerBgColor,
+      highlightColor: shimmerShadowColor,
       child: Container(
         height: 80.h,
         width: 100.w,
@@ -203,7 +204,7 @@ class CartImageShimmer extends StatelessWidget {
             topLeft: Radius.circular(5.r),
             topRight: Radius.circular(5.r),
           ),
-          color: Colors.grey.shade300,
+          color: shimmerBgColor,
         ),
       ),
     );
@@ -220,15 +221,15 @@ class CategoryProductShimmerWidget extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 10.h),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.r),
-            color: Colors.grey.shade300,
+            color: shimmerBgColor,
             border: Border.all(color: Colors.black12, width: 0.5)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Shimmer.fromColors(
-              baseColor: Colors.grey.shade300,
-              highlightColor: Colors.grey.shade50,
+              baseColor: shimmerBgColor,
+              highlightColor: shimmerShadowColor,
               child: Container(
                 height: 170.h,
                 width: 130.w,
@@ -237,7 +238,7 @@ class CategoryProductShimmerWidget extends StatelessWidget {
                     topLeft: Radius.circular(5.r),
                     bottomLeft: Radius.circular(5.r),
                   ),
-                  color: Colors.grey.shade300,
+                  color: shimmerBgColor,
                 ),
               ),
             ),
@@ -249,35 +250,35 @@ class CategoryProductShimmerWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade50,
+                      baseColor: shimmerBgColor,
+                      highlightColor: shimmerShadowColor,
                       child: Container(
                         height: 20.h,
                         width: 100.w,
-                        color: Colors.grey.shade300,
+                        color: shimmerBgColor,
                       ),
                     ),
                     SizedBox(height: 10.h),
                     Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade50,
+                      baseColor: shimmerBgColor,
+                      highlightColor: shimmerShadowColor,
                       child: Container(
                         height: 20.h,
                         width: 100.w,
-                        color: Colors.grey.shade300,
+                        color: shimmerBgColor,
                       ),
                     ),
                     SizedBox(
                       height: 10.h,
                     ),
                     Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade50,
+                      baseColor: shimmerBgColor,
+                      highlightColor: shimmerShadowColor,
                       child: Container(
                         width: 95.w,
                         height: 30.h,
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: shimmerBgColor,
                           borderRadius: BorderRadius.circular(7.5.r),
                         ),
                       ),
@@ -303,20 +304,19 @@ class CartProductShimmer extends StatelessWidget {
       width: 320.w,
       margin: EdgeInsets.only(bottom: 5.h, top: 5.h, left: 5.w, right: 5.w),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.r),
-          color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(10.r), color: shimmerBgColor),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Shimmer.fromColors(
-            baseColor: Colors.grey.shade300,
-            highlightColor: Colors.grey.shade50,
+            baseColor: shimmerBgColor,
+            highlightColor: shimmerShadowColor,
             child: Container(
               height: 80.h,
               width: 100.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
-                  color: Colors.grey.shade300),
+                  color: shimmerBgColor),
             ),
           ),
           SizedBox(width: 5.w),
@@ -325,13 +325,13 @@ class CartProductShimmer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade50,
+                baseColor: shimmerBgColor,
+                highlightColor: shimmerShadowColor,
                 child: Container(
                   width: 95.w,
                   height: 25.h,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: shimmerBgColor,
                     borderRadius: BorderRadius.circular(7.5.r),
                   ),
                 ),
@@ -340,13 +340,13 @@ class CartProductShimmer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade50,
+                    baseColor: shimmerBgColor,
+                    highlightColor: shimmerShadowColor,
                     child: Container(
                       width: 30.w,
                       height: 25.h,
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
+                        color: shimmerBgColor,
                         borderRadius: BorderRadius.circular(7.5.r),
                       ),
                     ),
@@ -355,17 +355,17 @@ class CartProductShimmer extends StatelessWidget {
                   Icon(
                     Icons.circle,
                     size: 20.sp,
-                    color: Colors.grey.shade300,
+                    color: shimmerBgColor,
                   ),
                   SizedBox(width: 5.w),
                   Shimmer.fromColors(
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade50,
+                    baseColor: shimmerBgColor,
+                    highlightColor: shimmerShadowColor,
                     child: Container(
                       width: 25.w,
                       height: 25.h,
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade300,
+                        color: shimmerBgColor,
                         borderRadius: BorderRadius.circular(7.5.r),
                       ),
                     ),
@@ -374,18 +374,18 @@ class CartProductShimmer extends StatelessWidget {
                   Icon(
                     Icons.circle,
                     size: 20.sp,
-                    color: Colors.grey.shade300,
+                    color: shimmerBgColor,
                   ),
                 ],
               ),
               Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade50,
+                baseColor: shimmerBgColor,
+                highlightColor: shimmerShadowColor,
                 child: Container(
                   width: 150.w,
                   height: 25.h,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: shimmerBgColor,
                     borderRadius: BorderRadius.circular(7.5.r),
                   ),
                 ),

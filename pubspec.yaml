@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil:
+  flutter_screenutil: ^5.3.1
   provider:
   http:
   google_fonts:
