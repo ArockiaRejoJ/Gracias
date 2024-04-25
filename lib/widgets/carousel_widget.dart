@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/banner_provider.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
-import 'package:flutter_assignment_app/widgets/loading_widget.dart';
+import 'package:flutter_assignment_app/widgets/shimmer_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,6 @@ class Carousal extends StatefulWidget {
 
 class _CarousalState extends State<Carousal> {
   Future? _bannerFuture;
-
   Future getBannerData() async {
     return await Provider.of<BannerProvider>(context, listen: false)
         .fetchBannerData(widget.isArabic);
@@ -36,7 +35,7 @@ class _CarousalState extends State<Carousal> {
       future: _bannerFuture,
       builder: (context, dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingWidget(200, 360);
+          return const CarousalShimmerWidget();
         } else {
           if (dataSnapshot.error != null) {
             return Center(
@@ -77,19 +76,7 @@ class _CarousalState extends State<Carousal> {
                                 loadingBuilder:
                                     (context, child, loadingProgress) {
                                   if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value:
-                                          loadingProgress.expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  loadingProgress
-                                                      .expectedTotalBytes!
-                                              : null,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                  );
+                                  return const CarousalShimmerWidget();
                                 },
                                 errorBuilder: (context, exception, stackTrace) {
                                   return Image.asset(

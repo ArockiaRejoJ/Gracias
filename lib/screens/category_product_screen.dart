@@ -6,6 +6,7 @@ import 'package:flutter_assignment_app/screens/product_overview_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
+import 'package:flutter_assignment_app/widgets/shimmer_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,6 +31,7 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
   final int _currentPage = 1;
   bool _isLoading = false;
   int? selectedIndex;
+  bool _isFirstLoading = false;
   Future addToCart(int id) async {
     setState(() {
       _isLoading = true;
@@ -49,14 +51,21 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
     super.initState();
     Provider.of<CartProvider>(context, listen: false).fetchData();
     productsByCategoryFuture = _loadProducts();
-    // _scrollController = ScrollController();
-    // _scrollController.addListener(_scrollListener);
   }
 
   Future _loadProducts() {
     return Provider.of<ProductProvider>(context, listen: false)
-        .fetchCategoryProduct(
-            widget.isArabic, _currentPage, widget.categoryId!);
+        .fetchCategoryProduct(widget.isArabic, _currentPage, widget.categoryId!)
+        .then((value) => {
+              setState(() {
+                _isFirstLoading = true;
+              }),
+              Future.delayed(const Duration(seconds: 2), () {
+                setState(() {
+                  _isFirstLoading = false;
+                });
+              })
+            });
   }
 
   @override
@@ -112,169 +121,190 @@ class _CategoryByProductScreenState extends State<CategoryByProductScreen> {
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
                             itemCount: productData.length,
-                            itemBuilder: (_, index) => Center(
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.bottomToTop,
-                                        duration:
-                                            const Duration(milliseconds: 800),
-                                        reverseDuration:
-                                            const Duration(milliseconds: 400),
-                                        child: ProductOverviewScreen(
-                                            productData[index].id,
-                                            productData[index].title,
-                                            productData[index].thumbnail,
-                                            productData[index].price,
-                                            productData[index].description)),
-                                    // MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         ProductOverviewScreen(
-                                    //             productData[index].id,
-                                    //             productData[index].title,
-                                    //             productData[index].thumbnail,
-                                    //             productData[index].price,
-                                    //             productData[index]
-                                    //                 .description))
-                                  );
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.only(bottom: 10.h),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.r),
-                                      color: bgColor,
-                                      border: Border.all(
-                                          color: Colors.black12, width: 0.5)),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 170.h,
-                                        width: 130.w,
+                            itemBuilder: (_, index) => _isFirstLoading
+                                ? const CategoryProductShimmerWidget()
+                                : Center(
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          PageTransition(
+                                              type: PageTransitionType.fade,
+                                              duration: const Duration(
+                                                  milliseconds: 800),
+                                              reverseDuration: const Duration(
+                                                  milliseconds: 400),
+                                              child: ProductOverviewScreen(
+                                                  productData[index].id,
+                                                  productData[index].title,
+                                                  productData[index].thumbnail,
+                                                  productData[index].price,
+                                                  productData[index]
+                                                      .description)),
+                                        );
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 10.h),
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(5.r),
-                                            bottomLeft: Radius.circular(5.r),
-                                          ),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                productData[index].thumbnail!),
-                                            fit: BoxFit.fitHeight,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(15.h),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                productData[index].title!,
-                                                maxLines: 3,
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily:
-                                                      GoogleFonts.lexend()
-                                                          .fontFamily,
-                                                  fontSize: 18.sp,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                '\$ ${productData[index].price!}  ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily:
-                                                      GoogleFonts.lexend()
-                                                          .fontFamily,
-                                                  fontSize: 18.sp,
-                                                  color: Colors.black
-                                                      .withOpacity(0.8),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 10.h,
-                                              ),
-                                              InkWell(
-                                                onTap: () {
-                                                  addToCart(
-                                                      productData[index].id!);
-                                                  setState(() {
-                                                    selectedIndex = index;
-                                                  });
-                                                },
-                                                child: Container(
-                                                  width: 95.w,
-                                                  height: 30.h,
-                                                  decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            7.5.r),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      _isLoading &&
-                                                              selectedIndex ==
-                                                                  index
-                                                          ? Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      right:
-                                                                          5.w),
-                                                              child: SizedBox(
-                                                                height: 10.h,
-                                                                width: 10.w,
-                                                                child:
-                                                                    const CircularProgressIndicator(
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
+                                            borderRadius:
+                                                BorderRadius.circular(5.r),
+                                            color: bgColor,
+                                            border: Border.all(
+                                                color: Colors.black12,
+                                                width: 0.5)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Image.network(
+                                              productData[index].thumbnail!,
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return Container(
+                                                    height: 170.h,
+                                                    width: 130.w,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(
+                                                                5.r),
+                                                        bottomLeft:
+                                                            Radius.circular(
+                                                                5.r),
+                                                      ),
+                                                      image: DecorationImage(
+                                                        image: NetworkImage(
+                                                            productData[index]
+                                                                .thumbnail!),
+                                                        fit: BoxFit.fitHeight,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                return const CategoryProductImageShimmer();
+                                              },
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding: EdgeInsets.all(15.h),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      productData[index].title!,
+                                                      maxLines: 3,
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontFamily:
+                                                            GoogleFonts.lexend()
+                                                                .fontFamily,
+                                                        fontSize: 18.sp,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                    SizedBox(height: 10.h),
+                                                    Text(
+                                                      '\$ ${productData[index].price!}  ',
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        fontFamily:
+                                                            GoogleFonts.lexend()
+                                                                .fontFamily,
+                                                        fontSize: 18.sp,
+                                                        color: Colors.black
+                                                            .withOpacity(0.8),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        addToCart(
+                                                            productData[index]
+                                                                .id!);
+                                                        setState(() {
+                                                          selectedIndex = index;
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        width: 95.w,
+                                                        height: 30.h,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .primaryColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      7.5.r),
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            _isLoading &&
+                                                                    selectedIndex ==
+                                                                        index
+                                                                ? Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        right: 5
+                                                                            .w),
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          10.h,
+                                                                      width:
+                                                                          10.w,
+                                                                      child:
+                                                                          const CircularProgressIndicator(
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                  )
+                                                                : Container(),
+                                                            Text(
+                                                              AppLocale
+                                                                  .productOverviewAddItem
+                                                                  .getString(
+                                                                      context),
+                                                              style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                fontFamily: GoogleFonts
+                                                                        .lexend()
+                                                                    .fontFamily,
+                                                                fontSize: 14.sp,
+                                                                color: Colors
+                                                                    .white,
                                                               ),
-                                                            )
-                                                          : Container(),
-                                                      Text(
-                                                        AppLocale
-                                                            .productOverviewAddItem
-                                                            .getString(context),
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontFamily:
-                                                              GoogleFonts
-                                                                      .lexend()
-                                                                  .fontFamily,
-                                                          fontSize: 14.sp,
-                                                          color: Colors.white,
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
                           );
                   },
                 );

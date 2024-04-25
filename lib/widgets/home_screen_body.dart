@@ -204,9 +204,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                   const Duration(milliseconds: 400),
                               child: const AllProductsScreen(),
                             ),
-                            // MaterialPageRoute(
-                            //   builder: (context) => const AllProductsScreen(),
-                            // ),
                           );
                         },
                         child: Text(

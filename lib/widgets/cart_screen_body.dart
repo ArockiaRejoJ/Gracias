@@ -3,6 +3,7 @@ import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/checkout_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
+import 'package:flutter_assignment_app/widgets/shimmer_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,9 +20,21 @@ class CartScreenBody extends StatefulWidget {
 class _CartScreenBodyState extends State<CartScreenBody> {
   Future? cartFuture;
   bool isLoading = false;
+  bool _isFirstLoading = false;
 
   Future getCartData() async {
-    return Provider.of<CartProvider>(context, listen: false).fetchData();
+    return Provider.of<CartProvider>(context, listen: false)
+        .fetchData()
+        .then((value) => {
+              setState(() {
+                _isFirstLoading = true;
+              }),
+              Future.delayed(const Duration(seconds: 2), () {
+                setState(() {
+                  _isFirstLoading = false;
+                });
+              })
+            });
   }
 
   void loadingState() {
@@ -80,9 +93,10 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                             cartData.cartProdductItems.length,
                                         scrollDirection: Axis.vertical,
                                         physics: const BouncingScrollPhysics(),
-                                        itemBuilder:
-                                            (context, index) =>
-                                                cartData
+                                        itemBuilder: (context, index) =>
+                                            _isFirstLoading
+                                                ? CartProductShimmer()
+                                                : cartData
                                                             .cartProdductItems[
                                                                 index]
                                                             .quantity !=
@@ -107,23 +121,35 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                               MainAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Container(
-                                                              height: 80.h,
-                                                              width: 100.w,
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(10
-                                                                              .r),
-                                                                  image: DecorationImage(
-                                                                      image: NetworkImage(cartData
-                                                                          .cartProdductItems[
-                                                                              index]
-                                                                          .images[
-                                                                              0]
-                                                                          .src),
-                                                                      fit: BoxFit
-                                                                          .cover)),
+                                                            Image.network(
+                                                              cartData
+                                                                  .cartProdductItems[
+                                                                      index]
+                                                                  .images[0]
+                                                                  .src,
+                                                              loadingBuilder:
+                                                                  (context,
+                                                                      child,
+                                                                      loadingProgress) {
+                                                                if (loadingProgress ==
+                                                                    null) {
+                                                                  return Container(
+                                                                    height:
+                                                                        80.h,
+                                                                    width:
+                                                                        100.w,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10
+                                                                                .r),
+                                                                        image: DecorationImage(
+                                                                            image:
+                                                                                NetworkImage(cartData.cartProdductItems[index].images[0].src),
+                                                                            fit: BoxFit.cover)),
+                                                                  );
+                                                                }
+                                                                return const CartImageShimmer();
+                                                              },
                                                             ),
                                                             SizedBox(
                                                                 width: 5.w),
