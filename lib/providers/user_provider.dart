@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_assignment_app/models/user_model.dart';
-import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -166,7 +165,6 @@ class UserProvider with ChangeNotifier {
     // _lastName = extractedUserData['userLastName'] as String?;
     _userName = extractedUserData['userName'] as String?;
     _email = extractedUserData['userEmail'] as String?;
-
 
     notifyListeners();
 

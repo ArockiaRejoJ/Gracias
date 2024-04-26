@@ -3,6 +3,8 @@ import 'package:flutter_assignment_app/providers/product_provider.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_assignment_app/widgets/product_container.dart';
+import 'package:flutter_assignment_app/widgets/product_loading.dart';
+import 'package:flutter_assignment_app/widgets/shimmer_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -36,12 +38,13 @@ class _ProductsWidgetState extends State<ProductsWidget> {
       future: _productFuture,
       builder: (context, dataSnapshot) {
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingWidget(200, 360);
+          return const ProductLoadingWidget();
         } else {
           if (dataSnapshot.error != null) {
-            return  Center(
-              child: Text(AppLocale.apiErrorText
-                  .getString(context),),
+            return Center(
+              child: Text(
+                AppLocale.apiErrorText.getString(context),
+              ),
             );
           } else {
             return Consumer<ProductProvider>(

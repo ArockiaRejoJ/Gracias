@@ -3,6 +3,7 @@ import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/screens/checkout_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
+import 'package:flutter_assignment_app/widgets/shimmer_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,9 +20,21 @@ class CartScreenBody extends StatefulWidget {
 class _CartScreenBodyState extends State<CartScreenBody> {
   Future? cartFuture;
   bool isLoading = false;
+  bool _isFirstLoading = false;
 
   Future getCartData() async {
-    return Provider.of<CartProvider>(context, listen: false).fetchData();
+    return Provider.of<CartProvider>(context, listen: false)
+        .fetchData()
+        .then((value) => {
+              setState(() {
+                _isFirstLoading = true;
+              }),
+              Future.delayed(const Duration(seconds: 2), () {
+                setState(() {
+                  _isFirstLoading = false;
+                });
+              })
+            });
   }
 
   void loadingState() {
@@ -80,19 +93,20 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                             cartData.cartProdductItems.length,
                                         scrollDirection: Axis.vertical,
                                         physics: const BouncingScrollPhysics(),
-                                        itemBuilder:
-                                            (context, index) =>
-                                                cartData
+                                        itemBuilder: (context, index) =>
+                                            _isFirstLoading
+                                                ? const CartProductShimmer()
+                                                : cartData
                                                             .cartProdductItems[
                                                                 index]
                                                             .quantity !=
                                                         0
                                                     ? Container(
-                                                        height: 80.h,
+                                                        height: 85.h,
                                                         width: 320.w,
                                                         margin: EdgeInsets.only(
-                                                            bottom: 5.h,
-                                                            top: 5.h,
+                                                            bottom: 8.h,
+                                                            top: 8.h,
                                                             left: 5.w,
                                                             right: 5.w),
                                                         decoration: BoxDecoration(
@@ -107,23 +121,35 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                               MainAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Container(
-                                                              height: 80.h,
-                                                              width: 100.w,
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(10
-                                                                              .r),
-                                                                  image: DecorationImage(
-                                                                      image: NetworkImage(cartData
-                                                                          .cartProdductItems[
-                                                                              index]
-                                                                          .images[
-                                                                              0]
-                                                                          .src),
-                                                                      fit: BoxFit
-                                                                          .cover)),
+                                                            Image.network(
+                                                              cartData
+                                                                  .cartProdductItems[
+                                                                      index]
+                                                                  .images[0]
+                                                                  .src,
+                                                              loadingBuilder:
+                                                                  (context,
+                                                                      child,
+                                                                      loadingProgress) {
+                                                                if (loadingProgress ==
+                                                                    null) {
+                                                                  return Container(
+                                                                    height:
+                                                                        85.h,
+                                                                    width:
+                                                                        100.w,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10
+                                                                                .r),
+                                                                        image: DecorationImage(
+                                                                            image:
+                                                                                NetworkImage(cartData.cartProdductItems[index].images[0].src),
+                                                                            fit: BoxFit.cover)),
+                                                                  );
+                                                                }
+                                                                return const CartImageShimmer();
+                                                              },
                                                             ),
                                                             SizedBox(
                                                                 width: 5.w),
@@ -152,7 +178,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                         GoogleFonts.poppins()
                                                                             .fontFamily,
                                                                     fontSize:
-                                                                        16.sp,
+                                                                        16,
                                                                     color: Colors
                                                                         .black,
                                                                   ),
@@ -174,7 +200,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                         fontFamily:
                                                                             GoogleFonts.poppins().fontFamily,
                                                                         fontSize:
-                                                                            16.sp,
+                                                                            16,
                                                                         color: Colors
                                                                             .black,
                                                                       ),
@@ -211,8 +237,8 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                           Icon(
                                                                         Icons
                                                                             .remove_circle_outline,
-                                                                        size: 20
-                                                                            .sp,
+                                                                        size:
+                                                                            20,
                                                                         color: Colors
                                                                             .black,
                                                                       ),
@@ -229,7 +255,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                       style:
                                                                           TextStyle(
                                                                         fontSize:
-                                                                            20.sp,
+                                                                            20,
                                                                         fontFamily:
                                                                             GoogleFonts.lexend().fontFamily,
                                                                         fontWeight:
@@ -269,8 +295,8 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                           Icon(
                                                                         Icons
                                                                             .add_circle_outline,
-                                                                        size: 20
-                                                                            .sp,
+                                                                        size:
+                                                                            20,
                                                                         color: Colors
                                                                             .black,
                                                                       ),
@@ -288,7 +314,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                         GoogleFonts.poppins()
                                                                             .fontFamily,
                                                                     fontSize:
-                                                                        16.sp,
+                                                                        16,
                                                                     color: Colors
                                                                         .black,
                                                                   ),
@@ -341,7 +367,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                           fontWeight: FontWeight.w700,
                                           fontFamily:
                                               GoogleFonts.poppins().fontFamily,
-                                          fontSize: 16.sp,
+                                          fontSize: 16,
                                           color: Colors.black,
                                         ),
                                       ),
@@ -356,7 +382,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                               fontWeight: FontWeight.w400,
                                               fontFamily: GoogleFonts.poppins()
                                                   .fontFamily,
-                                              fontSize: 16.sp,
+                                              fontSize: 14,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -366,7 +392,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                               fontWeight: FontWeight.w500,
                                               fontFamily: GoogleFonts.poppins()
                                                   .fontFamily,
-                                              fontSize: 16.sp,
+                                              fontSize: 14,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -383,7 +409,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                               fontWeight: FontWeight.w400,
                                               fontFamily: GoogleFonts.poppins()
                                                   .fontFamily,
-                                              fontSize: 16.sp,
+                                              fontSize: 14,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -393,7 +419,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                               fontWeight: FontWeight.w500,
                                               fontFamily: GoogleFonts.poppins()
                                                   .fontFamily,
-                                              fontSize: 16.sp,
+                                              fontSize: 14,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -409,7 +435,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                               fontWeight: FontWeight.w400,
                                               fontFamily: GoogleFonts.poppins()
                                                   .fontFamily,
-                                              fontSize: 16.sp,
+                                              fontSize: 14,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -419,7 +445,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                               fontWeight: FontWeight.w500,
                                               fontFamily: GoogleFonts.poppins()
                                                   .fontFamily,
-                                              fontSize: 16.sp,
+                                              fontSize: 14,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -436,7 +462,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                               fontWeight: FontWeight.w400,
                                               fontFamily: GoogleFonts.poppins()
                                                   .fontFamily,
-                                              fontSize: 16.sp,
+                                              fontSize: 14,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -446,7 +472,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                               fontWeight: FontWeight.w500,
                                               fontFamily: GoogleFonts.poppins()
                                                   .fontFamily,
-                                              fontSize: 16.sp,
+                                              fontSize: 14,
                                               color: Colors.black,
                                             ),
                                           ),
@@ -490,9 +516,9 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                               child: Text(
                                 '${AppLocale.checkOutItems.getString(context)}(${cartProductData.length})',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                   fontFamily: GoogleFonts.lexend().fontFamily,
-                                  fontSize: 18.sp,
+                                  fontSize: 14,
                                   color: Colors.white,
                                 ),
                               ),

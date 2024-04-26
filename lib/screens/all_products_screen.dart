@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/models/products_model.dart';
-import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/providers/product_provider.dart';
-import 'package:flutter_assignment_app/screens/home_screen.dart';
 import 'package:flutter_assignment_app/screens/search_screen.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
-import 'package:flutter_assignment_app/widgets/loading_widget.dart';
 import 'package:flutter_assignment_app/widgets/product_container.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AllProductsScreen extends StatefulWidget {

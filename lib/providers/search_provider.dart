@@ -44,7 +44,13 @@ class SearchProvider extends ChangeNotifier {
               ProductsModel(
                 id: data['id'],
                 title: data['name'],
-                description: data['description'],
+                description: data['description']
+                    .replaceAll("<p>", "")
+                    .replaceAll("\"", "")
+                    .replaceAll("!</p>", "")
+                    .replaceAll("</p>", "")
+                    .replaceAll(".</p>", "")
+                    .replaceAll("<br />", ""),
                 price: data['price'].toString(),
                 discountPercentage: 5,
                 rating: double.parse(data['average_rating']),

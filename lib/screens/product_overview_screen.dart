@@ -191,12 +191,7 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    widget.description!
-                                        .replaceAll("<p>", "")
-                                        .replaceAll("\"", "")
-                                        .replaceAll("!</p>", "")
-                                        .replaceAll("</p>", "")
-                                        .replaceAll(".</p>", ""),
+                                    widget.description!,
                                     textAlign: TextAlign.justify,
                                     style: TextStyle(
                                       fontWeight: FontWeight.w400,

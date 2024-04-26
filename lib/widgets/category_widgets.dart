@@ -5,9 +5,11 @@ import 'package:flutter_assignment_app/providers/category_provider.dart';
 import 'package:flutter_assignment_app/screens/category_product_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
+import 'package:flutter_assignment_app/widgets/shimmer_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CategoryWidget extends StatefulWidget {
   final bool isArabic;
@@ -34,7 +36,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
   Widget build(BuildContext context) {
     final categoryData = Provider.of<CategoryProvider>(context).categoryItems;
     return categoryData.isEmpty
-        ? const LoadingWidget(90, 360)
+        ? const CategoryShimmerWidget()
         : Padding(
             padding: EdgeInsets.only(left: 5.w, right: 5.w),
             child: Column(
@@ -42,57 +44,64 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                 SizedBox(
                   height: 90.h,
                   width: 360.w,
-                  child: SizedBox(
-                    height: 90.h,
-                    width: 360.w,
-                    child: CarouselSlider(
-                      options: CarouselOptions(
-                        autoPlay: false,
-                        viewportFraction: .32,
-                        scrollDirection: Axis.horizontal,
-                        aspectRatio: 3,
-                        initialPage: 1,
-                        onPageChanged: (val, value) {
-                          setState(() {
-                            pageIndex = val;
-                          });
-                        },
-                      ),
-                      items: categoryData.map((data) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  PageTransition(
-                                    type: PageTransitionType.fade,
-                                    duration: const Duration(milliseconds: 800),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 400),
-                                    child: CategoryByProductScreen(
-                                        data.id, widget.isArabic, data.name),
-                                  ),
-                                  // MaterialPageRoute(
-                                  //   builder: (context) =>
-                                  //       CategoryByProductScreen(data.id,
-                                  //           widget.isArabic, data.name),
-                                  // ),
-                                );
-                              },
-                              child: CircleAvatar(
-                                maxRadius: 45.r,
-                                minRadius: 45.r,
-                                backgroundColor: bgColor,
-                                backgroundImage: NetworkImage(data.image != null
-                                    ? data.image!
-                                    : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png'),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
+                  child: CarouselSlider(
+                    options: CarouselOptions(
+                      autoPlay: false,
+                      viewportFraction: .32,
+                      scrollDirection: Axis.horizontal,
+                      aspectRatio: 3,
+                      initialPage: 1,
+                      onPageChanged: (val, value) {
+                        setState(() {
+                          pageIndex = val;
+                        });
+                      },
                     ),
+                    items: categoryData.map((data) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.fade,
+                                  duration: const Duration(milliseconds: 800),
+                                  reverseDuration:
+                                      const Duration(milliseconds: 400),
+                                  child: CategoryByProductScreen(
+                                      data.id, widget.isArabic, data.name),
+                                ),
+                              );
+                            },
+                            child: CircleAvatar(
+                              maxRadius: 45.r,
+                              minRadius: 45.r,
+                              backgroundColor: shimmerBgColor,
+                              child: Image.network(
+                                data.image != null
+                                    ? data.image!
+                                    : 'https://gracias.ae/wp-content/uploads/2024/01/Grasias-Logo-2-01-1024x654.png',
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Shimmer.fromColors(
+                                    direction: ShimmerDirection.ltr,
+                                    baseColor: shimmerBgColor,
+                                    highlightColor: shimmerShadowColor,
+                                    child: CircleAvatar(
+                                      maxRadius: 45.r,
+                                      minRadius: 45.r,
+                                      backgroundColor: shimmerBgColor,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }).toList(),
                   ),
                 ),
                 Center(

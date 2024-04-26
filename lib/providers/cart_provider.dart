@@ -122,15 +122,13 @@ class CartProvider with ChangeNotifier {
             data.map((item) => CartModelItem.fromJson(item)).toList();
       } else if (data is Map<String, dynamic>) {
         _cartProdductItems = [CartModelItem.fromJson(data)];
-      } else {
-      }
+      } else {}
       if (extractedData is List) {
         _cartItems =
             extractedData.map((item) => CartModel.fromJson(item)).toList();
       } else if (extractedData is Map<String, dynamic>) {
         _cartItems = [CartModel.fromJson(extractedData)];
-      } else {
-      }
+      } else {}
       notifyListeners();
     } catch (error) {
       rethrow;
@@ -151,7 +149,56 @@ class CartProvider with ChangeNotifier {
       );
       final extractedData = json.decode(response.body);
 
-      _cartProdductItems.length + 1;
+      _cartProdductItems.add(CartModelItem(
+        key: 'key',
+        id: productId,
+        quantity: quantity,
+        quantityLimits: QuantityLimits(
+            minimum: 1, maximum: 1, multipleOf: 1, editable: true),
+        name: 'name',
+        shortDescription: '',
+        description: 'description',
+        sku: 'sku',
+        lowStockRemaining: 'lowStockRemaining',
+        backordersAllowed: true,
+        showBackorderBadge: true,
+        soldIndividually: true,
+        permalink: 'permalink',
+        images: [],
+        variation: [],
+        itemData: [],
+        prices: Prices(
+            price: 'price',
+            regularPrice: 'regularPrice',
+            salePrice: 'salePrice',
+            priceRange: 'priceRange',
+            currencyCode: 'currencyCode',
+            currencySymbol: 'currencySymbol',
+            currencyMinorUnit: 1,
+            currencyDecimalSeparator: 'currencyDecimalSeparator',
+            currencyThousandSeparator: 'currencyThousandSeparator',
+            currencyPrefix: 'currencyPrefix',
+            currencySuffix: 'currencySuffix',
+            rawPrices: RawPrices(
+                precision: 1,
+                price: 'price',
+                regularPrice: 'regularPrice',
+                salePrice: 'salePrice')),
+        totals: ItemTotals(
+            lineSubtotal: 'lineSubtotal',
+            lineSubtotalTax: 'lineSubtotalTax',
+            lineTotal: 'lineTotal',
+            lineTotalTax: 'lineTotalTax',
+            currencyCode: 'currencyCode',
+            currencySymbol: 'currencySymbol',
+            currencyMinorUnit: 1,
+            currencyDecimalSeparator: 'currencyDecimalSeparator',
+            currencyThousandSeparator: 'currencyThousandSeparator',
+            currencyPrefix: 'currencyPrefix',
+            currencySuffix: 'currencySuffix'),
+        catalogVisibility: 'catalogVisibility',
+        extensions: Extensions(),
+      ));
       notifyListeners();
       return;
     } catch (error) {
@@ -231,8 +278,7 @@ class CartProvider with ChangeNotifier {
 
         notifyListeners();
         return;
-      } else {
-      }
+      } else {}
     } catch (error) {
       rethrow;
     }
@@ -243,5 +289,6 @@ class CartProvider with ChangeNotifier {
     for (var cartItem in _cartProdductItems) {
       await removeItemToCart(cartItem.key);
     }
+    _cartProdductItems = [];
   }
 }

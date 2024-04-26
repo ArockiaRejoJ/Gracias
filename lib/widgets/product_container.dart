@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/screens/product_overview_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
+import 'package:flutter_assignment_app/widgets/shimmer_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -31,9 +32,6 @@ class ProductContainerWidget extends StatelessWidget {
               reverseDuration: const Duration(milliseconds: 400),
               child:
                   ProductOverviewScreen(id, title, image, price, description)),
-          // MaterialPageRoute(
-          //     builder: (context) => ProductOverviewScreen(
-          //         id, title, image, price, description))
         );
       },
       child: Container(
@@ -45,19 +43,27 @@ class ProductContainerWidget extends StatelessWidget {
             border: Border.all(color: Colors.black12, width: 0.5)),
         child: Column(
           children: [
-            Container(
-              height: 145.h,
-              width: 160.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(5.r),
-                  topRight: Radius.circular(5.r),
-                ),
-                image: DecorationImage(
-                  image: NetworkImage(image!),
-                  fit: BoxFit.cover,
-                ),
-              ),
+            Image.network(
+              image!,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return Container(
+                    height: 145.h,
+                    width: 160.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5.r),
+                        topRight: Radius.circular(5.r),
+                      ),
+                      image: DecorationImage(
+                        image: NetworkImage(image!),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                }
+                return const ImageShimmer();
+              },
             ),
             Container(
               height: 45.h,
