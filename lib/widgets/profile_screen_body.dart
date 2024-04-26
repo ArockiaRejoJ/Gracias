@@ -479,7 +479,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             ),
             Center(
               child: Text(
-                '${AppLocale.appVersion.getString(context)} 1.0.3',
+                '${AppLocale.appVersion.getString(context)} 1.0.5',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontFamily: GoogleFonts.poppins().fontFamily,

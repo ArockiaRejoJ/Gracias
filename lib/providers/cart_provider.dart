@@ -202,7 +202,6 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
       return;
     } catch (error) {
-      print('-----------Error');
       rethrow;
     }
   }
