@@ -4,6 +4,8 @@ import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
 
 class OrderSuccessfulScreen extends StatelessWidget {
   const OrderSuccessfulScreen({super.key});
@@ -18,8 +20,8 @@ class OrderSuccessfulScreen extends StatelessWidget {
             SizedBox(
               height: 250.h,
               width: 250.w,
-              child: Image.asset(
-                'assets/images/Untitled design.gif',
+              child: Lottie.asset(
+                'assets/images/Animation-2.json',
               ),
             ),
             SizedBox(height: 20.h),
@@ -29,9 +31,14 @@ class OrderSuccessfulScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()));
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.fade,
+                      duration: const Duration(milliseconds: 800),
+                      reverseDuration: const Duration(milliseconds: 400),
+                      child: const HomeScreen(),
+                    ),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(

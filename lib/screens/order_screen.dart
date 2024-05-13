@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment_app/providers/order_provider.dart';
-import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_assignment_app/widgets/loading_widget.dart';
+import 'package:flutter_assignment_app/widgets/shimmer_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -209,20 +209,33 @@ class _OrdersScreenState extends State<OrdersScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
                                           children: [
-                                            Container(
-                                              height: 80.h,
-                                              width: 100.w,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.r),
-                                                  image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          orderData[index]
-                                                              .lineItems[_]
-                                                              .image
-                                                              .src),
-                                                      fit: BoxFit.cover)),
+                                            Image.network(
+                                              orderData[index]
+                                                  .lineItems[_]
+                                                  .image
+                                                  .src,
+                                              loadingBuilder: (context, child,
+                                                  loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return Container(
+                                                    height: 80.h,
+                                                    width: 100.w,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.r),
+                                                        image: DecorationImage(
+                                                            image: NetworkImage(
+                                                                orderData[index]
+                                                                    .lineItems[
+                                                                        _]
+                                                                    .image
+                                                                    .src),
+                                                            fit: BoxFit.cover)),
+                                                  );
+                                                }
+                                                return const CartImageShimmer();
+                                              },
                                             ),
                                             SizedBox(width: 5.w),
                                             Column(

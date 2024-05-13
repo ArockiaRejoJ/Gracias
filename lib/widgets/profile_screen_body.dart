@@ -13,8 +13,10 @@ import 'package:flutter_assignment_app/widgets/profile_update_widget.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProfileScreenBody extends StatefulWidget {
   const ProfileScreenBody({super.key});
@@ -92,9 +94,15 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                 : InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AuthScreen()));
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeftWithFade,
+                            duration: const Duration(milliseconds: 800),
+                            reverseDuration: const Duration(milliseconds: 400),
+                            child: const AuthScreen()),
+                        // MaterialPageRoute(
+                        //     builder: (context) => const AuthScreen()),
+                      );
                     },
                     child: SizedBox(
                       height: 40.h,
@@ -223,9 +231,14 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
                   ? () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => OrdersScreen(auth.userId!),
-                        ),
+                        PageTransition(
+                            type: PageTransitionType.rightToLeftWithFade,
+                            duration: const Duration(milliseconds: 800),
+                            reverseDuration: const Duration(milliseconds: 400),
+                            child: OrdersScreen(auth.userId!)),
+                        // MaterialPageRoute(
+                        //   builder: (context) => OrdersScreen(auth.userId!),
+                        // ),
                       );
                     }
                   : null,
@@ -260,9 +273,14 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => AboutUsScreen(),
-                  ),
+                  PageTransition(
+                      type: PageTransitionType.rightToLeftWithFade,
+                      duration: const Duration(milliseconds: 800),
+                      reverseDuration: const Duration(milliseconds: 400),
+                      child: AboutUsScreen()),
+                  // MaterialPageRoute(
+                  //   builder: (context) => AboutUsScreen(),
+                  // ),
                 );
               },
               child: SizedBox(
@@ -294,9 +312,14 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => PrivacyPolicyScreen(),
-                  ),
+                  PageTransition(
+                      type: PageTransitionType.rightToLeftWithFade,
+                      duration: const Duration(milliseconds: 800),
+                      reverseDuration: const Duration(milliseconds: 400),
+                      child: PrivacyPolicyScreen()),
+                  // MaterialPageRoute(
+                  //   builder: (context) => PrivacyPolicyScreen(),
+                  // ),
                 );
               },
               child: SizedBox(
@@ -328,9 +351,14 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => TermsAndConditionsScreen(),
-                  ),
+                  PageTransition(
+                      type: PageTransitionType.rightToLeftWithFade,
+                      duration: const Duration(milliseconds: 800),
+                      reverseDuration: const Duration(milliseconds: 400),
+                      child: TermsAndConditionsScreen()),
+                  // MaterialPageRoute(
+                  //   builder: (context) => TermsAndConditionsScreen(),
+                  // ),
                 );
               },
               child: SizedBox(
@@ -452,7 +480,7 @@ class _ProfileScreenBodyState extends State<ProfileScreenBody> {
             ),
             Center(
               child: Text(
-                '${AppLocale.appVersion.getString(context)} 1.0.2',
+                '${AppLocale.appVersion.getString(context)} 1.0.5',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontFamily: GoogleFonts.poppins().fontFamily,

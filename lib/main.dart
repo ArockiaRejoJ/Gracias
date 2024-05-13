@@ -4,6 +4,7 @@ import 'package:flutter_assignment_app/providers/cart_provider.dart';
 import 'package:flutter_assignment_app/providers/category_provider.dart';
 import 'package:flutter_assignment_app/providers/order_provider.dart';
 import 'package:flutter_assignment_app/providers/product_provider.dart';
+import 'package:flutter_assignment_app/providers/search_provider.dart';
 import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/screens/auth_screen.dart';
 import 'package:flutter_assignment_app/screens/splash_screens.dart';
@@ -61,11 +62,12 @@ class _MyAppState extends State<MyApp> {
           value: UserProvider(),
         ),
         ChangeNotifierProxyProvider<UserProvider, ProductProvider>(
-          create: (_) => ProductProvider('', [], []),
+          create: (_) => ProductProvider('', [], [], []),
           update: (context, auth, previousData) => ProductProvider(
             auth.token,
             previousData == null ? [] : previousData.productItems,
             previousData == null ? [] : previousData.productByCategoryById,
+            previousData == null ? [] : previousData.allProductItems,
           ),
         ),
         ChangeNotifierProxyProvider(
@@ -94,6 +96,13 @@ class _MyAppState extends State<MyApp> {
           create: (_) => BannerProvider([]),
           update: (context, auth, previousData) => BannerProvider(
             previousData == null ? [] : previousData.bannerItems,
+          ),
+        ),
+        ChangeNotifierProxyProvider<UserProvider, SearchProvider>(
+          create: (_) => SearchProvider('', []),
+          update: (context, auth, previousData) => SearchProvider(
+            auth.token,
+            previousData == null ? [] : previousData.items,
           ),
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_assignment_app/screens/all_products_screen.dart';
 import 'package:flutter_assignment_app/utils/constants.dart';
 import 'package:flutter_assignment_app/utils/key_details.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_assignment_app/widgets/category_widgets.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart' as loc;
+import 'package:page_transition/page_transition.dart';
 
 class HomeScreenBody extends StatefulWidget {
   const HomeScreenBody({super.key});
@@ -84,7 +86,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                         AppLocale.deliveryTo.getString(context),
                         style: TextStyle(
                           color: fontColor,
-                          fontSize: 12.sp,
+                          fontSize: 12,
                           fontFamily: GoogleFonts.poppins().fontFamily,
                           fontWeight: FontWeight.w500,
                         ),
@@ -95,7 +97,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                             : '🇸🇾 ${AppLocale.countrySY.getString(context)} ',
                         style: TextStyle(
                           color: Theme.of(context).primaryColor,
-                          fontSize: 14.sp,
+                          fontSize: 14,
                           fontFamily: GoogleFonts.poppins().fontFamily,
                           fontWeight: FontWeight.w600,
                         ),
@@ -123,7 +125,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           AppLocale.language.getString(context),
                           style: TextStyle(
                             color: fontColor,
-                            fontSize: 12.sp,
+                            fontSize: 12,
                             fontFamily: GoogleFonts.poppins().fontFamily,
                             fontWeight: FontWeight.w500,
                           ),
@@ -135,7 +137,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                               : 'العربية',
                           style: TextStyle(
                             color: fontColor,
-                            fontSize: 12.sp,
+                            fontSize: 12,
                             fontFamily: GoogleFonts.poppins().fontFamily,
                             fontWeight: FontWeight.w500,
                           ),
@@ -169,7 +171,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontFamily: GoogleFonts.lexend().fontFamily,
-                      fontSize: 22.sp,
+                      fontSize: 20,
                       color: Colors.black,
                     ),
                   ),
@@ -177,15 +179,44 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 SizedBox(height: 5.h),
                 CategoryWidget(isArabic!),
                 SizedBox(height: 10.h),
-                Center(
-                  child: Text(
-                    AppLocale.productTitle.getString(context),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontFamily: GoogleFonts.lexend().fontFamily,
-                      fontSize: 22.sp,
-                      color: Colors.black,
-                    ),
+                Padding(
+                  padding: EdgeInsets.only(left: 15.w, right: 10.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocale.productTitle.getString(context),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: GoogleFonts.lexend().fontFamily,
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.rightToLeftWithFade,
+                              duration: const Duration(milliseconds: 800),
+                              reverseDuration:
+                                  const Duration(milliseconds: 400),
+                              child: const AllProductsScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          AppLocale.seeAllProducts.getString(context),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: GoogleFonts.lexend().fontFamily,
+                            fontSize: 16,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 SizedBox(height: 5.h),
@@ -272,7 +303,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontFamily: GoogleFonts.lexend().fontFamily,
-                            fontSize: 20.sp,
+                            fontSize: 18,
                             color: Colors.white,
                           ),
                         ),
@@ -282,7 +313,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontFamily: GoogleFonts.lexend().fontFamily,
-                            fontSize: 16.sp,
+                            fontSize: 14,
                             color: Colors.white,
                           ),
                         ),
@@ -301,7 +332,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontFamily: GoogleFonts.lexend().fontFamily,
-                            fontSize: 16.sp,
+                            fontSize: 14,
                             color: Colors.white,
                           ),
                         ),

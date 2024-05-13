@@ -6,6 +6,7 @@ import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -71,13 +72,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         });
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-            builder: (context) => const OrderSuccessfulScreen(),
+          PageTransition(
+            type: PageTransitionType.fade,
+            duration: const Duration(milliseconds: 800),
+            reverseDuration: const Duration(milliseconds: 400),
+            child: const OrderSuccessfulScreen(),
           ),
+          // MaterialPageRoute(
+          //   builder: (context) => const OrderSuccessfulScreen(),
+          // ),
         );
       });
     } catch (error) {
-      print(error);
       await showDialog(
         context: context,
         builder: (ctx) {
@@ -155,7 +161,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       fontWeight: FontWeight.w600,
                       overflow: TextOverflow.ellipsis,
                       fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontSize: 16.sp,
+                      fontSize: 14.sp,
                       color: Colors.black,
                     ),
                   ),
@@ -407,7 +413,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           fontWeight: FontWeight.w600,
                           overflow: TextOverflow.ellipsis,
                           fontFamily: GoogleFonts.poppins().fontFamily,
-                          fontSize: 16.sp,
+                          fontSize: 14.sp,
                           color: Colors.black,
                         ),
                       ),
@@ -597,9 +603,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               AppLocale.checkoutPlaceOrderButton
                                   .getString(context),
                               style: TextStyle(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 fontFamily: GoogleFonts.lexend().fontFamily,
-                                fontSize: 18.sp,
+                                fontSize: 14,
                                 color: Colors.white,
                               ),
                             ),

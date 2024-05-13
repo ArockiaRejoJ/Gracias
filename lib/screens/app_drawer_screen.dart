@@ -3,6 +3,7 @@ import 'package:flutter_assignment_app/providers/category_provider.dart';
 import 'package:flutter_assignment_app/screens/category_product_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawerScreen extends StatelessWidget {
@@ -45,14 +46,19 @@ class AppDrawerScreen extends StatelessWidget {
                         itemCount: categoryData.length,
                         itemBuilder: (context, index) => InkWell(
                               onTap: () {
+                                //Navigator.of(context).pop();
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        CategoryByProductScreen(
-                                            categoryData[index].id,
-                                            isArabic,
-                                            categoryData[index].name),
+                                  PageTransition(
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    duration: const Duration(milliseconds: 800),
+                                    reverseDuration:
+                                        const Duration(milliseconds: 400),
+                                    child: CategoryByProductScreen(
+                                        categoryData[index].id,
+                                        isArabic,
+                                        categoryData[index].name),
                                   ),
                                 );
                               },

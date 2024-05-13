@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_assignment_app/models/user_model.dart';
 import 'package:flutter_assignment_app/providers/user_provider.dart';
 import 'package:flutter_assignment_app/utils/transilation_words.dart';
 import 'package:flutter_localization/flutter_localization.dart';
@@ -44,7 +43,6 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
         _userNameController.text,
       );
     } catch (error) {
-      print(error);
       errorBox();
     }
     setState(() {
@@ -61,7 +59,6 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
     await Provider.of<UserProvider>(context, listen: false)
         .fetchProfile()
         .then((value) {
-      print(value);
       _emailController.text = value['emailId'] ?? '';
       _firstNameController.text = value['firstName'] ?? '';
       _lastNameController.text = value['lastName'] ?? '';
@@ -96,10 +93,11 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
             child: Padding(
               padding: EdgeInsets.all(10.h),
               child: Directionality(
-                textDirection: _localization.currentLocale == const Locale("en", "US")
-                    ? TextDirection.ltr
-                    : TextDirection.rtl,
-                child:  Column(
+                textDirection:
+                    _localization.currentLocale == const Locale("en", "US")
+                        ? TextDirection.ltr
+                        : TextDirection.rtl,
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -157,7 +155,8 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
                           focusedBorder: _formBorder,
                           enabledBorder: _formBorder,
                           border: _formBorder,
-                          hintText: AppLocale.lastNameHintText.getString(context),
+                          hintText:
+                              AppLocale.lastNameHintText.getString(context),
                           hintStyle: TextStyle(
                               fontSize: 12.sp, color: const Color(0xFF9EA3A2)),
                           fillColor: Colors.white,
@@ -182,7 +181,8 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
                           focusedBorder: _formBorder,
                           enabledBorder: _formBorder,
                           border: _formBorder,
-                          hintText: AppLocale.userNameHintText.getString(context),
+                          hintText:
+                              AppLocale.userNameHintText.getString(context),
                           hintStyle: TextStyle(
                               fontSize: 12.sp, color: const Color(0xFF9EA3A2)),
                           fillColor: Colors.white,
@@ -247,7 +247,8 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
                                 strokeWidth: 3,
                               )
                             : Text(
-                                AppLocale.updateProfileButton.getString(context),
+                                AppLocale.updateProfileButton
+                                    .getString(context),
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   fontFamily: GoogleFonts.lexend().fontFamily,

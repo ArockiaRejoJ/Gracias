@@ -33,10 +33,8 @@ class BannerProvider with ChangeNotifier {
               'Basic ${base64Encode(utf8.encode('$consumerKey:$secretKey'))}',
         },
       );
-      print(json.decode(response.body));
       if (response.statusCode == 200) {
         final dynamic data = json.decode(response.body);
-        print(data);
 
         List<BannerModel> newBannerData = [];
         data.forEach(
@@ -62,7 +60,6 @@ class BannerProvider with ChangeNotifier {
         return;
       }
     } catch (error) {
-      print(error);
       rethrow;
     }
   }

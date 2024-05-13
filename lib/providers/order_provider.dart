@@ -36,16 +36,12 @@ class OrderProvider with ChangeNotifier {
       if (extractedData is List) {
         _orderItems =
             extractedData.map((item) => OrderModel.fromJson(item)).toList();
-        print('data fetched in if');
       } else if (extractedData is Map<String, dynamic>) {
         _orderItems = [OrderModel.fromJson(extractedData)];
-        print('data fetched in else part');
       } else {
-        print('Unexpected response format');
       }
       notifyListeners();
     } catch (error) {
-      print(error);
       rethrow;
     }
   }
