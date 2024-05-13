@@ -288,7 +288,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                 SizedBox(height: 5.h),
                 Center(
                   child: Container(
-                    height: 225.h,
+                    height: 250.h,
                     width: 340.w,
                     padding: EdgeInsets.all(10.h),
                     decoration: BoxDecoration(

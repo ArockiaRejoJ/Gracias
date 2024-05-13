@@ -129,15 +129,21 @@ class _AddressFormWidgetState extends State<AddressFormWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        AppLocale.billingAddressTitle.getString(context),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          overflow: TextOverflow.ellipsis,
-                          fontFamily: GoogleFonts.poppins().fontFamily,
-                          fontSize: 16.sp,
-                          color: Colors.black,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppLocale.billingAddressTitle.getString(context),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: GoogleFonts.poppins().fontFamily,
+                              fontSize: 16.sp,
+                              color: Colors.black,
+                            ),
+                          ),
+                          IconButton(onPressed: (){Navigator.of(context).pop();}, icon: Icon(Icons.close,size: 18.sp,color: Theme.of(context).primaryColor,))
+                        ],
                       ),
                       SizedBox(
                         height: 15.h,

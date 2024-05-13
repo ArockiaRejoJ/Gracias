@@ -102,13 +102,22 @@ class _ProfileUpdateWidgetState extends State<ProfileUpdateWidget> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 10.h),
-                    Text(
-                      AppLocale.updateProfileTitle.getString(context),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontSize: 18.sp,
-                        color: Colors.black,
+                    Padding(
+                      padding:  EdgeInsets.only(left:5.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            AppLocale.updateProfileTitle.getString(context),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontFamily: GoogleFonts.poppins().fontFamily,
+                              fontSize: 18.sp,
+                              color: Colors.black,
+                            ),
+                          ),
+                          IconButton(onPressed: (){Navigator.of(context).pop();}, icon: Icon(Icons.close,size: 18.sp,color: Theme.of(context).primaryColor,))
+                        ],
                       ),
                     ),
                     SizedBox(height: 10.h),

@@ -153,6 +153,7 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                             ),
                                                             SizedBox(
                                                                 width: 5.w),
+
                                                             Column(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -203,24 +204,31 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                             16,
                                                                         color: Colors
                                                                             .black,
+
                                                                       ),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        width: 10
-                                                                            .w),
-                                                                    IconButton(
-                                                                      padding:
-                                                                          EdgeInsets
-                                                                              .zero,
-                                                                      constraints:
-                                                                          const BoxConstraints(),
-                                                                      onPressed:
-                                                                          () async {
-                                                                        if (cartData.cartProdductItems[index].quantity -
-                                                                                1 !=
-                                                                            0) {
-                                                                          await Provider.of<CartProvider>(context, listen: false).updateItemToCart(
+                                                                      SizedBox(
+                                                                          width: 10
+                                                                              .w),
+                                                                      IconButton(
+                                                                        padding:
+                                                                            EdgeInsets
+                                                                                .zero,
+                                                                        constraints:
+                                                                            const BoxConstraints(),
+                                                                        onPressed:
+                                                                            () async {
+                                                                          if (cartData.cartProdductItems[index].quantity -
+                                                                                  1 !=
+                                                                              0) {
+                                                                            await Provider.of<CartProvider>(context, listen: false).updateItemToCart(
+                                                                                cartData.cartProdductItems[index].key,
+                                                                                cartData.cartProdductItems[index].id,
+                                                                                cartData.cartProdductItems[index].quantity - 1);
+                                                                          } else {
+                                                                            await Provider.of<CartProvider>(context, listen: false)
+                                                                                .removeItemToCart(
                                                                               cartData.cartProdductItems[index].key,
+
                                                                               cartData.cartProdductItems[index].id,
                                                                               cartData.cartProdductItems[index].quantity - 1);
                                                                         } else {
@@ -299,8 +307,100 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                             20,
                                                                         color: Colors
                                                                             .black,
+// =======
+//                                                                             );
+//                                                                           }
+//                                                                           loadingState();
+//                                                                           cartFuture =
+//                                                                               getCartData();
+//                                                                         },
+//                                                                         icon:
+//                                                                             Icon(
+//                                                                           Icons
+//                                                                               .remove_circle_outline,
+//                                                                           size: 20
+//                                                                               .sp,
+//                                                                           color: Colors
+//                                                                               .black,
+//                                                                         ),
+//                                                                       ),
+//                                                                       SizedBox(
+//                                                                           width: 5
+//                                                                               .w),
+//                                                                       Text(
+//                                                                         cartData
+//                                                                             .cartProdductItems[
+//                                                                                 index]
+//                                                                             .quantity
+//                                                                             .toString(),
+//                                                                         style:
+//                                                                             TextStyle(
+//                                                                           fontSize:
+//                                                                               20.sp,
+//                                                                           fontFamily:
+//                                                                               GoogleFonts.lexend().fontFamily,
+//                                                                           fontWeight:
+//                                                                               FontWeight.w500,
+//                                                                           color: Theme.of(context)
+//                                                                               .primaryColor,
+//                                                                         ),
+//                                                                       ),
+//                                                                       SizedBox(
+//                                                                           width: 5
+//                                                                               .w),
+//                                                                       IconButton(
+//                                                                         padding:
+//                                                                             EdgeInsets
+//                                                                                 .zero,
+//                                                                         constraints:
+//                                                                             const BoxConstraints(),
+//                                                                         onPressed:
+//                                                                             () async {
+//                                                                           await Provider.of<CartProvider>(context,
+//                                                                                   listen: false)
+//                                                                               .updateItemToCart(
+//                                                                             cartData
+//                                                                                 .cartProdductItems[index]
+//                                                                                 .key,
+//                                                                             cartData
+//                                                                                 .cartProdductItems[index]
+//                                                                                 .id,
+//                                                                             cartData.cartProdductItems[index].quantity +
+//                                                                                 1,
+//                                                                           );
+//                                                                           loadingState();
+//                                                                           cartFuture =
+//                                                                               getCartData();
+//                                                                         },
+//                                                                         icon:
+//                                                                             Icon(
+//                                                                           Icons
+//                                                                               .add_circle_outline,
+//                                                                           size: 20
+//                                                                               .sp,
+//                                                                           color: Colors
+//                                                                               .black,
+//                                                                         ),
+// >>>>>>> ios_master
                                                                       ),
+                                                                    ],
+                                                                  ),
+                                                                  Text(
+                                                                    "${AppLocale.cartPrice.getString(context)}: \$ ${(int.parse(cartData.cartProdductItems[index].prices.price) / 100).toStringAsFixed(2)}",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                      fontFamily:
+                                                                          GoogleFonts.poppins()
+                                                                              .fontFamily,
+                                                                      fontSize:
+                                                                          16.sp,
+                                                                      color: Colors
+                                                                          .black,
                                                                     ),
+
                                                                   ],
                                                                 ),
                                                                 Text(
@@ -317,9 +417,10 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                                                         16,
                                                                     color: Colors
                                                                         .black,
+
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                ],
+                                                              ),
                                                             )
                                                           ],
                                                         ),
@@ -518,7 +619,9 @@ class _CartScreenBodyState extends State<CartScreenBody> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontFamily: GoogleFonts.lexend().fontFamily,
+
                                   fontSize: 14,
+
                                   color: Colors.white,
                                 ),
                               ),
