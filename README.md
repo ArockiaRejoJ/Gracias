@@ -1,16 +1,10 @@
-# flutter_assignment_app
+# Gracias
 
-A new Flutter project.
+This application, which is essentially an online store, lets users order gifts, food, electronics, and clothes. 
 
-## Getting Started
+Build with WordPress API
 
-This project is a starting point for a Flutter application.
+# Screenshot 
 
-A few resources to get you started if this is your first Flutter project:
+![WhatsApp Image 2024-11-09 at 6 27 34 PM](https://github.com/user-attachments/assets/8402ce8b-cb89-46b6-b62d-4efdbeba3ce2)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
